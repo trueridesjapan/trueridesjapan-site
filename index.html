@@ -536,7 +536,7 @@ document.addEventListener("click",e=>{
 function toast(m){const d=document.createElement("div");d.className="toast";d.textContent=m;document.body.appendChild(d);setTimeout(()=>d.remove(),1800)}
 document.getElementById("copyPhone").addEventListener("click",()=>{const n="+380663666886";navigator.clipboard?.writeText(n).then(()=>toast(t("copied"))).catch(()=>{const r=document.createRange();r.selectNodeContents(document.querySelector(".phone"));const s=getSelection();s.removeAllRanges();s.addRange(r);});});
 function isDark(){const a=document.documentElement.getAttribute("data-theme");if(a)return a==="dark";return !matchMedia("(prefers-color-scheme: light)").matches}
-function paintTheme(){const d=isDark();document.getElementById("icoSun").hidden=!d;document.getElementById("icoMoon").hidden=d;}
+function paintTheme(){const d=isDark();document.getElementById("icoSun").toggleAttribute("hidden",!d);document.getElementById("icoMoon").toggleAttribute("hidden",d);}
 try{const th=localStorage.getItem("tr_theme");if(th==="light"||th==="dark")document.documentElement.setAttribute("data-theme",th)}catch(e){}
 document.getElementById("themeBtn").addEventListener("click",()=>{const n=isDark()?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("tr_theme",n)}catch(e){}paintTheme();});
 matchMedia("(prefers-color-scheme: light)").addEventListener?.("change",paintTheme);

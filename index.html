@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="True Rides Japan — японские авто с аукционов: Toyota Alphard, Vellfire, Nissan Note e-Power. В пути и под заказ, выдача в Одессе и Киеве.">
+<link rel="icon" href="assets/logo.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+<title>True Rides Japan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: dark lacquer showroom. Sticky header, sun-glow hero with the chrome emblem, route ribbon, filterable catalog, car sheet as a dialog. */
+:root{
+  --ink:#0e1013; --panel:#16191e; --panel2:#1c2027; --line:#2a2f37;
+  --fg:#eceef1; --muted:#9aa2ad; --faint:#6c7480;
+  --sun:#d7192a; --sun-soft:rgba(215,25,42,.16); --ok:#3fb27f; --wait:#d9a441;
+  --chrome:linear-gradient(180deg,#fbfcfd 0%,#c3c9d1 38%,#7d8691 52%,#e6eaee 70%,#9aa2ad 100%);
+  --display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --body:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --hdr:rgba(14,16,19,.86); --ghost:rgba(236,238,241,.14); --emblem-sh:rgba(0,0,0,.55); --glow:rgba(215,25,42,.28);
+  --r:14px;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --ink:#f3f4f6; --panel:#ffffff; --panel2:#e9ecf0; --line:#dce0e5;
+  --fg:#15181d; --muted:#59616c; --faint:#88909a;
+  --sun:#c8102e; --sun-soft:rgba(200,16,46,.08); --ok:#1f9e66; --wait:#c48a1c;
+  --hdr:rgba(243,244,246,.88); --ghost:rgba(21,24,29,.10); --emblem-sh:rgba(40,10,10,.22); --glow:rgba(215,25,42,.16);
+  color-scheme:light}}
+:root[data-theme="light"]{
+  --ink:#f3f4f6; --panel:#ffffff; --panel2:#e9ecf0; --line:#dce0e5;
+  --fg:#15181d; --muted:#59616c; --faint:#88909a;
+  --sun:#c8102e; --sun-soft:rgba(200,16,46,.08); --ok:#1f9e66; --wait:#c48a1c;
+  --hdr:rgba(243,244,246,.88); --ghost:rgba(21,24,29,.10); --emblem-sh:rgba(40,10,10,.22); --glow:rgba(215,25,42,.16);
+  color-scheme:light}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--ink);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ink)}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--sun);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.01em;text-wrap:balance;margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.chrome{background:var(--chrome);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--hdr);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:20px;padding-block:10px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand .dot{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff4a55,var(--sun) 55%,#8e0c18);box-shadow:0 0 0 1px rgba(255,255,255,.08)}
+.brand b{font-family:var(--display);font-size:15px;letter-spacing:.02em}
+.brand small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted);line-height:1}
+nav.main{display:flex;gap:22px;margin-left:auto}
+nav.main a{text-decoration:none;color:var(--muted);font-weight:600;font-size:14px}
+nav.main a:hover{color:var(--fg)}
+.tbtn{background:none;border:1px solid var(--line);border-radius:999px;width:34px;height:34px;display:grid;place-items:center;color:var(--muted);padding:0}
+.tbtn:hover{color:var(--fg)}
+.tbtn svg{width:17px;height:17px}
+.langs{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px}
+.langs button{background:none;border:0;padding:5px 10px;border-radius:999px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.langs button[aria-pressed="true"]{background:var(--panel2);color:var(--fg)}
+@media (max-width:820px){nav.main{display:none}.langs{margin-left:auto}}
+.status{color:#eceef1}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero::before{content:"";position:absolute;right:-12%;top:-30%;width:70vw;max-width:820px;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,var(--glow),rgba(215,25,42,0) 62%);pointer-events:none}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;padding-block:64px 56px}
+.hero h1{font-size:clamp(30px,4.6vw,56px);line-height:1.08}
+.hero h1 em{font-style:normal;color:var(--sun)}
+.hero p.lead{color:var(--muted);font-size:clamp(16px,1.6vw,19px);max-width:34em;margin:18px 0 28px}
+.hero .emblem{max-width:100%;width:440px;justify-self:end;filter:drop-shadow(0 30px 40px var(--emblem-sh))}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:13px 20px;border-radius:999px;font-weight:700;text-decoration:none;border:1px solid transparent;font-size:15px}
+.btn.red{background:var(--sun);color:#fff}
+.btn.red:hover{background:#ec2234}
+.btn.ghost{border-color:var(--line);background:var(--panel)}
+.btn.ghost:hover{border-color:var(--faint)}
+.btn svg{width:18px;height:18px;flex:none}
+.facts{display:flex;flex-wrap:wrap;gap:12px 36px;margin-top:40px}
+.facts div{display:flex;flex-direction:column}
+.facts b{font-family:var(--display);font-size:26px;font-variant-numeric:tabular-nums}
+.facts span{color:var(--muted);font-size:13px;max-width:16em}
+@media (max-width:820px){
+  .hero .wrap{grid-template-columns:1fr;padding-block:36px 40px;gap:20px}
+  .hero .emblem{order:-1;width:220px;justify-self:start}
+}
+
+/* route */
+.route{padding-block:56px}
+.route ol{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:s}
+.route li{position:relative;padding:22px 20px 0 0;border-top:2px solid var(--line);min-width:0}
+.route li::before{counter-increment:s;content:counter(s,decimal-leading-zero);position:absolute;top:-13px;left:0;background:var(--ink);padding-right:10px;font-family:var(--mono);font-size:13px;color:var(--sun)}
+.route li:first-child{border-top-color:var(--sun)}
+.route li b{display:block;font-size:17px;margin-bottom:4px}
+.route li span{color:var(--muted);font-size:14px}
+.route .total{margin-top:26px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+@media (max-width:820px){.route ol{grid-template-columns:1fr 1fr;row-gap:30px}}
+@media (max-width:460px){.route ol{grid-template-columns:1fr}}
+
+/* catalog */
+.catalog{padding-block:24px 64px}
+.cat-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px}
+.cat-head h2{font-size:clamp(24px,3vw,34px)}
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600;color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--fg);color:var(--ink);border-color:var(--fg)}
+.chip .n{font-family:var(--mono);font-size:12px;opacity:.7;margin-left:4px}
+.sep{width:1px;background:var(--line);margin:4px 4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;text-align:left;padding:0;transition:border-color .15s,transform .15s}
+.card:hover{border-color:var(--faint);transform:translateY(-2px)}
+.ph{position:relative;aspect-ratio:4/3;max-width:100%;background:var(--panel2);overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph .none{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:16px;background:
+  radial-gradient(circle at 78% 30%,var(--sun-soft),transparent 45%),
+  repeating-linear-gradient(135deg,rgba(255,255,255,.025) 0 2px,transparent 2px 12px),var(--panel2)}
+.ph .none b{font-family:var(--display);font-size:28px;line-height:1;color:var(--ghost);letter-spacing:.02em}
+.ph .none span{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:8px;letter-spacing:.06em}
+.status{position:absolute;left:10px;top:10px;display:inline-flex;align-items:center;gap:6px;background:rgba(14,16,19,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-radius:999px;padding:5px 10px;font-size:12px;font-weight:700}
+.status i{width:7px;height:7px;border-radius:50%;background:var(--ok)}
+.status.wait i{background:var(--wait)}
+.card .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1;min-width:0}
+.card h3{font-family:var(--body);font-size:17px;font-weight:700;letter-spacing:0}
+.card h3 small{display:block;font-weight:600;color:var(--muted);font-size:14px}
+.specs{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:13px;color:var(--muted)}
+.specs .awd{color:var(--fg);font-weight:700}
+.ship{font-family:var(--mono);font-size:12px;color:var(--faint);display:flex;gap:6px;align-items:center;min-width:0}
+.ship svg{width:14px;height:14px;flex:none}
+.ship span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.price{margin-top:auto;padding-top:10px;border-top:1px dashed var(--line);display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.price b{font-family:var(--display);font-size:21px;font-variant-numeric:tabular-nums}
+.price small{display:block;color:var(--muted);font-size:11px;font-family:var(--body);font-weight:500}
+.price .ge{text-align:right;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.price .ge strong{color:var(--fg);font-size:15px}
+.empty{color:var(--muted);padding:40px 0}
+
+/* why / delivery / faq */
+section.band{padding-block:64px;border-top:1px solid var(--line)}
+.band h2{font-size:clamp(24px,3vw,34px);margin-bottom:26px}
+.why{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.why div{min-width:0}
+.why b{display:block;font-size:17px;margin-bottom:6px}
+.why p{margin:0;color:var(--muted);font-size:14px}
+.why svg{width:26px;height:26px;color:var(--sun);margin-bottom:12px}
+@media (max-width:900px){.why{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.why{grid-template-columns:1fr}}
+.dest{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.dest article{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px;min-width:0;display:flex;flex-direction:column;gap:10px}
+.dest h3{font-size:19px}
+.dest .flag{box-shadow:0 0 0 1px var(--line);display:flex;height:6px;width:54px;border-radius:2px;overflow:hidden}
+.dest .flag i{flex:1}
+.dest p{margin:0;color:var(--muted);font-size:14px}
+.dest ul{margin:0;padding-left:18px;font-size:14px}
+@media (max-width:900px){.dest{grid-template-columns:1fr}}
+.faq details{border-bottom:1px solid var(--line);padding-block:16px}
+.faq summary{font-weight:700;font-size:17px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--mono);color:var(--sun);font-size:20px;line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq p{margin:10px 0 0;color:var(--muted);max-width:62ch}
+.contact{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:start}
+.contact .phone{font-family:var(--display);font-size:clamp(22px,3vw,32px);user-select:all;font-variant-numeric:tabular-nums}
+.contact .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.contact .meta{color:var(--muted);font-size:14px;display:grid;gap:8px}
+.copy{background:none;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;color:var(--muted);margin-left:8px;vertical-align:middle}
+@media (max-width:820px){.contact{grid-template-columns:1fr}}
+footer{border-top:1px solid var(--line);padding-block:26px 90px;color:var(--faint);font-size:13px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+
+/* mobile action bar */
+.bar{display:none}
+@media (max-width:700px){
+  .bar{display:flex;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px max(12px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));background:var(--hdr);border-top:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  .bar a{flex:1;justify-content:center;padding:11px 8px;font-size:14px}
+}
+
+/* dialog */
+dialog{border:0;padding:0;background:var(--ink);color:var(--fg);width:min(980px,100%);max-height:calc(100% - 32px);border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+dialog::backdrop{background:rgba(5,6,8,.72)}
+.sheet{display:grid;grid-template-columns:1.1fr .9fr;min-width:0}
+.gal{background:var(--panel2);min-width:0}
+.gal .main{aspect-ratio:4/3;max-width:100%;position:relative}
+.gal .main img{width:100%;height:100%;object-fit:cover;display:block}
+.thumbs{display:flex;gap:6px;padding:8px;overflow-x:auto}
+.thumbs button{border:2px solid transparent;padding:0;border-radius:8px;overflow:hidden;width:76px;flex:none;aspect-ratio:4/3;background:none}
+.thumbs button[aria-current="true"]{border-color:var(--sun)}
+.thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+.info{padding:24px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.info h2{font-size:22px}
+.info .sub{color:var(--muted);font-weight:600;margin-top:4px}
+.close{position:absolute;right:12px;top:12px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:rgba(14,16,19,.8);font-size:20px;line-height:1;z-index:2}
+table.kv{width:100%;border-collapse:collapse;font-size:14px}
+table.kv td{padding:7px 0;border-bottom:1px solid var(--line);vertical-align:top}
+table.kv td:first-child{color:var(--muted);width:44%;padding-right:10px}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opts span{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:13px}
+.note{background:var(--sun-soft);border:1px solid rgba(215,25,42,.4);border-radius:10px;padding:10px 12px;font-size:14px}
+.prices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.prices div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px}
+.prices b{display:block;font-family:var(--display);font-size:22px;font-variant-numeric:tabular-nums}
+.prices small{color:var(--muted);font-size:12px;display:block}
+.prices .ua{border-color:rgba(215,25,42,.5)}
+.book{color:var(--muted);font-size:13px;margin:0}
+@media (max-width:760px){
+  dialog{max-height:100%;height:100%;border-radius:0;max-width:100%}
+  .sheet{grid-template-columns:1fr}
+  .info{padding:18px 16px calc(24px + env(safe-area-inset-bottom,0px))}
+}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--ink);padding:9px 16px;border-radius:999px;font-weight:700;font-size:14px;z-index:60}
+</style>
+</head>
+<body>
+
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="True Rides Japan"><span class="dot"></span><span><b>TRUE RIDES</b><small>JAPAN</small></span></a>
+    <nav class="main">
+      <a href="#catalog" data-i18n="nav_catalog"></a>
+      <a href="#route" data-i18n="nav_route"></a>
+      <a href="#delivery" data-i18n="nav_delivery"></a>
+      <a href="#contacts" data-i18n="nav_contacts"></a>
+    </nav>
+    <div class="langs" role="group" aria-label="Language">
+      <button type="button" data-lang="ru">RU</button><button type="button" data-lang="uk">UA</button><button type="button" data-lang="en">EN</button>
+    </div>
+    <button class="tbtn" type="button" id="themeBtn" aria-label="Theme"><svg id="icoSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg id="icoMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg></button>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow" data-i18n="hero_eyebrow"></p>
+      <h1 data-i18n-html="hero_title"></h1>
+      <p class="lead" data-i18n="hero_lead"></p>
+      <div class="ctas">
+        <a class="btn red" href="#catalog" data-i18n="cta_cars"></a>
+        <a class="btn ghost" href="https://t.me/+380663666886" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5z"/></svg><span data-i18n="cta_tg"></span></a>
+      </div>
+      <div class="facts" id="facts"></div>
+    </div>
+    <img class="emblem" src="assets/logo.png" alt="True Rides Japan">
+  </div>
+</section>
+
+<section class="route wrap" id="route">
+  <p class="eyebrow" data-i18n="route_eyebrow"></p>
+  <ol>
+    <li><b data-i18n="r1"></b><span data-i18n="r1s"></span></li>
+    <li><b data-i18n="r2"></b><span data-i18n="r2s"></span></li>
+    <li><b data-i18n="r3"></b><span data-i18n="r3s"></span></li>
+    <li><b data-i18n="r4"></b><span data-i18n="r4s"></span></li>
+  </ol>
+  <p class="total" data-i18n="route_total"></p>
+</section>
+
+<section class="catalog wrap" id="catalog">
+  <div class="cat-head">
+    <div><p class="eyebrow" data-i18n="cat_eyebrow"></p><h2 data-i18n="cat_title"></h2></div>
+    <div class="filters" id="filters"></div>
+  </div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <h2 data-i18n="why_title"></h2>
+    <div class="why">
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg><b data-i18n="w1"></b><p data-i18n="w1s"></p></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b data-i18n="w2"></b><p data-i18n="w2s"></p></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/><path d="M12 4v5.5M5.2 15.5l4.6-2.3M18.8 15.5l-4.6-2.3"/></svg><b data-i18n="w3"></b><p data-i18n="w3s"></p></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg><b data-i18n="w4"></b><p data-i18n="w4s"></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="delivery">
+  <div class="wrap">
+    <h2 data-i18n="del_title"></h2>
+    <div class="dest">
+      <article><span class="flag"><i style="background:#0057b7"></i><i style="background:#ffd700"></i></span><h3 data-i18n="d_ua"></h3><p data-i18n="d_ua_s"></p><ul><li data-i18n="d_ua_1"></li><li data-i18n="d_ua_2"></li></ul></article>
+      <article><span class="flag"><i style="background:#fff"></i><i style="background:#e8112d"></i><i style="background:#fff"></i></span><h3 data-i18n="d_ge"></h3><p data-i18n="d_ge_s"></p><ul><li data-i18n="d_ge_1"></li><li data-i18n="d_ge_2"></li></ul></article>
+      <article><span class="flag"><i style="background:#169b62"></i><i style="background:#fff"></i><i style="background:#ff883e"></i></span><h3 data-i18n="d_ie"></h3><p data-i18n="d_ie_s"></p><ul><li data-i18n="d_ie_1"></li><li data-i18n="d_ie_2"></li></ul></article>
+    </div>
+  </div>
+</section>
+
+<section class="band faq">
+  <div class="wrap">
+    <h2 data-i18n="faq_title"></h2>
+    <details><summary data-i18n="q1"></summary><p data-i18n="a1"></p></details>
+    <details><summary data-i18n="q2"></summary><p data-i18n="a2"></p></details>
+    <details><summary data-i18n="q3"></summary><p data-i18n="a3"></p></details>
+    <details><summary data-i18n="q4"></summary><p data-i18n="a4"></p></details>
+  </div>
+</section>
+
+<section class="band" id="contacts">
+  <div class="wrap contact">
+    <div>
+      <p class="eyebrow" data-i18n="ct_eyebrow"></p>
+      <h2 data-i18n="ct_title"></h2>
+      <p style="margin-top:18px"><span class="phone">+380 66 366 68 86</span><button class="copy" type="button" id="copyPhone" data-i18n="copy"></button></p>
+      <p style="color:var(--muted);margin:6px 0 0" data-i18n="ct_msg"></p>
+      <div class="row">
+        <a class="btn red" href="https://t.me/+380663666886" target="_blank" rel="noopener">Telegram</a>
+        <a class="btn ghost" href="https://wa.me/380663666886" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn ghost" href="https://t.me/truerides_chat" target="_blank" rel="noopener" data-i18n="ct_chat"></a>
+        <a class="btn ghost" href="https://www.instagram.com/true_rides/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+    <div class="meta">
+      <div><span class="eyebrow" data-i18n="ct_where"></span><div data-i18n="ct_where_s"></div></div>
+      <div><span class="eyebrow">Viber</span><div>+380 66 366 68 86</div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 True Rides Japan</span><span>trueridesjapan.com</span></div></footer>
+
+<div class="bar">
+  <a class="btn red" href="https://t.me/+380663666886" target="_blank" rel="noopener">Telegram</a>
+  <a class="btn ghost" href="https://wa.me/380663666886" target="_blank" rel="noopener">WhatsApp</a>
+  <a class="btn ghost" href="#catalog" data-i18n="nav_catalog"></a>
+</div>
+
+<dialog id="dlg" aria-labelledby="dlgTitle"><div id="dlgBody"></div></dialog>
+
+<script>
+const CARS=[{"ref": "TR-01", "model": "Toyota Alphard", "gen": "20", "fam": "minivan", "year": 2014, "grade": "240S TYPE GOLD 2", "mileage": 144950, "color": "Pearl", "engine": 2360, "drive": "2WD", "acc": "A/C Airbag Alloy Wheels Power Steering Power Window Body Kit Power Slide Door", "vessel": "MSC LORENA", "eta": "2026-12-12", "loading": "Yokohama", "priceUA": 13000, "priceGE": 6700, "damaged": true}, {"ref": "TR-02", "model": "Toyota Vellfire", "gen": "20", "fam": "minivan", "year": 2014, "grade": "2.4Z", "mileage": 109020, "color": "Pearl", "engine": 2360, "drive": "2WD", "acc": "A/C Airbag Alloy Wheels Power Steering Power Window Rear Spoiler Power Slide Door", "vessel": "SUEZ CANAL", "eta": "2026-11-25", "loading": "Nagoya", "priceUA": 13000, "priceGE": 7700, "damaged": false}, {"ref": "TR-03", "model": "Toyota Vellfire", "gen": "20", "fam": "minivan", "year": 2014, "grade": "2.4Z GOLDEN EYES 2", "mileage": 138379, "color": "Black", "engine": 2360, "drive": "4WD", "acc": "A/C Airbag Alloy Wheels Power Steering Power Window Rear Spoiler ABS Jack Spare Tire Wheel Spanner Back Camera Push Start Keyless Entry ESC Power Slide Door", "vessel": "MSC MAGNOLIA V", "eta": "2026-12-03", "loading": "Nagoya", "priceUA": 13000, "priceGE": 7700, "damaged": false}, {"ref": "TR-04", "model": "Toyota Vellfire", "gen": "20", "fam": "minivan", "year": 2014, "grade": "2.4Z G EDITION", "mileage": 140656, "color": "Black", "engine": 2360, "drive": "2WD", "acc": "A/C Airbag Power Steering Power Window ABS Navigation", "vessel": "MSC LORENA", "eta": "2026-12-12", "loading": "Yokohama", "priceUA": 13000, "priceGE": 7200, "damaged": false}, {"ref": "TR-05", "model": "Toyota Alphard", "gen": "20", "fam": "minivan", "year": 2014, "grade": "240S TYPE GOLD 2", "mileage": 112251, "color": "Pearl", "engine": 2360, "drive": "2WD", "acc": "A/C Airbag Alloy Wheels Power Steering Power Window Navigation Back Camera Power Slide Door", "vessel": "MSC TIGER III", "eta": "2026-12-27", "loading": "Osaka", "priceUA": 13000, "priceGE": 8000, "damaged": false}, {"ref": "TR-06", "model": "Toyota Vellfire", "gen": "20", "fam": "minivan", "year": 2014, "grade": "2.4Z GOLDEN EYES 2", "mileage": 111284, "color": "Maroon", "engine": 2360, "drive": "2WD", "acc": "A/C Airbag Alloy Wheels Power Steering Power Window Sunroof Rear Spoiler Body Kit Power Slide Door", "vessel": "MSC GENERAL IV", "eta": "2026-12-19", "loading": "Nagoya", "priceUA": 13000, "priceGE": 7300, "damaged": false}, {"ref": "TR-07", "model": "Toyota Vellfire", "gen": "20", "fam": "minivan", "year": 2014, "grade": "2.4Z", "mileage": 167771, "color": "Black", "engine": 2360, "drive": "4WD", "acc": "A/C Airbag Alloy Wheels Power Steering Power Window Power Slide Door", "vessel": null, "eta": null, "loading": "Nagoya", "priceUA": 13000, "priceGE": 6800, "damaged": false}, {"ref": "TR-08", "model": "Toyota Vellfire", "gen": "20", "fam": "minivan", "year": 2014, "grade": "2.4Z", "mileage": 121664, "color": "Black", "engine": 2360, "drive": "2WD", "acc": "A/C Airbag Alloy Wheels Power Steering Power Window Rear Spoiler Side Airbag Power Slide Door", "vessel": null, "eta": null, "loading": "Yokohama", "priceUA": 13000, "priceGE": 7400, "damaged": false}, {"ref": "TR-09", "model": "Toyota Vellfire", "gen": "20", "fam": "minivan", "year": 2014, "grade": "2.4Z GOLDEN EYES 2", "mileage": 142814, "color": "Black", "engine": 2360, "drive": "2WD", "acc": "A/C Airbag Alloy Wheels Power Steering Power Window Push Start Power Slide Door", "vessel": null, "eta": null, "loading": "Nagoya", "priceUA": 13000, "priceGE": 7500, "damaged": false}, {"ref": "TR-10", "model": "Toyota Alphard", "gen": "20", "fam": "minivan", "year": 2014, "grade": "240S TYPE GOLD 2", "mileage": 156196, "color": "Pearl", "engine": 2360, "drive": "2WD", "acc": "A/C Airbag Alloy Wheels Power Steering Power Window ABS", "vessel": null, "eta": null, "loading": "Osaka", "priceUA": 13000, "priceGE": 7500, "damaged": false}, {"ref": "TR-11", "model": "Toyota Vellfire", "gen": "30", "fam": "minivan", "year": 2016, "grade": "2.5Z A EDITION GOLDEN EYES", "mileage": 152786, "color": "Pearl", "engine": 2490, "drive": "2WD", "acc": "A/C Airbag Alloy Wheels Power Steering Power Window ABS", "vessel": null, "eta": null, "loading": "Yokohama", "priceUA": 20000, "priceGE": 11200, "damaged": false}, {"ref": "TR-12", "model": "Nissan Note", "gen": "E13", "fam": "note", "year": 2021, "grade": "HYBRID S FOUR", "mileage": 89688, "color": "Gray", "engine": 1190, "drive": "4WD", "acc": "A/C Airbag Power Steering Power Window", "vessel": "MSC TAVVISHI VI", "eta": "2027-01-12", "loading": "Osaka", "priceUA": 12000, "priceGE": 8900, "damaged": false}, {"ref": "TR-13", "model": "Nissan Note", "gen": "E13", "fam": "note", "year": 2021, "grade": "HYBRID E-POWER S", "mileage": 63319, "color": "Silver", "engine": 1190, "drive": "2WD", "acc": "A/C Airbag Power Steering Power Window Rear Spoiler ABS Push Start Keyless Entry ESC", "vessel": null, "eta": null, "loading": "Yokohama", "priceUA": 12000, "priceGE": 8600, "damaged": false}, {"ref": "TR-14", "model": "Nissan Note", "gen": "HE12", "fam": "note", "year": 2019, "grade": "HYBRID E-POWER X", "mileage": 44333, "color": "Blue", "engine": 1190, "drive": "2WD", "acc": "A/C Airbag Alloy Wheels Power Steering Power Window Navigation", "vessel": "MSC TIGER III", "eta": "2026-12-19", "loading": "Osaka", "priceUA": 10000, "priceGE": 7300, "damaged": false}, {"ref": "TR-15", "model": "Nissan Note", "gen": "HE12", "fam": "note", "year": 2019, "grade": "HYBRID E-POWER X", "mileage": 53697, "color": "Maroon", "engine": 1190, "drive": "2WD", "acc": "A/C Airbag Alloy Wheels Power Steering Power Window ABS ESC", "vessel": "MSC MAGNOLIA V", "eta": "2026-12-03", "loading": "Yokohama", "priceUA": 10000, "priceGE": 7000, "damaged": false}, {"ref": "TR-16", "model": "Nissan Note", "gen": "HE12", "fam": "note", "year": 2019, "grade": "HYBRID E-POWER AUTECH", "mileage": 91263, "color": "Blue", "engine": 1190, "drive": "2WD", "acc": "A/C Airbag Alloy Wheels Power Steering Power Window ABS Wheel Spanner Back Camera Push Start Keyless Entry ESC", "vessel": "MSC MAGNOLIA V", "eta": "2026-12-03", "loading": "Nagoya", "priceUA": 10000, "priceGE": 7600, "damaged": false}, {"ref": "TR-17", "model": "Nissan Note", "gen": "HE12", "fam": "note", "year": 2019, "grade": "HYBRID E-POWER MEDALIST", "mileage": 40331, "color": "Maroon", "engine": 1190, "drive": "2WD", "acc": "Airbag Alloy Wheels Power Steering Power Window Navigation 360 Degree Camera", "vessel": null, "eta": null, "loading": "Hakata", "priceUA": 10000, "priceGE": 7200, "damaged": false}];
+const IMGS={"TR-01": ["https://image-cdn.beforward.jp/large/202610/16793195/CE893961_e79651.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_6d51e0.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_ffe8eb.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_bfb780.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_cf0943.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_eb8b75.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_a4f85d.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_e23a01.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_f4ec9e.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_fc126d.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_383700.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_eae611.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_06cdd2.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_6df939.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_b5a478.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_93a756.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_755c9b.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_1d7f1d.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_812860.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_482846.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_d23c8d.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_d29840.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_691384.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_61ad7d.JPG"], "TR-02": ["assets/cars/TR-02-1.jpg", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_04d8cb.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_0fa2ea.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_73d67d.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_6ed0b5.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_bdd80d.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_7754e3.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_e378ce.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_588ceb.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_18384b.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_8fb969.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_339ee9.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_01172f.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_3454dc.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_2e57e7.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_c73ea7.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_0d7727.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_f2f191.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_4b45cb.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_ed8be7.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_027ee2.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_f364a8.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_b7f2c5.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_4f8330.JPG", "https://image-cdn.beforward.jp/large/202609/16805432/CE908448_499d6d.JPG"], "TR-03": ["https://image-cdn.beforward.jp/large/202610/16881312/CF027241_6c71d1.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_20f4f4.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_ef66de.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_2e6e9b.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_bc2a5c.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_f7e0e2.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_e54d21.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_d0c91c.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_c6c11d.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_b4f9a7.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_a1fdcb.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_8f1e29.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_786716.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_a8f944.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_309e80.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_9d4858.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_9316c0.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_c229ad.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_d86be6.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_087b09.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_92a1c3.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_c8bc79.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_074ea4.JPG", "https://image-cdn.beforward.jp/large/202610/16881312/CF027241_c119f4.JPG"], "TR-04": ["https://image-cdn.beforward.jp/large/202610/16975744/CF126391_f9e466.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_280f7d.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_c63546.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_79964f.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_7c6e9b.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_326ec5.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_f8b301.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_f2a727.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_473f78.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_ff1cba.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_605bc1.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_fef227.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_f7e647.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_f0571c.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_4398e7.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_0bdad5.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_c2bcc9.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_11ee38.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_aad43d.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_7b72a0.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_4717a4.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_bf89c0.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_fb053e.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_5d019b.JPG"], "TR-05": ["assets/cars/TR-05-1.jpg", "assets/cars/TR-05-2.jpg", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_0a16df.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_86d268.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_10ef66.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_29190d.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_01990d.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_4eb2e4.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_9def70.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_89ddde.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_d97904.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_150749.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_24dbb9.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_956c76.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_e1b78c.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_210e2f.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_090a4c.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_927e37.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_9031d2.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_58ec45.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_60500d.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_18f646.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_d19f0c.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_137c7b.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_3193de.JPG", "https://image-cdn.beforward.jp/large/202610/17007112/CF131187_b88fa6.JPG"], "TR-06": ["assets/cars/TR-06-1.jpg", "assets/cars/TR-06-2.jpg", "https://image-cdn.beforward.jp/large/202610/17114540/CF263759_a99bdd.jpg", "https://image-cdn.beforward.jp/large/202610/17114540/CF263759_b1a3b6.jpg", "https://image-cdn.beforward.jp/large/202610/17114540/CF263759_1cd6e3.jpg", "https://image-cdn.beforward.jp/large/202610/17114540/CF263759_8a8b20.jpg", "https://image-cdn.beforward.jp/large/202610/17114540/CF263759_50f3df.jpg", "https://image-cdn.beforward.jp/large/202610/17114540/CF263759_a2ca43.jpg", "https://image-cdn.beforward.jp/large/202610/17114540/CF263759_ecd83b.jpg", "https://image-cdn.beforward.jp/large/202610/17114540/CF263759_5dfdaa.jpg"], "TR-07": ["assets/cars/TR-07-1.jpg", "https://image-cdn.beforward.jp/large/202610/17128146/CF274806_4c8d65.jpg", "https://image-cdn.beforward.jp/large/202610/17128146/CF274806_7f99a3.jpg", "https://image-cdn.beforward.jp/large/202610/17128146/CF274806_382c93.jpg", "https://image-cdn.beforward.jp/large/202610/17128146/CF274806_fd3ddb.jpg", "https://image-cdn.beforward.jp/large/202610/17128146/CF274806_ef11ed.jpg", "https://image-cdn.beforward.jp/large/202610/17128146/CF274806_9a8a7c.jpg", "https://image-cdn.beforward.jp/large/202610/17128146/CF274806_e5a264.jpg", "https://image-cdn.beforward.jp/large/202610/17128146/CF274806_34c2b7.jpg"], "TR-08": ["https://image-cdn.beforward.jp/large/202610/17178994/CF330569_d23622.jpg", "https://image-cdn.beforward.jp/large/202610/17178994/CF330569_ab80dd.jpg", "https://image-cdn.beforward.jp/large/202610/17178994/CF330569_f635fc.jpg", "https://image-cdn.beforward.jp/large/202610/17178994/CF330569_193cbc.jpg", "https://image-cdn.beforward.jp/large/202610/17178994/CF330569_b8f9dd.jpg", "https://image-cdn.beforward.jp/large/202610/17178994/CF330569_89eac1.jpg"], "TR-09": ["https://image-cdn.beforward.jp/large/202610/17191981/CF336719_59928a.jpg", "https://image-cdn.beforward.jp/large/202610/17191981/CF336719_bf6cc7.jpg", "https://image-cdn.beforward.jp/large/202610/17191981/CF336719_fecc72.jpg", "https://image-cdn.beforward.jp/large/202610/17191981/CF336719_73e906.jpg", "https://image-cdn.beforward.jp/large/202610/17191981/CF336719_fe819d.jpg", "https://image-cdn.beforward.jp/large/202610/17191981/CF336719_271b0c.jpg", "https://image-cdn.beforward.jp/large/202610/17191981/CF336719_0fb39c.jpg", "https://image-cdn.beforward.jp/large/202610/17191981/CF336719_058bd9.jpg"], "TR-10": ["https://image-cdn.beforward.jp/large/202610/17192421/CF336943_6b22d6.jpg", "https://image-cdn.beforward.jp/large/202610/17192421/CF336943_1b1156.jpg", "https://image-cdn.beforward.jp/large/202610/17192421/CF336943_62e0e3.jpg", "https://image-cdn.beforward.jp/large/202610/17192421/CF336943_7eb220.jpg", "https://image-cdn.beforward.jp/large/202610/17192421/CF336943_ea8196.jpg"], "TR-11": ["https://image-cdn.beforward.jp/large/202610/17127465/CF275400_fb101f.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_e4c323.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_e2ab7a.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_c1a9b4.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_a7fd3c.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_ae914f.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_79c0ad.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_558648.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_1f019f.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_970a53.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_62ff4b.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_545aa5.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_3934ce.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_ae3eda.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_6018e9.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_567bc6.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_9bfd0e.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_776c20.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_089ea6.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_e02b46.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_6319f8.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_25c0f3.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_1d9da7.jpg", "https://image-cdn.beforward.jp/large/202610/17127465/CF275400_8d1f01.jpg"], "TR-12": ["assets/cars/TR-12-1.jpg", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_6f48a2.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_067593.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_5d2a33.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_2ef66d.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_15354d.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_be55b7.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_3d3c78.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_f6f36b.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_86bf64.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_0d27ba.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_c40fc3.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_34cbf3.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_935a14.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_f8a04a.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_47367d.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_fdfdb1.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_69b32c.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_35d111.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_0156cd.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_950466.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_cd6374.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_80d8e0.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_cacd14.JPG", "https://image-cdn.beforward.jp/large/202610/17006966/CF145278_e0cb8b.JPG"], "TR-13": ["https://image-cdn.beforward.jp/large/202610/17026358/CF171632_432223.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_363a7a.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_75022c.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_f29baf.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_9a25d2.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_6edc57.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_6c56ee.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_87b314.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_3c6ca6.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_4fd1d7.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_e1bf07.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_e81f57.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_5f1c9b.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_61c6b9.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_24f37b.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_067bd7.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_c480ca.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_688fa3.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_719781.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_83a04e.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_26dea3.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_c8cd8d.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_1d8628.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_d02020.jpg"], "TR-14": ["assets/cars/TR-14-1.jpg", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_1269b7.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_76dce0.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_dc42cf.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_9b41d9.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_7fcc2c.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_babaf8.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_675db6.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_f6c4b9.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_8cf10a.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_d9da95.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_caa6e8.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_4c774a.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_93cf44.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_544a64.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_e73476.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_155f08.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_82bb56.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_c86cd8.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_42ae81.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_3d531f.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_8818ff.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_12b5ad.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_a814e5.JPG", "https://image-cdn.beforward.jp/large/202609/16767396/CE850773_48770e.JPG"], "TR-15": ["assets/cars/TR-15-1.jpg", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_37289d.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_1d19e4.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_7324f4.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_245cbf.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_174d76.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_7eb1c5.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_2c7275.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_fb684f.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_ad1163.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_f622eb.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_01a279.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_0b8ecc.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_d6683b.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_336c81.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_68ef2b.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_b4e42a.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_fa627b.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_8a0a6d.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_d7b7f2.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_e0fc0a.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_d3f238.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_0cf7c0.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_8f0e3a.JPG", "https://image-cdn.beforward.jp/large/202610/16792028/CE893893_286c0f.JPG"], "TR-16": ["assets/cars/TR-16-1.jpg", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_deac87.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_bc0eb9.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_13a61d.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_c048b3.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_030d93.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_e6ce93.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_9286a5.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_8c8409.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_cc8795.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_f77915.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_8daec4.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_bed473.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_0788b8.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_dca553.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_1ff625.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_9fde42.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_e0cd3b.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_3ac674.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_940188.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_cced04.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_b9559d.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_24364f.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_02646e.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_d5a2d9.JPG"], "TR-17": ["https://image-cdn.beforward.jp/large/202610/17190415/CF336585_9affa0.jpg", "https://image-cdn.beforward.jp/large/202610/17190415/CF336585_05e356.jpg", "https://image-cdn.beforward.jp/large/202610/17190415/CF336585_3cb6de.jpg", "https://image-cdn.beforward.jp/large/202610/17190415/CF336585_71aecf.jpg", "https://image-cdn.beforward.jp/large/202610/17190415/CF336585_6a1e66.jpg", "https://image-cdn.beforward.jp/large/202610/17190415/CF336585_fbcdd4.jpg"]};
+const T={
+ru:{nav_catalog:"Машины",nav_route:"Как привозим",nav_delivery:"Доставка",nav_contacts:"Контакты",
+hero_eyebrow:"Аукционы Японии → Грузия → Украина",
+hero_title:"Японские авто <em>с аукционов</em> — в пути и под заказ",
+hero_lead:"Покупаем на аукционах Японии, переставляем руль на левый в Грузии и выдаём в Одессе и Киеве растаможенными, на номерах. Пробеги подтверждены аукционными листами.",
+cta_cars:"Смотреть машины",cta_tg:"Написать в Telegram",
+f1:"машин уже куплено",f2:"плывут в Поти прямо сейчас",f3:"месяца от аукциона до Одессы",
+route_eyebrow:"Как мы привозим машину",
+r1:"Аукцион в Японии",r1s:"Выбираем машину, проверяем аукционный лист и историю выставлений.",
+r2:"Море до Поти",r2s:"Контейнер из Иокогамы, Нагои или Осаки до порта Поти в Грузии.",
+r3:"Руль в Грузии",r3s:"Переставляем руль на левый в мастерской, которую выбираем под модель.",
+r4:"Выдача в Украине",r4s:"Автовоз до Одессы или Киева. Растаможено, на номерах.",
+route_total:"В среднем около 4 месяцев от покупки до выдачи",
+cat_eyebrow:"Наличие и машины в пути",cat_title:"Машины",
+all:"Все",minivan:"Alphard / Vellfire",note:"Nissan Note",transit:"В пути",prep:"Готовится к отправке",
+eta:"Поти ~",from:"из",ua:"Украина",ua_s:"растаможено, на номерах",ge:"Грузия",ge_s:"без переделки руля",
+nophoto:"Фото с аукциона скоро",
+why_title:"Почему True Rides",
+w1:"Честный пробег",w1s:"Каждый пробег подтверждён японским аукционным листом. Покажем его до брони.",
+w2:"Бронь дешевле",w2s:"Машину в пути можно забронировать до прибытия по более низкой цене.",
+w3:"Руль — под контролем",w3s:"Сравниваем мастерские в Грузии и выбираем, кто лучше делает конкретную модель.",
+w4:"Забираете в Украине",w4s:"Выдача в Одессе и Киеве. Машина растаможена и стоит на номерах.",
+del_title:"Куда везём",
+d_ua:"Украина",d_ua_s:"Основное направление.",d_ua_1:"Выдача в Одессе и Киеве",d_ua_2:"Цена — растаможено, на номерах",
+d_ge:"Грузия",d_ge_s:"Можно забрать до переделки руля.",d_ge_1:"Рустави, с переделкой или без",d_ge_2:"Подходит перекупам и дилерам",
+d_ie:"Ирландия",d_ie_s:"Новое направление, доставка до Дублина.",d_ie_1:"Контейнер или Ro-Ro до Дублина",d_ie_2:"Можно начать с одной машины, расчёт по запросу",
+faq_title:"Вопросы",
+q1:"Можно ли забронировать машину, которая ещё в пути?",a1:"Да. Бронь до прибытия дешевле, чем покупка после. Напишите номер машины с сайта — пришлём аукционный лист и все фото.",
+q2:"Что входит в цену для Украины?",a2:"Цена указана за машину, растаможенную и поставленную на номера, с выдачей в Одессе или Киеве.",
+q3:"Как делают переделку руля?",a3:"Руль переставляют мастерские в Грузии. Мы сравниваем их работу и под каждую модель выбираем ту, что делает её лучше.",
+q4:"Можно заказать другую машину?",a4:"Да. Подберём машину под ваш бюджет на аукционах Японии и пришлём варианты с аукционными листами.",
+ct_eyebrow:"Связаться",ct_title:"Напишите — ответим и пришлём аукционный лист",ct_msg:"Viber, Telegram, WhatsApp",ct_chat:"Чат True Rides",
+ct_where:"Где мы",ct_where_s:"Рустави, Грузия · выдача в Одессе и Киеве",copy:"Скопировать",copied:"Номер скопирован",
+k_year:"Год",k_engine:"Двигатель",k_drive:"Привод",k_mileage:"Пробег",k_color:"Цвет",k_route:"Маршрут",k_status:"Статус",
+opts:"Комплектация",write:"Спросить про эту машину",book:"Цены действуют при бронировании до прибытия машины.",
+km:"км",awd:"полный привод",fwd:"передний привод",petrol:"бензин",epower:"гибрид e-Power",
+damaged:"Есть кузовные повреждения. Подробные фото и аукционный лист — по запросу.",
+msg:"Здравствуйте! Интересует",empty:"Нет машин по этому фильтру."},
+uk:{nav_catalog:"Авто",nav_route:"Як привозимо",nav_delivery:"Доставка",nav_contacts:"Контакти",
+hero_eyebrow:"Аукціони Японії → Грузія → Україна",
+hero_title:"Японські авто <em>з аукціонів</em> — у дорозі та під замовлення",
+hero_lead:"Купуємо на аукціонах Японії, переставляємо кермо на ліве в Грузії та видаємо в Одесі й Києві розмитненими, на номерах. Пробіги підтверджені аукціонними листами.",
+cta_cars:"Дивитися авто",cta_tg:"Написати в Telegram",
+f1:"авто вже куплено",f2:"пливуть у Поті просто зараз",f3:"місяці від аукціону до Одеси",
+route_eyebrow:"Як ми привозимо авто",
+r1:"Аукціон у Японії",r1s:"Обираємо авто, перевіряємо аукціонний лист та історію виставлень.",
+r2:"Море до Поті",r2s:"Контейнер з Йокогами, Нагої чи Осаки до порту Поті в Грузії.",
+r3:"Кермо в Грузії",r3s:"Переставляємо кермо на ліве в майстерні, яку обираємо під модель.",
+r4:"Видача в Україні",r4s:"Автовоз до Одеси або Києва. Розмитнено, на номерах.",
+route_total:"У середньому близько 4 місяців від купівлі до видачі",
+cat_eyebrow:"Наявність і авто в дорозі",cat_title:"Авто",
+all:"Усі",minivan:"Alphard / Vellfire",note:"Nissan Note",transit:"У дорозі",prep:"Готується до відправки",
+eta:"Поті ~",from:"з",ua:"Україна",ua_s:"розмитнено, на номерах",ge:"Грузія",ge_s:"без переобладнання керма",
+nophoto:"Фото з аукціону незабаром",
+why_title:"Чому True Rides",
+w1:"Чесний пробіг",w1s:"Кожен пробіг підтверджений японським аукціонним листом. Покажемо його до бронювання.",
+w2:"Бронь дешевша",w2s:"Авто в дорозі можна забронювати до прибуття за нижчою ціною.",
+w3:"Кермо під контролем",w3s:"Порівнюємо майстерні в Грузії й обираємо, хто краще робить конкретну модель.",
+w4:"Забираєте в Україні",w4s:"Видача в Одесі та Києві. Авто розмитнене й стоїть на номерах.",
+del_title:"Куди веземо",
+d_ua:"Україна",d_ua_s:"Основний напрямок.",d_ua_1:"Видача в Одесі та Києві",d_ua_2:"Ціна — розмитнено, на номерах",
+d_ge:"Грузія",d_ge_s:"Можна забрати до переобладнання керма.",d_ge_1:"Руставі, з переобладнанням або без",d_ge_2:"Підходить перекупникам і дилерам",
+d_ie:"Ірландія",d_ie_s:"Новий напрямок, доставка до Дубліна.",d_ie_1:"Контейнер або Ro-Ro до Дубліна",d_ie_2:"Можна почати з одного авто, розрахунок за запитом",
+faq_title:"Питання",
+q1:"Чи можна забронювати авто, яке ще в дорозі?",a1:"Так. Бронь до прибуття дешевша, ніж купівля після. Напишіть номер авто з сайту — надішлемо аукціонний лист і всі фото.",
+q2:"Що входить у ціну для України?",a2:"Ціна вказана за авто, розмитнене й поставлене на номери, з видачею в Одесі або Києві.",
+q3:"Як переобладнують кермо?",a3:"Кермо переставляють майстерні в Грузії. Ми порівнюємо їхню роботу й під кожну модель обираємо ту, що робить її краще.",
+q4:"Можна замовити інше авто?",a4:"Так. Підберемо авто під ваш бюджет на аукціонах Японії та надішлемо варіанти з аукціонними листами.",
+ct_eyebrow:"Зв'язатися",ct_title:"Напишіть — відповімо й надішлемо аукціонний лист",ct_msg:"Viber, Telegram, WhatsApp",ct_chat:"Чат True Rides",
+ct_where:"Де ми",ct_where_s:"Руставі, Грузія · видача в Одесі та Києві",copy:"Скопіювати",copied:"Номер скопійовано",
+k_year:"Рік",k_engine:"Двигун",k_drive:"Привід",k_mileage:"Пробіг",k_color:"Колір",k_route:"Маршрут",k_status:"Статус",
+opts:"Комплектація",write:"Запитати про це авто",book:"Ціни діють при бронюванні до прибуття авто.",
+km:"км",awd:"повний привід",fwd:"передній привід",petrol:"бензин",epower:"гібрид e-Power",
+damaged:"Є кузовні пошкодження. Детальні фото й аукціонний лист — за запитом.",
+msg:"Добрий день! Цікавить",empty:"Немає авто за цим фільтром."},
+en:{nav_catalog:"Cars",nav_route:"How it works",nav_delivery:"Delivery",nav_contacts:"Contacts",
+hero_eyebrow:"Japanese auctions → Georgia → Ukraine",
+hero_title:"Japanese cars <em>from auction</em> — in transit and to order",
+hero_lead:"We buy at Japanese auctions, convert to left-hand drive in Georgia and hand over in Odesa and Kyiv, customs-cleared and registered. Mileage is confirmed by auction sheets.",
+cta_cars:"View cars",cta_tg:"Message on Telegram",
+f1:"cars already bought",f2:"at sea to Poti right now",f3:"months from auction to Odesa",
+route_eyebrow:"How we bring your car",
+r1:"Auction in Japan",r1s:"We pick the car and check the auction sheet and listing history.",
+r2:"Sea to Poti",r2s:"Container from Yokohama, Nagoya or Osaka to Poti port, Georgia.",
+r3:"Steering in Georgia",r3s:"Converted to left-hand drive at a workshop chosen for the model.",
+r4:"Pickup in Ukraine",r4s:"Car carrier to Odesa or Kyiv. Customs-cleared and registered.",
+route_total:"About 4 months on average from purchase to pickup",
+cat_eyebrow:"In stock and in transit",cat_title:"Cars",
+all:"All",minivan:"Alphard / Vellfire",note:"Nissan Note",transit:"In transit",prep:"Preparing to ship",
+eta:"Poti ~",from:"from",ua:"Ukraine",ua_s:"cleared, registered",ge:"Georgia",ge_s:"right-hand drive",
+nophoto:"Auction photos coming soon",
+why_title:"Why True Rides",
+w1:"Honest mileage",w1s:"Every mileage figure is confirmed by the Japanese auction sheet. We show it before you book.",
+w2:"Booking costs less",w2s:"A car in transit can be booked before arrival at a lower price.",
+w3:"Steering done right",w3s:"We compare Georgian workshops and choose the best one for each model.",
+w4:"Pickup in Ukraine",w4s:"Odesa and Kyiv. The car is customs-cleared and registered.",
+del_title:"Where we deliver",
+d_ua:"Ukraine",d_ua_s:"Our main route.",d_ua_1:"Pickup in Odesa and Kyiv",d_ua_2:"Price includes customs and registration",
+d_ge:"Georgia",d_ge_s:"Take the car before conversion.",d_ge_1:"Rustavi, with or without conversion",d_ge_2:"For resellers and dealers",
+d_ie:"Ireland",d_ie_s:"New route, delivery to Dublin.",d_ie_1:"Container or Ro-Ro to Dublin",d_ie_2:"Start with one car, quote on request",
+faq_title:"Questions",
+q1:"Can I book a car that is still in transit?",a1:"Yes. Booking before arrival costs less than buying after. Send us the car number from the site and we'll send the auction sheet and all photos.",
+q2:"What does the Ukraine price include?",a2:"The price is for a customs-cleared, registered car, picked up in Odesa or Kyiv.",
+q3:"How is the steering converted?",a3:"Workshops in Georgia do the conversion. We compare their work and choose the best one for each model.",
+q4:"Can I order a different car?",a4:"Yes. We'll find a car for your budget at Japanese auctions and send options with auction sheets.",
+ct_eyebrow:"Get in touch",ct_title:"Message us — we'll reply with the auction sheet",ct_msg:"Viber, Telegram, WhatsApp",ct_chat:"True Rides chat",
+ct_where:"Where we are",ct_where_s:"Rustavi, Georgia · pickup in Odesa and Kyiv",copy:"Copy",copied:"Number copied",
+k_year:"Year",k_engine:"Engine",k_drive:"Drive",k_mileage:"Mileage",k_color:"Colour",k_route:"Route",k_status:"Status",
+opts:"Features",write:"Ask about this car",book:"Prices apply when booked before the car arrives.",
+km:"km",awd:"all-wheel drive",fwd:"front-wheel drive",petrol:"petrol",epower:"e-Power hybrid",
+damaged:"Has body damage. Detailed photos and auction sheet on request.",
+msg:"Hello! I'm interested in",empty:"No cars match this filter."}
+};
+const COLORS={Pearl:["белый перламутр","білий перламутр","pearl white"],Black:["чёрный","чорний","black"],Maroon:["бордовый","бордовий","maroon"],Blue:["синий","синій","blue"],Gray:["серый","сірий","grey"],Silver:["серебристый","сріблястий","silver"]};
+const OPTS={"Body Kit":["обвес","обвіс","body kit"],"Power Slide Door":["электросдвижные двери","електросувні двері","power sliding doors"],"Back Camera":["камера заднего вида","камера заднього виду","rear camera"],"Sunroof":["люк","люк","sunroof"],"Rear Spoiler":["спойлер","спойлер","rear spoiler"],"Side Airbag":["боковые подушки","бічні подушки","side airbags"],"360 Degree Camera":["камера 360°","камера 360°","360° camera"],"SMART":["смарт-ключ","смарт-ключ","smart key"],"Push Start":["кнопка запуска","кнопка запуску","push start"],"GOLDEN":["салон кожа / алькантара","салон шкіра / алькантара","leather / Alcantara interior"]};
+const LI={ru:0,uk:1,en:2};
+const PORTS={Yokohama:["Иокогама","Йокогама","Yokohama"],Nagoya:["Нагоя","Нагоя","Nagoya"],Osaka:["Осака","Осака","Osaka"],Hakata:["Хаката","Хаката","Hakata"]};
+let lang="ru",fam="all",st="all";
+try{const s=localStorage.getItem("tr_lang");if(s&&T[s])lang=s}catch(e){}
+const t=k=>T[lang][k]??k;
+const usd=n=>"$"+n.toLocaleString("ru-RU").replace(/\s/g," ");
+const nf=n=>n.toLocaleString("ru-RU").replace(/\s/g," ");
+function pretty(g){
+  return g.replace(/^HYBRID\s+/,"").replace("E-POWER","e-Power").split(" ").map(w=>{
+    if(/^(e-Power|X|S|FOUR|2|240S|2\.4Z|2\.5Z|A|G)$/.test(w))return w==="2"?"II":w;
+    return w.charAt(0)+w.slice(1).toLowerCase();}).join(" ").replace("Autech","AUTECH").replace("S FOUR","S FOUR");
+}
+function title(c){const mdl=c.model;let g=pretty(c.grade);if(c.fam==="note"&&!/e-Power/.test(g))g="e-Power "+g;return{mdl,g}}
+function eng(c){return c.fam==="note"?"1.2 "+t("epower"):(c.engine/1000).toFixed(1)+" "+t("petrol")}
+function opts(c){
+  const a=c.acc.split(/\s(?=[A-Z0-9])/),s=c.acc;const out=[];
+  if(/GOLDEN EYES/.test(c.grade))out.push(OPTS.GOLDEN[LI[lang]]);
+  ["Power Slide Door","Body Kit","Sunroof","Back Camera","360 Degree Camera","Rear Spoiler","Side Airbag"].forEach(k=>{if(s.includes(k))out.push(OPTS[k][LI[lang]])});
+  if(s.includes("Push Start")&&s.includes("Keyless"))out.push(OPTS.SMART[LI[lang]]);else if(s.includes("Push Start"))out.push(OPTS["Push Start"][LI[lang]]);
+  return out;
+}
+function dateShort(d){const loc={ru:"ru-RU",uk:"uk-UA",en:"en-GB"}[lang];return new Date(d+"T12:00:00").toLocaleDateString(loc,{day:"numeric",month:"short"}).replace(".","")}
+function shipLine(c){const p=(PORTS[c.loading]||[c.loading,c.loading,c.loading])[LI[lang]];const to=lang==="en"?"Poti":(lang==="uk"?"Поті":"Поти");return c.vessel?`${p} → ${to} · ${c.vessel.replace(/\b([A-Z]{3,})\b/g,m=>m.length>3?m.charAt(0)+m.slice(1).toLowerCase():m)}`:`${p} → ${to}`}
+const shipIco='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg>';
+function ph(c,cls){const im=IMGS[c.ref];const tg=c.fam==="note"?"NOTE "+c.gen:(c.model.split(" ")[1].toUpperCase()+" "+c.gen);
+  const badge=c.eta?`<span class="status"><i></i>${t("transit")} · ${t("eta")}${dateShort(c.eta)}</span>`:`<span class="status wait"><i></i>${t("prep")}</span>`;
+  return `<div class="ph">${im?`<img src="${im[0]}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`:`<div class="none"><b>${tg}</b><span>${t("nophoto")}</span></div>`}${cls?"":badge}</div>`}
+function card(c){const {mdl,g}=title(c);
+  return `<button class="card" type="button" data-ref="${c.ref}">${ph(c)}
+  <div class="body"><h3>${mdl} ${c.fam==="minivan"?c.gen:""}<small>${g} · ${c.year}</small></h3>
+  <div class="specs"><span>${nf(c.mileage)} ${t("km")}</span><span>${eng(c)}</span>${c.drive==="4WD"?`<span class="awd">4WD</span>`:""}<span>${COLORS[c.color]?COLORS[c.color][LI[lang]]:c.color}</span></div>
+  <div class="ship">${shipIco}<span>${shipLine(c)}</span></div>
+  <div class="price"><div><small>${t("ua")} · ${t("ua_s")}</small><b>${usd(c.priceUA)}</b></div><div class="ge">${t("ge")}<br><strong>${usd(c.priceGE)}</strong></div></div>
+  </div></button>`}
+function render(){
+  document.documentElement.lang=lang==="uk"?"uk":lang;
+  document.querySelectorAll("[data-i18n]").forEach(e=>e.textContent=t(e.dataset.i18n));
+  document.querySelectorAll("[data-i18n-html]").forEach(e=>e.innerHTML=t(e.dataset.i18nHtml));
+  document.querySelectorAll(".langs button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===lang));
+  const transit=CARS.filter(c=>c.eta).length;
+  document.getElementById("facts").innerHTML=`<div><b>${CARS.length}</b><span>${t("f1")}</span></div><div><b>${transit}</b><span>${t("f2")}</span></div><div><b>~4</b><span>${t("f3")}</span></div>`;
+  const cnt=f=>CARS.filter(c=>f==="all"||c.fam===f).length;
+  const sc=s=>CARS.filter(c=>(fam==="all"||c.fam===fam)&&(s==="all"||(s==="transit")===!!c.eta)).length;
+  document.getElementById("filters").innerHTML=["all","minivan","note"].map(f=>`<button class="chip" type="button" data-fam="${f}" aria-pressed="${fam===f}">${t(f)}<span class="n">${cnt(f)}</span></button>`).join("")+`<span class="sep"></span>`+["transit","prep"].map(s=>`<button class="chip" type="button" data-st="${s}" aria-pressed="${st===s}">${t(s)}<span class="n">${sc(s)}</span></button>`).join("");
+  const list=CARS.filter(c=>(fam==="all"||c.fam===fam)&&(st==="all"||(st==="transit")===!!c.eta))
+    .sort((a,b)=>(!!b.eta-!!a.eta)||((a.eta||"9")<(b.eta||"9")?-1:1)||a.priceUA-b.priceUA);
+  document.getElementById("grid").innerHTML=list.length?list.map(card).join(""):`<p class="empty">${t("empty")}</p>`;
+  const open=document.getElementById("dlg").open&&document.getElementById("dlg").dataset.ref;if(open)openCar(open,true);
+}
+function openCar(ref,keep){const c=CARS.find(x=>x.ref===ref);if(!c)return;const {mdl,g}=title(c);const im=IMGS[c.ref]||[];const o=opts(c);
+  const text=encodeURIComponent(`${t("msg")} ${mdl} ${g} ${c.year}, ${nf(c.mileage)} ${t("km")} (№ ${c.ref})`);
+  const status=c.eta?`${t("transit")} · ${t("eta")}${dateShort(c.eta)}`:t("prep");
+  document.getElementById("dlgBody").innerHTML=`<button class="close" type="button" aria-label="Close" id="x">×</button><div class="sheet">
+  <div class="gal"><div class="main">${im.length?`<img id="big" src="${im[0]}" alt="${mdl}" referrerpolicy="no-referrer">`:ph(c,true)}</div>${im.length>1?`<div class="thumbs">${im.map((s,i)=>`<button type="button" data-i="${i}" aria-current="${i===0}"><img src="${s}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.remove()"></button>`).join("")}</div>`:""}</div>
+  <div class="info"><div><p class="eyebrow">№ ${c.ref}</p><h2 id="dlgTitle">${mdl} ${c.fam==="minivan"?c.gen:""}</h2><div class="sub">${g}</div></div>
+  <div class="prices"><div class="ua"><small>${t("ua")}</small><b>${usd(c.priceUA)}</b><small>${t("ua_s")}</small></div><div><small>${t("ge")}</small><b>${usd(c.priceGE)}</b><small>${t("ge_s")}</small></div></div>
+  <p class="book">${t("book")}</p>
+  ${c.damaged?`<div class="note">${t("damaged")}</div>`:""}
+  <table class="kv"><tr><td>${t("k_status")}</td><td>${status}</td></tr><tr><td>${t("k_year")}</td><td>${c.year}</td></tr><tr><td>${t("k_mileage")}</td><td>${nf(c.mileage)} ${t("km")}</td></tr><tr><td>${t("k_engine")}</td><td>${eng(c)}</td></tr><tr><td>${t("k_drive")}</td><td>${c.drive==="4WD"?"4WD, "+t("awd"):t("fwd")}</td></tr><tr><td>${t("k_color")}</td><td>${COLORS[c.color]?COLORS[c.color][LI[lang]]:c.color}</td></tr><tr><td>${t("k_route")}</td><td>${shipLine(c)}</td></tr></table>
+  ${o.length?`<div><p class="eyebrow" style="margin:0 0 8px">${t("opts")}</p><div class="opts">${o.map(x=>`<span>${x}</span>`).join("")}</div></div>`:""}
+  <div class="ctas"><a class="btn red" href="https://wa.me/380663666886?text=${text}" target="_blank" rel="noopener">WhatsApp · ${t("write")}</a><a class="btn ghost" href="https://t.me/+380663666886" target="_blank" rel="noopener">Telegram</a></div>
+  </div></div>`;
+  const d=document.getElementById("dlg");d.dataset.ref=ref;if(!d.open)d.showModal();
+  if(!keep&&location.hash!=="#car-"+ref)location.hash="car-"+ref;
+}
+function closeCar(){const d=document.getElementById("dlg");if(d.open)d.close();}
+document.getElementById("dlg").addEventListener("close",()=>{delete document.getElementById("dlg").dataset.ref;if(location.hash.startsWith("#car-"))location.hash="catalog";});
+document.getElementById("dlg").addEventListener("click",e=>{
+  if(e.target.id==="x"||e.target===e.currentTarget)closeCar();
+  const tb=e.target.closest(".thumbs button");if(tb){const big=document.getElementById("big");big.src=IMGS[e.currentTarget.dataset.ref][+tb.dataset.i];e.currentTarget.querySelectorAll(".thumbs button").forEach(b=>b.setAttribute("aria-current",b===tb));}
+});
+document.addEventListener("click",e=>{
+  const c=e.target.closest(".card");if(c){openCar(c.dataset.ref);return}
+  const f=e.target.closest("[data-fam]");if(f){fam=f.dataset.fam;render();return}
+  const s=e.target.closest("[data-st]");if(s){st=st===s.dataset.st?"all":s.dataset.st;render();return}
+  const l=e.target.closest("[data-lang]");if(l){lang=l.dataset.lang;try{localStorage.setItem("tr_lang",lang)}catch(_){}render();}
+});
+function toast(m){const d=document.createElement("div");d.className="toast";d.textContent=m;document.body.appendChild(d);setTimeout(()=>d.remove(),1800)}
+document.getElementById("copyPhone").addEventListener("click",()=>{const n="+380663666886";navigator.clipboard?.writeText(n).then(()=>toast(t("copied"))).catch(()=>{const r=document.createRange();r.selectNodeContents(document.querySelector(".phone"));const s=getSelection();s.removeAllRanges();s.addRange(r);});});
+function isDark(){const a=document.documentElement.getAttribute("data-theme");if(a)return a==="dark";return !matchMedia("(prefers-color-scheme: light)").matches}
+function paintTheme(){const d=isDark();document.getElementById("icoSun").hidden=!d;document.getElementById("icoMoon").hidden=d;}
+try{const th=localStorage.getItem("tr_theme");if(th==="light"||th==="dark")document.documentElement.setAttribute("data-theme",th)}catch(e){}
+document.getElementById("themeBtn").addEventListener("click",()=>{const n=isDark()?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("tr_theme",n)}catch(e){}paintTheme();});
+matchMedia("(prefers-color-scheme: light)").addEventListener?.("change",paintTheme);
+paintTheme();
+function fromHash(){const h=location.hash;if(h.startsWith("#car-"))openCar(h.slice(5),true);else closeCar();}
+window.addEventListener("hashchange",fromHash);
+render();fromHash();
+</script>
+
+</body>
+</html>

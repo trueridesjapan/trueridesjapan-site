@@ -306,6 +306,9 @@ footer a{color:var(--muted)}
 a.phone{color:var(--fg);text-decoration:none}
 .meta a{color:var(--fg)}
 .bar .btn svg{width:16px;height:16px}
+.cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (min-width:1000px){.carpage .cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.contact .book a{color:var(--fg)}
 </style>
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Car", "name": "Toyota Vellfire 20 2.4Z Golden Eyes II 2014", "brand": {"@type": "Brand", "name": "Toyota"}, "model": "Vellfire", "vehicleModelDate": "2014", "color": "бордовый", "mileageFromOdometer": {"@type": "QuantitativeValue", "value": 111284, "unitCode": "KMT"}, "driveWheelConfiguration": "https://schema.org/FrontWheelDriveConfiguration", "vehicleEngine": {"@type": "EngineSpecification", "engineDisplacement": {"@type": "QuantitativeValue", "value": 2.4, "unitCode": "LTR"}}, "steeringPosition": "https://schema.org/LeftHandDriving", "image": ["https://trueridesjapan.com/assets/cars/TR-06-1.jpg", "https://trueridesjapan.com/assets/cars/TR-06-2.jpg", "https://image-cdn.beforward.jp/large/202610/17114540/CF263759_a99bdd.jpg", "https://image-cdn.beforward.jp/large/202610/17114540/CF263759_b1a3b6.jpg", "https://image-cdn.beforward.jp/large/202610/17114540/CF263759_1cd6e3.jpg", "https://image-cdn.beforward.jp/large/202610/17114540/CF263759_8a8b20.jpg"], "url": "https://trueridesjapan.com/cars/tr-06/", "offers": {"@type": "Offer", "price": 13000, "priceCurrency": "USD", "availability": "https://schema.org/PreOrder", "areaServed": "UA", "seller": {"@type": "AutoDealer", "name": "True Rides Japan", "url": "https://trueridesjapan.com"}}}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://trueridesjapan.com/"}, {"@type": "ListItem", "position": 2, "name": "Toyota Alphard / Vellfire", "item": "https://trueridesjapan.com/toyota-alphard-vellfire/"}, {"@type": "ListItem", "position": 3, "name": "TR-06", "item": "https://trueridesjapan.com/cars/tr-06/"}]}]</script>
 </head>
@@ -342,9 +345,8 @@ a.phone{color:var(--fg);text-decoration:none}
   <a class="btn red" href="https://t.me/+380663666886" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5z"/></svg>Telegram</a>
   <a class="btn ghost" href="viber://chat?number=%2B380663666886">Viber</a>
   <a class="btn ghost" href="https://wa.me/380663666886?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20Toyota%20Vellfire%2020%202.4Z%20Golden%20Eyes%20II%202014%2C%20111%E2%80%AF284%20%D0%BA%D0%BC%20%28TR-06%29" target="_blank" rel="noopener">WhatsApp</a>
-  <a class="btn ghost" href="tel:+995511184186">Позвонить</a>
 </div>
-<p class="book">Позвонить: <a class="sel" href="tel:+995511184186"><b>+995 511 18 41 86</b></a><br>Telegram, Viber, WhatsApp: <b class="sel">+380 66 366 68 86</b></p><p class="book">В Telegram и Viber укажите номер машины: <b>№ TR-06</b></p>
+<p class="book">Telegram, Viber, WhatsApp: <b class="sel">+380 66 366 68 86</b></p><p class="book">В Telegram и Viber укажите номер машины: <b>№ TR-06</b></p>
   </div>
 </section>
 <section class="catalog wrap"><div class="cat-head"><h2>Другие машины этой модели</h2><a class="btn ghost" href="/toyota-alphard-vellfire/">Toyota Alphard / Vellfire →</a></div><div class="grid"><a class="card" href="/cars/tr-02/" data-fam="minivan" data-st="sail">
@@ -377,7 +379,7 @@ a.phone{color:var(--fg);text-decoration:none}
 <div class="bar">
   <a class="btn red" href="https://t.me/+380663666886" target="_blank" rel="noopener">Telegram</a>
   <a class="btn ghost" href="viber://chat?number=%2B380663666886">Viber</a>
-  <a class="btn ghost" href="tel:+995511184186">Позвонить</a>
+  <a class="btn ghost" href="https://wa.me/380663666886" target="_blank" rel="noopener">WhatsApp</a>
 </div>
 <script>
 (function(){

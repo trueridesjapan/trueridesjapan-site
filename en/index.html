@@ -306,6 +306,9 @@ footer a{color:var(--muted)}
 a.phone{color:var(--fg);text-decoration:none}
 .meta a{color:var(--fg)}
 .bar .btn svg{width:16px;height:16px}
+.cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (min-width:1000px){.carpage .cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.contact .book a{color:var(--fg)}
 </style>
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "AutoDealer", "name": "True Rides Japan", "url": "https://trueridesjapan.com/", "logo": "https://trueridesjapan.com/assets/logo.png", "image": "https://trueridesjapan.com/assets/og.jpg", "telephone": "+995511184186", "address": {"@type": "PostalAddress", "addressLocality": "Rustavi", "addressCountry": "GE"}, "areaServed": ["UA", "GE", "IE"], "sameAs": ["https://www.instagram.com/true_rides/", "https://t.me/truerides_chat"]}, {"@context": "https://schema.org", "@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": 1, "url": "https://trueridesjapan.com/en/cars/tr-02/"}, {"@type": "ListItem", "position": 2, "url": "https://trueridesjapan.com/en/cars/tr-15/"}, {"@type": "ListItem", "position": 3, "url": "https://trueridesjapan.com/en/cars/tr-16/"}, {"@type": "ListItem", "position": 4, "url": "https://trueridesjapan.com/en/cars/tr-03/"}, {"@type": "ListItem", "position": 5, "url": "https://trueridesjapan.com/en/cars/tr-01/"}, {"@type": "ListItem", "position": 6, "url": "https://trueridesjapan.com/en/cars/tr-04/"}, {"@type": "ListItem", "position": 7, "url": "https://trueridesjapan.com/en/cars/tr-14/"}, {"@type": "ListItem", "position": 8, "url": "https://trueridesjapan.com/en/cars/tr-06/"}, {"@type": "ListItem", "position": 9, "url": "https://trueridesjapan.com/en/cars/tr-05/"}, {"@type": "ListItem", "position": 10, "url": "https://trueridesjapan.com/en/cars/tr-12/"}, {"@type": "ListItem", "position": 11, "url": "https://trueridesjapan.com/en/cars/tr-17/"}, {"@type": "ListItem", "position": 12, "url": "https://trueridesjapan.com/en/cars/tr-13/"}, {"@type": "ListItem", "position": 13, "url": "https://trueridesjapan.com/en/cars/tr-07/"}, {"@type": "ListItem", "position": 14, "url": "https://trueridesjapan.com/en/cars/tr-08/"}, {"@type": "ListItem", "position": 15, "url": "https://trueridesjapan.com/en/cars/tr-09/"}, {"@type": "ListItem", "position": 16, "url": "https://trueridesjapan.com/en/cars/tr-10/"}, {"@type": "ListItem", "position": 17, "url": "https://trueridesjapan.com/en/cars/tr-11/"}]}]</script>
 </head>
@@ -500,21 +503,20 @@ a.phone{color:var(--fg);text-decoration:none}
     <div>
       <p class="eyebrow" data-i18n="ct_eyebrow">Get in touch</p>
       <h2 data-i18n="ct_title">Message us — we&#x27;ll reply with the auction sheet</h2>
-      <p style="margin-top:18px"><a class="phone" href="tel:+995511184186">+995 511 18 41 86</a></p>
+      <p style="margin-top:18px"><span class="phone">+380 66 366 68 86</span></p>
       <p style="color:var(--muted);margin:6px 0 0" data-i18n="ct_msg">Viber, Telegram, WhatsApp</p>
       <div class="row">
         <a class="btn red" href="https://t.me/+380663666886" target="_blank" rel="noopener">Telegram</a>
         <a class="btn ghost" href="viber://chat?number=%2B380663666886">Viber</a>
         <a class="btn ghost" href="https://wa.me/380663666886" target="_blank" rel="noopener">WhatsApp</a>
-        <a class="btn ghost" href="tel:+995511184186" data-i18n="call_btn">Call</a>
         <a class="btn ghost" href="https://t.me/truerides_chat" target="_blank" rel="noopener" data-i18n="ct_chat">True Rides chat</a>
         <a class="btn ghost" href="https://www.instagram.com/true_rides/" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn ghost" href="tel:+995511184186" data-i18n="call_btn">Call</a>
       </div>
+      <p class="book" style="margin-top:12px"><span data-i18n="calls_l">Calls:</span> <a href="tel:+995511184186">+995 511 18 41 86</a></p>
     </div>
     <div class="meta">
       <div><span class="eyebrow" data-i18n="ct_where">Where we are</span><div data-i18n="ct_where_s">Rustavi, Georgia · pickup in Odesa and Kyiv</div></div>
-      <div><span class="eyebrow">Telegram · Viber · WhatsApp</span><div>+380 66 366 68 86</div></div>
-      <div><span class="eyebrow" data-i18n="call_btn">Call</span><div><a href="tel:+995511184186">+995 511 18 41 86</a></div></div>
     </div>
   </div>
 </section>
@@ -522,7 +524,7 @@ a.phone{color:var(--fg);text-decoration:none}
 <div class="bar">
   <a class="btn red" href="https://t.me/+380663666886" target="_blank" rel="noopener">Telegram</a>
   <a class="btn ghost" href="viber://chat?number=%2B380663666886">Viber</a>
-  <a class="btn ghost" href="tel:+995511184186">Call</a>
+  <a class="btn ghost" href="https://wa.me/380663666886" target="_blank" rel="noopener">WhatsApp</a>
 </div>
 <script>
 (function(){

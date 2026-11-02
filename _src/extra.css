@@ -75,3 +75,6 @@ footer a{color:var(--muted)}
 a.phone{color:var(--fg);text-decoration:none}
 .meta a{color:var(--fg)}
 .bar .btn svg{width:16px;height:16px}
+.cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (min-width:1000px){.carpage .cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.contact .book a{color:var(--fg)}

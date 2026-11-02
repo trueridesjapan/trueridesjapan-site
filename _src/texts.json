@@ -17,7 +17,8 @@
    "photo": "Фото",
    "ua_full": "с растаможкой в Украине",
    "call_l": "Позвонить:",
-   "msg_l": "Telegram, Viber, WhatsApp:"
+   "msg_l": "Telegram, Viber, WhatsApp:",
+   "calls_l": "Звонки:"
   },
   "uk": {
    "home": "Головна",
@@ -36,7 +37,8 @@
    "photo": "Фото",
    "ua_full": "з розмитненням в Україні",
    "call_l": "Зателефонувати:",
-   "msg_l": "Telegram, Viber, WhatsApp:"
+   "msg_l": "Telegram, Viber, WhatsApp:",
+   "calls_l": "Дзвінки:"
   },
   "en": {
    "home": "Home",
@@ -55,7 +57,8 @@
    "photo": "Photo",
    "ua_full": "incl. Ukrainian customs",
    "call_l": "Call:",
-   "msg_l": "Telegram, Viber, WhatsApp:"
+   "msg_l": "Telegram, Viber, WhatsApp:",
+   "calls_l": "Calls:"
   }
  },
  "home": {

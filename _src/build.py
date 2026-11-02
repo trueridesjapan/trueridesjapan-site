@@ -238,7 +238,7 @@ def footer(lg):
 <div class="bar">
   <a class="btn red" href="https://t.me/+380663666886" target="_blank" rel="noopener">Telegram</a>
   <a class="btn ghost" href="viber://chat?number=%2B380663666886">Viber</a>
-  <a class="btn ghost" href="tel:+995511184186">{t(lg,'call_btn')}</a>
+  <a class="btn ghost" href="https://wa.me/380663666886" target="_blank" rel="noopener">WhatsApp</a>
 </div>
 """
 
@@ -288,9 +288,8 @@ def contact_buttons(lg, msg="", ref=""):
   <a class="btn red" href="https://t.me/+380663666886" target="_blank" rel="noopener">{TG_ICO}Telegram</a>
   <a class="btn ghost" href="viber://chat?number=%2B380663666886">Viber</a>
   <a class="btn ghost" href="{esc(wa)}" target="_blank" rel="noopener">WhatsApp</a>
-  <a class="btn ghost" href="tel:{CALL}">{t(lg,'call_btn')}</a>
 </div>
-<p class="book">{t(lg,'call_l')} <a class="sel" href="tel:{CALL}"><b>{CALL_TXT}</b></a><br>{t(lg,'msg_l')} <b class="sel">{PHONE_TXT}</b></p>{hint}'''
+<p class="book">{t(lg,'msg_l')} <b class="sel">{PHONE_TXT}</b></p>{hint}'''
 
 
 def placeholder(c, lg):

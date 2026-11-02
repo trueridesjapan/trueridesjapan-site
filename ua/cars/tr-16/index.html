@@ -306,6 +306,9 @@ footer a{color:var(--muted)}
 a.phone{color:var(--fg);text-decoration:none}
 .meta a{color:var(--fg)}
 .bar .btn svg{width:16px;height:16px}
+.cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (min-width:1000px){.carpage .cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.contact .book a{color:var(--fg)}
 </style>
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Car", "name": "Nissan Note e-Power AUTECH 2019", "brand": {"@type": "Brand", "name": "Nissan"}, "model": "Note", "vehicleModelDate": "2019", "color": "синій", "mileageFromOdometer": {"@type": "QuantitativeValue", "value": 91263, "unitCode": "KMT"}, "driveWheelConfiguration": "https://schema.org/FrontWheelDriveConfiguration", "vehicleEngine": {"@type": "EngineSpecification", "engineDisplacement": {"@type": "QuantitativeValue", "value": 1.2, "unitCode": "LTR"}}, "steeringPosition": "https://schema.org/LeftHandDriving", "image": ["https://trueridesjapan.com/assets/cars/TR-16-1.jpg", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_deac87.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_bc0eb9.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_13a61d.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_c048b3.JPG", "https://image-cdn.beforward.jp/large/202610/16830592/CE936983_030d93.JPG"], "url": "https://trueridesjapan.com/ua/cars/tr-16/", "offers": {"@type": "Offer", "price": 10000, "priceCurrency": "USD", "availability": "https://schema.org/PreOrder", "areaServed": "UA", "seller": {"@type": "AutoDealer", "name": "True Rides Japan", "url": "https://trueridesjapan.com"}}}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Головна", "item": "https://trueridesjapan.com/ua/"}, {"@type": "ListItem", "position": 2, "name": "Nissan Note e-Power", "item": "https://trueridesjapan.com/ua/nissan-note-e-power/"}, {"@type": "ListItem", "position": 3, "name": "TR-16", "item": "https://trueridesjapan.com/ua/cars/tr-16/"}]}]</script>
 </head>
@@ -342,9 +345,8 @@ a.phone{color:var(--fg);text-decoration:none}
   <a class="btn red" href="https://t.me/+380663666886" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5z"/></svg>Telegram</a>
   <a class="btn ghost" href="viber://chat?number=%2B380663666886">Viber</a>
   <a class="btn ghost" href="https://wa.me/380663666886?text=%D0%94%D0%BE%D0%B1%D1%80%D0%B8%D0%B9%20%D0%B4%D0%B5%D0%BD%D1%8C%21%20%D0%A6%D1%96%D0%BA%D0%B0%D0%B2%D0%B8%D1%82%D1%8C%20Nissan%20Note%20e-Power%20AUTECH%202019%2C%2091%E2%80%AF263%20%D0%BA%D0%BC%20%28TR-16%29" target="_blank" rel="noopener">WhatsApp</a>
-  <a class="btn ghost" href="tel:+995511184186">Зателефонувати</a>
 </div>
-<p class="book">Зателефонувати: <a class="sel" href="tel:+995511184186"><b>+995 511 18 41 86</b></a><br>Telegram, Viber, WhatsApp: <b class="sel">+380 66 366 68 86</b></p><p class="book">У Telegram і Viber вкажіть номер авто: <b>№ TR-16</b></p>
+<p class="book">Telegram, Viber, WhatsApp: <b class="sel">+380 66 366 68 86</b></p><p class="book">У Telegram і Viber вкажіть номер авто: <b>№ TR-16</b></p>
   </div>
 </section>
 <section class="catalog wrap"><div class="cat-head"><h2>Інші авто цієї моделі</h2><a class="btn ghost" href="/ua/nissan-note-e-power/">Nissan Note e-Power →</a></div><div class="grid"><a class="card" href="/ua/cars/tr-15/" data-fam="note" data-st="sail">
@@ -377,7 +379,7 @@ a.phone{color:var(--fg);text-decoration:none}
 <div class="bar">
   <a class="btn red" href="https://t.me/+380663666886" target="_blank" rel="noopener">Telegram</a>
   <a class="btn ghost" href="viber://chat?number=%2B380663666886">Viber</a>
-  <a class="btn ghost" href="tel:+995511184186">Зателефонувати</a>
+  <a class="btn ghost" href="https://wa.me/380663666886" target="_blank" rel="noopener">WhatsApp</a>
 </div>
 <script>
 (function(){

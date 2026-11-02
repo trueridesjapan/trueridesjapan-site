@@ -107,7 +107,7 @@ def options(c, lg):
 
 def dshort(d, lg):
     y, m, dd = map(int, d.split("-"))
-    return f"{dd} {MONTHS[lg][m-1]}"
+    return f"{dd} {MONTHS[lg][m-1]} {y}"
 
 
 def vessel(v):
@@ -115,13 +115,41 @@ def vessel(v):
 
 
 def route(c, lg):
+    if not c.get("loading"):
+        return {"ru": "Япония → Поти", "uk": "Японія → Поті", "en": "Japan → Poti"}[lg]
     port = D["PORTS"].get(c["loading"], [c["loading"]] * 3)[LI[lg]]
     poti = {"ru": "Поти", "uk": "Поті", "en": "Poti"}[lg]
     return f"{port} → {poti}" + (f" · {vessel(c['vessel'])}" if c.get("vessel") else "")
 
 
+def state(c):
+    """prep — судна нет; wait — судно назначено, ещё не отплыло; sail — в пути; arrived — прибыл в Поти."""
+    if c.get("eta") and c["eta"] <= TODAY:
+        return "arrived"
+    if c.get("etd") and c["etd"] <= TODAY:
+        return "sail"
+    if c.get("etd"):
+        return "wait"
+    return "prep"
+
+
+def status_texts(c, lg):
+    return {
+        "prep": t(lg, "prep"),
+        "wait": f"{t(lg,'st_wait')} · ~{dshort(c['etd'], lg)}" if c.get("etd") else t(lg, "prep"),
+        "sail": f"{t(lg,'transit')} · {t(lg,'eta')}{dshort(c['eta'], lg)}" if c.get("eta") else t(lg, "transit"),
+        "arrived": t(lg, "st_arrived"),
+    }
+
+
 def status(c, lg):
-    return f"{t(lg,'transit')} · {t(lg,'eta')}{dshort(c['eta'], lg)}" if c.get("eta") else t(lg, "prep")
+    return status_texts(c, lg)[state(c)]
+
+
+def status_attrs(c, lg):
+    tx = status_texts(c, lg)
+    return (f' data-etd="{c.get("etd") or ""}" data-eta="{c.get("eta") or ""}"'
+            + "".join(f' data-t-{k}="{esc(v)}"' for k, v in tx.items()))
 
 
 def car_slug(c):
@@ -209,8 +237,8 @@ def footer(lg):
     return f"""<footer><div class="wrap"><span>© 2026 True Rides Japan</span><span class="fmodels">{models}</span><span>trueridesjapan.com</span></div></footer>
 <div class="bar">
   <a class="btn red" href="https://t.me/+380663666886" target="_blank" rel="noopener">Telegram</a>
-  <a class="btn ghost" href="https://wa.me/380663666886" target="_blank" rel="noopener">WhatsApp</a>
-  <a class="btn ghost" href="{home}#catalog">{t(lg,'nav_catalog')}</a>
+  <a class="btn ghost" href="viber://chat?number=%2B380663666886">Viber</a>
+  <a class="btn ghost" href="tel:+380663666886">{t(lg,'call_btn')}</a>
 </div>
 """
 
@@ -228,8 +256,12 @@ if(f){var fam="all",st="all";f.addEventListener("click",function(e){var b=e.targ
  if(b.dataset.fam){fam=b.dataset.fam}else if(b.dataset.st){st=st===b.dataset.st?"all":b.dataset.st}
  f.querySelectorAll("[data-fam]").forEach(function(x){x.setAttribute("aria-pressed",x.dataset.fam===fam)});
  f.querySelectorAll("[data-st]").forEach(function(x){x.setAttribute("aria-pressed",x.dataset.st===st)});
- var n=0;document.querySelectorAll("#grid .card").forEach(function(c){var ok=(fam==="all"||c.dataset.fam===fam)&&(st==="all"||c.dataset.st===st);c.hidden=!ok;if(ok)n++});
+ var G={transit:["sail","arrived"],prep:["wait","prep"]};var n=0;document.querySelectorAll("#grid .card").forEach(function(c){var ok=(fam==="all"||c.dataset.fam===fam)&&(st==="all"||G[st].indexOf(c.dataset.st)>=0);c.hidden=!ok;if(ok)n++});
  var em=document.getElementById("emptyMsg");if(em)em.hidden=n>0;});}
+var today=new Date().toISOString().slice(0,10);function stOf(e,d){if(e&&e<=today)return"arrived";if(d&&d<=today)return"sail";if(d)return"wait";return"prep"}
+document.querySelectorAll(".js-status").forEach(function(el){var s=stOf(el.dataset.eta,el.dataset.etd);var tx=el.getAttribute("data-t-"+s);if(tx){var i=el.querySelector("i");el.textContent=tx;if(i)el.prepend(i)}el.classList.toggle("wait",s==="wait"||s==="prep");var card=el.closest(".card");if(card)card.dataset.st=s});
+var cnt={transit:0,prep:0},sail=0;document.querySelectorAll("#grid .card").forEach(function(c){var s=c.dataset.st;if(s==="sail")sail++;if(s==="sail"||s==="arrived")cnt.transit++;else cnt.prep++});
+var ns=document.getElementById("nSail");if(ns)ns.textContent=sail;document.querySelectorAll("[data-cnt]").forEach(function(x){x.textContent=cnt[x.dataset.cnt]});
 var g=document.querySelector(".gal");
 if(g){g.addEventListener("click",function(e){var b=e.target.closest(".thumbs button");if(!b)return;var big=document.getElementById("big");big.src=b.dataset.src;
  g.querySelectorAll(".thumbs button").forEach(function(x){x.setAttribute("aria-current",x===b)})});}
@@ -242,14 +274,32 @@ document.querySelectorAll("[data-copy]").forEach(function(b){b.addEventListener(
 """
 
 
+PHONE = "+380663666886"
+PHONE_TXT = "+380 66 366 68 86"
+
+
+def contact_buttons(lg, msg="", ref=""):
+    from urllib.parse import quote
+    wa = "https://wa.me/380663666886" + ("?text=" + quote(msg) if msg else "")
+    hint = f'<p class="book">{t(lg,"tg_hint")} <b>№ {ref}</b></p>' if ref else ""
+    return f'''<div class="cbtns">
+  <a class="btn red" href="https://t.me/+380663666886" target="_blank" rel="noopener">{TG_ICO}Telegram</a>
+  <a class="btn ghost" href="viber://chat?number=%2B380663666886">Viber</a>
+  <a class="btn ghost" href="{esc(wa)}" target="_blank" rel="noopener">WhatsApp</a>
+  <a class="btn ghost" href="tel:{PHONE}">{t(lg,'call_btn')}</a>
+</div>
+<p class="book">{t(lg,'phone_l')} <b class="sel">{PHONE_TXT}</b> <button class="copy" type="button" data-copy="{PHONE}" data-done="{esc(t(lg,'copied'))}">{t(lg,'copy')}</button></p>{hint}'''
+
+
 def placeholder(c, lg):
     tag = ("NOTE " + c["gen"]) if c["fam"] == "note" else (c["model"].split(" ")[1].upper() + " " + c["gen"])
     return f'<div class="none"><b>{tag}</b><span>{t(lg,"nophoto")}</span></div>'
 
 
 def badge(c, lg):
-    cls = "status" if c.get("eta") else "status wait"
-    return f'<span class="{cls}"><i></i>{esc(status(c, lg))}</span>'
+    st = state(c)
+    cls = "status wait" if st in ("prep", "wait") else "status"
+    return f'<span class="{cls} js-status"{status_attrs(c, lg)}><i></i>{esc(status(c, lg))}</span>'
 
 
 def card(c, lg):
@@ -257,13 +307,13 @@ def card(c, lg):
     ph = photos(c)
     imgs = (f'<img src="{img_src(ph[0],0)}" alt="{esc(model+" "+g)}" loading="lazy" referrerpolicy="no-referrer" data-fallback>' if ph else "")
     awd = '<span class="awd">4WD</span>' if c["drive"] == "4WD" else ""
-    st = "transit" if c.get("eta") else "prep"
+    st = state(c)
     return f"""<a class="card" href="{url(lg, car_slug(c))}" data-fam="{c['fam']}" data-st="{st}">
   <div class="ph{'' if ph else ' noimg'}">{imgs}{placeholder(c, lg)}{badge(c, lg)}</div>
   <div class="body"><h3>{esc(model)}<small>{esc(g)} · {c['year']}</small></h3>
   <div class="specs"><span>{num(c['mileage'])} {t(lg,'km')}</span><span>{esc(engine(c, lg))}</span>{awd}<span>{esc(color(c, lg))}</span></div>
   <div class="ship">{SHIP}<span>{esc(route(c, lg))}</span></div>
-  <div class="price"><div><small>{t(lg,'ua')} · {t(lg,'ua_s')}</small><b>{usd(c['priceUA'])}</b></div><div class="ge">{t(lg,'ge')}<br><strong>{usd(c['priceGE'])}</strong></div></div>
+  <div class="price"><div><small>{t(lg,'ua')}, {t(lg,'ua_s')}</small><b>{usd(c['priceUA'])}</b></div><div class="ge">{t(lg,'ge')}<br><strong>{usd(c['priceGE'])}</strong></div></div>
   </div></a>"""
 
 
@@ -315,15 +365,16 @@ def fill_i18n(markup, lg):
 
 def page_home(lg):
     cs = sort_cars(CARS)
-    transit = sum(1 for c in CARS if c.get("eta"))
+    transit = sum(1 for c in CARS if state(c) == "sail")
     m = fill_i18n(MAIN, lg)
     m = m.replace('<img class="emblem" src="assets/logo.png"', '<img class="emblem" src="/assets/logo.png"')
     m = m.replace('<div class="facts" id="facts"></div>',
-                  f'<div class="facts" id="facts"><div><b>{len(CARS)}</b><span>{t(lg,"f1")}</span></div><div><b>{transit}</b><span>{t(lg,"f2")}</span></div><div><b>~4</b><span>{t(lg,"f3")}</span></div></div>')
+                  f'<div class="facts" id="facts"><div><b>{len(CARS)}</b><span>{t(lg,"f1")}</span></div><div><b id="nSail">{transit}</b><span>{t(lg,"f2")}</span></div><div><b>~4</b><span>{t(lg,"f3")}</span></div></div>')
     cnt = lambda f: sum(1 for c in CARS if f == "all" or c["fam"] == f)
-    stc = lambda s: sum(1 for c in CARS if (s == "transit") == bool(c.get("eta")))
+    grp = {"transit": ("sail", "arrived"), "prep": ("wait", "prep")}
+    stc = lambda s: sum(1 for c in CARS if state(c) in grp[s])
     filt = "".join(f'<button class="chip" type="button" data-fam="{f}" aria-pressed="{"true" if f=="all" else "false"}">{t(lg,f)}<span class="n">{cnt(f)}</span></button>' for f in ["all", "minivan", "note"])
-    filt += '<span class="sep"></span>' + "".join(f'<button class="chip" type="button" data-st="{s}" aria-pressed="false">{t(lg,s)}<span class="n">{stc(s)}</span></button>' for s in ["transit", "prep"])
+    filt += '<span class="sep"></span>' + "".join(f'<button class="chip" type="button" data-st="{s}" aria-pressed="false">{t(lg,s)}<span class="n" data-cnt="{s}">{stc(s)}</span></button>' for s in ["transit", "prep"])
     m = m.replace('<div class="filters" id="filters"></div>', f'<div class="filters" id="filters">{filt}</div>')
     m = m.replace('<div class="grid" id="grid"></div>',
                   f'<div class="grid" id="grid">{"".join(card(c, lg) for c in cs)}</div><p class="empty" id="emptyMsg" hidden>{t(lg,"empty")}</p>'
@@ -352,7 +403,7 @@ def page_model(lg, fam):
   <nav class="crumbs"><a href="{url(lg)}">{t(lg,'home')}</a> › <span>{esc(M['h1'])}</span></nav>
   <h1>{esc(M['h1'])}</h1>
   <p class="lead">{esc(M['lead'])}</p>
-  <p class="fromprice">{t(lg,'from_price')} <b>{usd(minp)}</b> · {t(lg,'ua_s')}</p>
+  <p class="fromprice">{t(lg,'from_price')} <b>{usd(minp)}</b> · {t(lg,'ua_full')}</p>
 </section>
 <section class="catalog wrap" id="catalog">
   <div class="grid" id="grid">{"".join(card(c, lg) for c in cs)}</div>
@@ -376,7 +427,7 @@ def page_car(lg, c):
     opts = options(c, lg)
     if ph:
         big = f'<img id="big" src="{img_src(ph[0],0)}" alt="{esc(model+" "+g+" "+str(c["year"]))}" referrerpolicy="no-referrer" data-fallback>'
-        thumbs = "".join(f'<button type="button" data-src="{img_src(p,0)}" aria-current="{"true" if i==0 else "false"}"><img src="{img_src(p,0)}" alt="" loading="lazy" referrerpolicy="no-referrer" data-fallback></button>' for i, p in enumerate(ph))
+        thumbs = "".join(f'<button type="button" aria-label="{t(lg,"photo")} {i+1}" data-src="{img_src(p,0)}" aria-current="{"true" if i==0 else "false"}"><img src="{img_src(p,0)}" alt="" loading="lazy" referrerpolicy="no-referrer" data-fallback></button>' for i, p in enumerate(ph))
         gal = f'<div class="gal"><div class="main ph">{big}{placeholder(c, lg)}</div>' + (f'<div class="thumbs">{thumbs}</div>' if len(ph) > 1 else "") + "</div>"
     else:
         gal = f'<div class="gal"><div class="main ph noimg">{placeholder(c, lg)}</div></div>'
@@ -395,14 +446,14 @@ def page_car(lg, c):
 <section class="wrap carpage">
   {gal}
   <div class="info">
-    <div><p class="eyebrow">№ {c['ref']} · {esc(status(c, lg))}</p><h1>{esc(model)} {c['year']}</h1><div class="sub">{esc(g)}</div></div>
+    <div><p class="eyebrow">№ {c['ref']} · <span class="js-status"{status_attrs(c, lg)}>{esc(status(c, lg))}</span></p><h1>{esc(model)} {c['year']}</h1><div class="sub">{esc(g)}</div></div>
     <div class="prices"><div class="ua"><small>{t(lg,'ua')}</small><b>{usd(c['priceUA'])}</b><small>{t(lg,'ua_s')}</small></div><div><small>{t(lg,'ge')}</small><b>{usd(c['priceGE'])}</b><small>{t(lg,'ge_s')}</small></div></div>
     <p class="book">{t(lg,'book')}</p>
     {note}
-    <table class="kv"><tr><td>{t(lg,'k_status')}</td><td>{esc(status(c, lg))}</td></tr><tr><td>{t(lg,'k_year')}</td><td>{c['year']}</td></tr><tr><td>{t(lg,'k_mileage')}</td><td>{num(c['mileage'])} {t(lg,'km')}</td></tr><tr><td>{t(lg,'k_engine')}</td><td>{esc(engine(c, lg))}</td></tr><tr><td>{t(lg,'k_drive')}</td><td>{esc(drive)}</td></tr><tr><td>{t(lg,'k_color')}</td><td>{esc(color(c, lg))}</td></tr><tr><td>{t(lg,'k_steer')}</td><td>{t(lg,'steer_v')}</td></tr><tr><td>{t(lg,'k_route')}</td><td>{esc(route(c, lg))}</td></tr></table>
+    <table class="kv"><tr><td>{t(lg,'k_status')}</td><td><span class="js-status"{status_attrs(c, lg)}>{esc(status(c, lg))}</span></td></tr><tr><td>{t(lg,'k_year')}</td><td>{c['year']}</td></tr><tr><td>{t(lg,'k_mileage')}</td><td>{num(c['mileage'])} {t(lg,'km')}</td></tr><tr><td>{t(lg,'k_engine')}</td><td>{esc(engine(c, lg))}</td></tr><tr><td>{t(lg,'k_drive')}</td><td>{esc(drive)}</td></tr><tr><td>{t(lg,'k_color')}</td><td>{esc(color(c, lg))}</td></tr><tr><td>{t(lg,'k_steer')}</td><td>{t(lg,'steer_v')}</td></tr><tr><td>{t(lg,'k_route')}</td><td>{esc(route(c, lg))}</td></tr></table>
     {optsh}
-    <div class="ctas"><a class="btn red" href="{esc(wa)}" target="_blank" rel="noopener">WhatsApp · {t(lg,'write')}</a><a class="btn ghost" href="https://t.me/+380663666886" target="_blank" rel="noopener">{TG_ICO}Telegram</a></div>
-    <p class="book">{t(lg,'call')} <b>+380 66 366 68 86</b> · Viber, Telegram, WhatsApp</p>
+    <p class="eyebrow" style="margin:0">{t(lg,'write')} · № {c['ref']}</p>
+    {contact_buttons(lg, msg, c['ref'])}
   </div>
 </section>
 {f'''<section class="catalog wrap"><div class="cat-head"><h2>{t(lg,'more_same')}</h2><a class="btn ghost" href="{url(lg, FAMILY_SLUG[fam]+'/')}">{esc(M['h1'])} →</a></div><div class="grid">{"".join(card(x, lg) for x in others)}</div></section>''' if others else ''}

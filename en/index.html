@@ -300,6 +300,12 @@ footer a{color:var(--muted)}
   nav.main a{white-space:nowrap;font-size:13px}
   nav.main a:nth-child(2){display:none}
 }
+.cbtns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.cbtns .btn{justify-content:center}
+@media (min-width:1000px){.carpage .cbtns{grid-template-columns:repeat(4,minmax(0,1fr))}.carpage .cbtns .btn{padding:12px 10px;font-size:14px}}
+a.phone{color:var(--fg);text-decoration:none}
+.meta a{color:var(--fg)}
+.bar .btn svg{width:16px;height:16px}
 </style>
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "AutoDealer", "name": "True Rides Japan", "url": "https://trueridesjapan.com/", "logo": "https://trueridesjapan.com/assets/logo.png", "image": "https://trueridesjapan.com/assets/og.jpg", "telephone": "+380663666886", "address": {"@type": "PostalAddress", "addressLocality": "Rustavi", "addressCountry": "GE"}, "areaServed": ["UA", "GE", "IE"], "sameAs": ["https://www.instagram.com/true_rides/", "https://t.me/truerides_chat"]}, {"@context": "https://schema.org", "@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": 1, "url": "https://trueridesjapan.com/en/cars/tr-02/"}, {"@type": "ListItem", "position": 2, "url": "https://trueridesjapan.com/en/cars/tr-15/"}, {"@type": "ListItem", "position": 3, "url": "https://trueridesjapan.com/en/cars/tr-16/"}, {"@type": "ListItem", "position": 4, "url": "https://trueridesjapan.com/en/cars/tr-03/"}, {"@type": "ListItem", "position": 5, "url": "https://trueridesjapan.com/en/cars/tr-01/"}, {"@type": "ListItem", "position": 6, "url": "https://trueridesjapan.com/en/cars/tr-04/"}, {"@type": "ListItem", "position": 7, "url": "https://trueridesjapan.com/en/cars/tr-14/"}, {"@type": "ListItem", "position": 8, "url": "https://trueridesjapan.com/en/cars/tr-06/"}, {"@type": "ListItem", "position": 9, "url": "https://trueridesjapan.com/en/cars/tr-05/"}, {"@type": "ListItem", "position": 10, "url": "https://trueridesjapan.com/en/cars/tr-12/"}, {"@type": "ListItem", "position": 11, "url": "https://trueridesjapan.com/en/cars/tr-17/"}, {"@type": "ListItem", "position": 12, "url": "https://trueridesjapan.com/en/cars/tr-13/"}, {"@type": "ListItem", "position": 13, "url": "https://trueridesjapan.com/en/cars/tr-07/"}, {"@type": "ListItem", "position": 14, "url": "https://trueridesjapan.com/en/cars/tr-08/"}, {"@type": "ListItem", "position": 15, "url": "https://trueridesjapan.com/en/cars/tr-09/"}, {"@type": "ListItem", "position": 16, "url": "https://trueridesjapan.com/en/cars/tr-10/"}, {"@type": "ListItem", "position": 17, "url": "https://trueridesjapan.com/en/cars/tr-11/"}]}]</script>
 </head>
@@ -324,12 +330,12 @@ footer a{color:var(--muted)}
     <div>
       <p class="eyebrow" data-i18n="hero_eyebrow">Japanese auctions → Georgia → Ukraine</p>
       <h1 data-i18n-html="hero_title">Japanese cars <em>from auction</em> — in transit and to order</h1>
-      <p class="lead" data-i18n="hero_lead">We buy at Japanese auctions, convert to left-hand drive in Georgia and hand over in Odesa and Kyiv, cleared through Ukrainian customs. Mileage is confirmed by auction sheets.</p>
+      <p class="lead" data-i18n="hero_lead">We buy at Japanese auctions, convert to left-hand drive in Georgia and hand over in Odesa and Kyiv. Prices include Ukrainian customs. Mileage is confirmed by auction sheets.</p>
       <div class="ctas">
         <a class="btn red" href="#catalog" data-i18n="cta_cars">View cars</a>
         <a class="btn ghost" href="https://t.me/+380663666886" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5z"/></svg><span data-i18n="cta_tg">Message on Telegram</span></a>
       </div>
-      <div class="facts" id="facts"><div><b>17</b><span>cars already bought</span></div><div><b>10</b><span>at sea to Poti right now</span></div><div><b>~4</b><span>months from auction to Odesa</span></div></div>
+      <div class="facts" id="facts"><div><b>17</b><span>cars already bought</span></div><div><b id="nSail">5</b><span>at sea to Poti right now</span></div><div><b>~4</b><span>months from auction to Odesa</span></div></div>
     </div>
     <img class="emblem" src="/assets/logo.png" alt="True Rides Japan">
   </div>
@@ -341,7 +347,7 @@ footer a{color:var(--muted)}
     <li><b data-i18n="r1">Auction in Japan</b><span data-i18n="r1s">We pick the car and check the auction sheet and listing history.</span></li>
     <li><b data-i18n="r2">Sea to Poti</b><span data-i18n="r2s">Container from Yokohama, Nagoya or Osaka to Poti port, Georgia.</span></li>
     <li><b data-i18n="r3">Steering in Georgia</b><span data-i18n="r3s">Converted to left-hand drive at a workshop chosen for the model.</span></li>
-    <li><b data-i18n="r4">Pickup in Ukraine</b><span data-i18n="r4s">Car carrier to Odesa or Kyiv. Cleared through Ukrainian customs.</span></li>
+    <li><b data-i18n="r4">Pickup in Ukraine</b><span data-i18n="r4s">Car carrier to Odesa or Kyiv and Ukrainian customs clearance.</span></li>
   </ol>
   <p class="total" data-i18n="route_total">About 4 months on average from purchase to pickup</p>
 </section>
@@ -349,110 +355,110 @@ footer a{color:var(--muted)}
 <section class="catalog wrap" id="catalog">
   <div class="cat-head">
     <div><p class="eyebrow" data-i18n="cat_eyebrow">In stock and in transit</p><h2 data-i18n="cat_title">Cars</h2></div>
-    <div class="filters" id="filters"><button class="chip" type="button" data-fam="all" aria-pressed="true">All<span class="n">17</span></button><button class="chip" type="button" data-fam="minivan" aria-pressed="false">Alphard / Vellfire<span class="n">11</span></button><button class="chip" type="button" data-fam="note" aria-pressed="false">Nissan Note<span class="n">6</span></button><span class="sep"></span><button class="chip" type="button" data-st="transit" aria-pressed="false">In transit<span class="n">10</span></button><button class="chip" type="button" data-st="prep" aria-pressed="false">Preparing to ship<span class="n">7</span></button></div>
+    <div class="filters" id="filters"><button class="chip" type="button" data-fam="all" aria-pressed="true">All<span class="n">17</span></button><button class="chip" type="button" data-fam="minivan" aria-pressed="false">Alphard / Vellfire<span class="n">11</span></button><button class="chip" type="button" data-fam="note" aria-pressed="false">Nissan Note<span class="n">6</span></button><span class="sep"></span><button class="chip" type="button" data-st="transit" aria-pressed="false">In transit<span class="n" data-cnt="transit">5</span></button><button class="chip" type="button" data-st="prep" aria-pressed="false">Preparing to ship<span class="n" data-cnt="prep">12</span></button></div>
   </div>
-  <div class="grid" id="grid"><a class="card" href="/en/cars/tr-02/" data-fam="minivan" data-st="transit">
-  <div class="ph"><img src="/assets/cars/TR-02-1.jpg" alt="Toyota Vellfire 20 2.4Z" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Auction photos coming soon</span></div><span class="status"><i></i>In transit · Poti ~25 Nov</span></div>
+  <div class="grid" id="grid"><a class="card" href="/en/cars/tr-02/" data-fam="minivan" data-st="sail">
+  <div class="ph"><img src="/assets/cars/TR-02-1.jpg" alt="Toyota Vellfire 20 2.4Z" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Auction photos coming soon</span></div><span class="status js-status" data-etd="2026-10-15" data-eta="2026-11-25" data-t-prep="Preparing to ship" data-t-wait="Awaiting departure · ~15 Oct 2026" data-t-sail="In transit · Poti ~25 Nov 2026" data-t-arrived="Arrived in Poti"><i></i>In transit · Poti ~25 Nov 2026</span></div>
   <div class="body"><h3>Toyota Vellfire 20<small>2.4Z · 2014</small></h3>
   <div class="specs"><span>109 020 km</span><span>2.4 petrol</span><span>pearl white</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Nagoya → Poti · Suez Canal</span></div>
-  <div class="price"><div><small>Ukraine · customs-cleared in Ukraine</small><b>$13 000</b></div><div class="ge">Georgia<br><strong>$7 700</strong></div></div>
-  </div></a><a class="card" href="/en/cars/tr-15/" data-fam="note" data-st="transit">
-  <div class="ph"><img src="/assets/cars/TR-15-1.jpg" alt="Nissan Note e-Power X" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>NOTE HE12</b><span>Auction photos coming soon</span></div><span class="status"><i></i>In transit · Poti ~3 Dec</span></div>
+  <div class="price"><div><small>Ukraine, incl. customs</small><b>$13 000</b></div><div class="ge">Georgia<br><strong>$7 700</strong></div></div>
+  </div></a><a class="card" href="/en/cars/tr-15/" data-fam="note" data-st="sail">
+  <div class="ph"><img src="/assets/cars/TR-15-1.jpg" alt="Nissan Note e-Power X" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>NOTE HE12</b><span>Auction photos coming soon</span></div><span class="status js-status" data-etd="2026-10-27" data-eta="2026-12-03" data-t-prep="Preparing to ship" data-t-wait="Awaiting departure · ~27 Oct 2026" data-t-sail="In transit · Poti ~3 Dec 2026" data-t-arrived="Arrived in Poti"><i></i>In transit · Poti ~3 Dec 2026</span></div>
   <div class="body"><h3>Nissan Note<small>e-Power X · 2019</small></h3>
   <div class="specs"><span>53 697 km</span><span>1.2 e-Power hybrid</span><span>maroon</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Yokohama → Poti · MSC Magnolia V</span></div>
-  <div class="price"><div><small>Ukraine · customs-cleared in Ukraine</small><b>$10 000</b></div><div class="ge">Georgia<br><strong>$7 000</strong></div></div>
-  </div></a><a class="card" href="/en/cars/tr-16/" data-fam="note" data-st="transit">
-  <div class="ph"><img src="/assets/cars/TR-16-1.jpg" alt="Nissan Note e-Power AUTECH" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>NOTE HE12</b><span>Auction photos coming soon</span></div><span class="status"><i></i>In transit · Poti ~3 Dec</span></div>
+  <div class="price"><div><small>Ukraine, incl. customs</small><b>$10 000</b></div><div class="ge">Georgia<br><strong>$7 000</strong></div></div>
+  </div></a><a class="card" href="/en/cars/tr-16/" data-fam="note" data-st="sail">
+  <div class="ph"><img src="/assets/cars/TR-16-1.jpg" alt="Nissan Note e-Power AUTECH" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>NOTE HE12</b><span>Auction photos coming soon</span></div><span class="status js-status" data-etd="2026-10-30" data-eta="2026-12-03" data-t-prep="Preparing to ship" data-t-wait="Awaiting departure · ~30 Oct 2026" data-t-sail="In transit · Poti ~3 Dec 2026" data-t-arrived="Arrived in Poti"><i></i>In transit · Poti ~3 Dec 2026</span></div>
   <div class="body"><h3>Nissan Note<small>e-Power AUTECH · 2019</small></h3>
   <div class="specs"><span>91 263 km</span><span>1.2 e-Power hybrid</span><span>blue</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Nagoya → Poti · MSC Magnolia V</span></div>
-  <div class="price"><div><small>Ukraine · customs-cleared in Ukraine</small><b>$10 000</b></div><div class="ge">Georgia<br><strong>$7 600</strong></div></div>
-  </div></a><a class="card" href="/en/cars/tr-03/" data-fam="minivan" data-st="transit">
-  <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/16881312/CF027241_6c71d1.JPG" alt="Toyota Vellfire 20 2.4Z Golden Eyes II" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Auction photos coming soon</span></div><span class="status"><i></i>In transit · Poti ~3 Dec</span></div>
+  <div class="price"><div><small>Ukraine, incl. customs</small><b>$10 000</b></div><div class="ge">Georgia<br><strong>$7 600</strong></div></div>
+  </div></a><a class="card" href="/en/cars/tr-03/" data-fam="minivan" data-st="sail">
+  <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/16881312/CF027241_6c71d1.JPG" alt="Toyota Vellfire 20 2.4Z Golden Eyes II" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Auction photos coming soon</span></div><span class="status js-status" data-etd="2026-10-30" data-eta="2026-12-03" data-t-prep="Preparing to ship" data-t-wait="Awaiting departure · ~30 Oct 2026" data-t-sail="In transit · Poti ~3 Dec 2026" data-t-arrived="Arrived in Poti"><i></i>In transit · Poti ~3 Dec 2026</span></div>
   <div class="body"><h3>Toyota Vellfire 20<small>2.4Z Golden Eyes II · 2014</small></h3>
   <div class="specs"><span>138 379 km</span><span>2.4 petrol</span><span class="awd">4WD</span><span>black</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Nagoya → Poti · MSC Magnolia V</span></div>
-  <div class="price"><div><small>Ukraine · customs-cleared in Ukraine</small><b>$13 000</b></div><div class="ge">Georgia<br><strong>$7 700</strong></div></div>
-  </div></a><a class="card" href="/en/cars/tr-01/" data-fam="minivan" data-st="transit">
-  <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/16793195/CE893961_e79651.JPG" alt="Toyota Alphard 20 240S Type Gold II" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>ALPHARD 20</b><span>Auction photos coming soon</span></div><span class="status"><i></i>In transit · Poti ~12 Dec</span></div>
+  <div class="price"><div><small>Ukraine, incl. customs</small><b>$13 000</b></div><div class="ge">Georgia<br><strong>$7 700</strong></div></div>
+  </div></a><a class="card" href="/en/cars/tr-01/" data-fam="minivan" data-st="wait">
+  <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/16793195/CE893961_e79651.JPG" alt="Toyota Alphard 20 240S Type Gold II" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>ALPHARD 20</b><span>Auction photos coming soon</span></div><span class="status wait js-status" data-etd="2026-11-09" data-eta="2026-12-12" data-t-prep="Preparing to ship" data-t-wait="Awaiting departure · ~9 Nov 2026" data-t-sail="In transit · Poti ~12 Dec 2026" data-t-arrived="Arrived in Poti"><i></i>Awaiting departure · ~9 Nov 2026</span></div>
   <div class="body"><h3>Toyota Alphard 20<small>240S Type Gold II · 2014</small></h3>
   <div class="specs"><span>144 950 km</span><span>2.4 petrol</span><span>pearl white</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Yokohama → Poti · MSC Lorena</span></div>
-  <div class="price"><div><small>Ukraine · customs-cleared in Ukraine</small><b>$13 000</b></div><div class="ge">Georgia<br><strong>$6 700</strong></div></div>
-  </div></a><a class="card" href="/en/cars/tr-04/" data-fam="minivan" data-st="transit">
-  <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/16975744/CF126391_f9e466.JPG" alt="Toyota Vellfire 20 2.4Z G Edition" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Auction photos coming soon</span></div><span class="status"><i></i>In transit · Poti ~12 Dec</span></div>
+  <div class="price"><div><small>Ukraine, incl. customs</small><b>$13 000</b></div><div class="ge">Georgia<br><strong>$6 700</strong></div></div>
+  </div></a><a class="card" href="/en/cars/tr-04/" data-fam="minivan" data-st="wait">
+  <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/16975744/CF126391_f9e466.JPG" alt="Toyota Vellfire 20 2.4Z G Edition" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Auction photos coming soon</span></div><span class="status wait js-status" data-etd="2026-11-09" data-eta="2026-12-12" data-t-prep="Preparing to ship" data-t-wait="Awaiting departure · ~9 Nov 2026" data-t-sail="In transit · Poti ~12 Dec 2026" data-t-arrived="Arrived in Poti"><i></i>Awaiting departure · ~9 Nov 2026</span></div>
   <div class="body"><h3>Toyota Vellfire 20<small>2.4Z G Edition · 2014</small></h3>
   <div class="specs"><span>140 656 km</span><span>2.4 petrol</span><span>black</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Yokohama → Poti · MSC Lorena</span></div>
-  <div class="price"><div><small>Ukraine · customs-cleared in Ukraine</small><b>$13 000</b></div><div class="ge">Georgia<br><strong>$7 200</strong></div></div>
-  </div></a><a class="card" href="/en/cars/tr-14/" data-fam="note" data-st="transit">
-  <div class="ph"><img src="/assets/cars/TR-14-1.jpg" alt="Nissan Note e-Power X" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>NOTE HE12</b><span>Auction photos coming soon</span></div><span class="status"><i></i>In transit · Poti ~19 Dec</span></div>
+  <div class="price"><div><small>Ukraine, incl. customs</small><b>$13 000</b></div><div class="ge">Georgia<br><strong>$7 200</strong></div></div>
+  </div></a><a class="card" href="/en/cars/tr-14/" data-fam="note" data-st="sail">
+  <div class="ph"><img src="/assets/cars/TR-14-1.jpg" alt="Nissan Note e-Power X" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>NOTE HE12</b><span>Auction photos coming soon</span></div><span class="status js-status" data-etd="2026-10-29" data-eta="2026-12-19" data-t-prep="Preparing to ship" data-t-wait="Awaiting departure · ~29 Oct 2026" data-t-sail="In transit · Poti ~19 Dec 2026" data-t-arrived="Arrived in Poti"><i></i>In transit · Poti ~19 Dec 2026</span></div>
   <div class="body"><h3>Nissan Note<small>e-Power X · 2019</small></h3>
   <div class="specs"><span>44 333 km</span><span>1.2 e-Power hybrid</span><span>blue</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Osaka → Poti · MSC Tiger III</span></div>
-  <div class="price"><div><small>Ukraine · customs-cleared in Ukraine</small><b>$10 000</b></div><div class="ge">Georgia<br><strong>$7 300</strong></div></div>
-  </div></a><a class="card" href="/en/cars/tr-06/" data-fam="minivan" data-st="transit">
-  <div class="ph"><img src="/assets/cars/TR-06-1.jpg" alt="Toyota Vellfire 20 2.4Z Golden Eyes II" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Auction photos coming soon</span></div><span class="status"><i></i>In transit · Poti ~19 Dec</span></div>
+  <div class="price"><div><small>Ukraine, incl. customs</small><b>$10 000</b></div><div class="ge">Georgia<br><strong>$7 300</strong></div></div>
+  </div></a><a class="card" href="/en/cars/tr-06/" data-fam="minivan" data-st="wait">
+  <div class="ph"><img src="/assets/cars/TR-06-1.jpg" alt="Toyota Vellfire 20 2.4Z Golden Eyes II" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Auction photos coming soon</span></div><span class="status wait js-status" data-etd="2026-11-12" data-eta="2026-12-19" data-t-prep="Preparing to ship" data-t-wait="Awaiting departure · ~12 Nov 2026" data-t-sail="In transit · Poti ~19 Dec 2026" data-t-arrived="Arrived in Poti"><i></i>Awaiting departure · ~12 Nov 2026</span></div>
   <div class="body"><h3>Toyota Vellfire 20<small>2.4Z Golden Eyes II · 2014</small></h3>
   <div class="specs"><span>111 284 km</span><span>2.4 petrol</span><span>maroon</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Nagoya → Poti · MSC General IV</span></div>
-  <div class="price"><div><small>Ukraine · customs-cleared in Ukraine</small><b>$13 000</b></div><div class="ge">Georgia<br><strong>$7 300</strong></div></div>
-  </div></a><a class="card" href="/en/cars/tr-05/" data-fam="minivan" data-st="transit">
-  <div class="ph"><img src="/assets/cars/TR-05-1.jpg" alt="Toyota Alphard 20 240S Type Gold II" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>ALPHARD 20</b><span>Auction photos coming soon</span></div><span class="status"><i></i>In transit · Poti ~27 Dec</span></div>
+  <div class="price"><div><small>Ukraine, incl. customs</small><b>$13 000</b></div><div class="ge">Georgia<br><strong>$7 300</strong></div></div>
+  </div></a><a class="card" href="/en/cars/tr-05/" data-fam="minivan" data-st="wait">
+  <div class="ph"><img src="/assets/cars/TR-05-1.jpg" alt="Toyota Alphard 20 240S Type Gold II" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>ALPHARD 20</b><span>Auction photos coming soon</span></div><span class="status wait js-status" data-etd="2026-11-04" data-eta="2026-12-27" data-t-prep="Preparing to ship" data-t-wait="Awaiting departure · ~4 Nov 2026" data-t-sail="In transit · Poti ~27 Dec 2026" data-t-arrived="Arrived in Poti"><i></i>Awaiting departure · ~4 Nov 2026</span></div>
   <div class="body"><h3>Toyota Alphard 20<small>240S Type Gold II · 2014</small></h3>
   <div class="specs"><span>112 251 km</span><span>2.4 petrol</span><span>pearl white</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Osaka → Poti · MSC Tiger III</span></div>
-  <div class="price"><div><small>Ukraine · customs-cleared in Ukraine</small><b>$13 000</b></div><div class="ge">Georgia<br><strong>$8 000</strong></div></div>
-  </div></a><a class="card" href="/en/cars/tr-12/" data-fam="note" data-st="transit">
-  <div class="ph"><img src="/assets/cars/TR-12-1.jpg" alt="Nissan Note e-Power S FOUR" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>NOTE E13</b><span>Auction photos coming soon</span></div><span class="status"><i></i>In transit · Poti ~12 Jan</span></div>
+  <div class="price"><div><small>Ukraine, incl. customs</small><b>$13 000</b></div><div class="ge">Georgia<br><strong>$8 000</strong></div></div>
+  </div></a><a class="card" href="/en/cars/tr-12/" data-fam="note" data-st="wait">
+  <div class="ph"><img src="/assets/cars/TR-12-1.jpg" alt="Nissan Note e-Power S FOUR" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>NOTE E13</b><span>Auction photos coming soon</span></div><span class="status wait js-status" data-etd="2026-11-24" data-eta="2027-01-12" data-t-prep="Preparing to ship" data-t-wait="Awaiting departure · ~24 Nov 2026" data-t-sail="In transit · Poti ~12 Jan 2027" data-t-arrived="Arrived in Poti"><i></i>Awaiting departure · ~24 Nov 2026</span></div>
   <div class="body"><h3>Nissan Note<small>e-Power S FOUR · 2021</small></h3>
   <div class="specs"><span>89 688 km</span><span>1.2 e-Power hybrid</span><span class="awd">4WD</span><span>grey</span></div>
-  <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Osaka → Poti · MSC Tavvishi VI</span></div>
-  <div class="price"><div><small>Ukraine · customs-cleared in Ukraine</small><b>$12 000</b></div><div class="ge">Georgia<br><strong>$8 900</strong></div></div>
+  <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Yokohama → Poti · MSC Tavvishi VI</span></div>
+  <div class="price"><div><small>Ukraine, incl. customs</small><b>$12 000</b></div><div class="ge">Georgia<br><strong>$8 900</strong></div></div>
   </div></a><a class="card" href="/en/cars/tr-17/" data-fam="note" data-st="prep">
-  <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/17190415/CF336585_9affa0.jpg" alt="Nissan Note e-Power Medalist" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>NOTE HE12</b><span>Auction photos coming soon</span></div><span class="status wait"><i></i>Preparing to ship</span></div>
+  <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/17190415/CF336585_9affa0.jpg" alt="Nissan Note e-Power Medalist" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>NOTE HE12</b><span>Auction photos coming soon</span></div><span class="status wait js-status" data-etd="" data-eta="" data-t-prep="Preparing to ship" data-t-wait="Preparing to ship" data-t-sail="In transit" data-t-arrived="Arrived in Poti"><i></i>Preparing to ship</span></div>
   <div class="body"><h3>Nissan Note<small>e-Power Medalist · 2019</small></h3>
   <div class="specs"><span>40 331 km</span><span>1.2 e-Power hybrid</span><span>maroon</span></div>
-  <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Hakata → Poti</span></div>
-  <div class="price"><div><small>Ukraine · customs-cleared in Ukraine</small><b>$10 000</b></div><div class="ge">Georgia<br><strong>$7 200</strong></div></div>
+  <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Japan → Poti</span></div>
+  <div class="price"><div><small>Ukraine, incl. customs</small><b>$10 000</b></div><div class="ge">Georgia<br><strong>$7 200</strong></div></div>
   </div></a><a class="card" href="/en/cars/tr-13/" data-fam="note" data-st="prep">
-  <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/17026358/CF171632_432223.jpg" alt="Nissan Note e-Power S" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>NOTE E13</b><span>Auction photos coming soon</span></div><span class="status wait"><i></i>Preparing to ship</span></div>
+  <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/17026358/CF171632_432223.jpg" alt="Nissan Note e-Power S" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>NOTE E13</b><span>Auction photos coming soon</span></div><span class="status wait js-status" data-etd="" data-eta="" data-t-prep="Preparing to ship" data-t-wait="Preparing to ship" data-t-sail="In transit" data-t-arrived="Arrived in Poti"><i></i>Preparing to ship</span></div>
   <div class="body"><h3>Nissan Note<small>e-Power S · 2021</small></h3>
   <div class="specs"><span>63 319 km</span><span>1.2 e-Power hybrid</span><span>silver</span></div>
-  <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Yokohama → Poti</span></div>
-  <div class="price"><div><small>Ukraine · customs-cleared in Ukraine</small><b>$12 000</b></div><div class="ge">Georgia<br><strong>$8 600</strong></div></div>
+  <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Japan → Poti</span></div>
+  <div class="price"><div><small>Ukraine, incl. customs</small><b>$12 000</b></div><div class="ge">Georgia<br><strong>$8 600</strong></div></div>
   </div></a><a class="card" href="/en/cars/tr-07/" data-fam="minivan" data-st="prep">
-  <div class="ph"><img src="/assets/cars/TR-07-1.jpg" alt="Toyota Vellfire 20 2.4Z" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Auction photos coming soon</span></div><span class="status wait"><i></i>Preparing to ship</span></div>
+  <div class="ph"><img src="/assets/cars/TR-07-1.jpg" alt="Toyota Vellfire 20 2.4Z" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Auction photos coming soon</span></div><span class="status wait js-status" data-etd="" data-eta="" data-t-prep="Preparing to ship" data-t-wait="Preparing to ship" data-t-sail="In transit" data-t-arrived="Arrived in Poti"><i></i>Preparing to ship</span></div>
   <div class="body"><h3>Toyota Vellfire 20<small>2.4Z · 2014</small></h3>
   <div class="specs"><span>167 771 km</span><span>2.4 petrol</span><span class="awd">4WD</span><span>black</span></div>
-  <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Nagoya → Poti</span></div>
-  <div class="price"><div><small>Ukraine · customs-cleared in Ukraine</small><b>$13 000</b></div><div class="ge">Georgia<br><strong>$6 800</strong></div></div>
+  <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Japan → Poti</span></div>
+  <div class="price"><div><small>Ukraine, incl. customs</small><b>$13 000</b></div><div class="ge">Georgia<br><strong>$6 800</strong></div></div>
   </div></a><a class="card" href="/en/cars/tr-08/" data-fam="minivan" data-st="prep">
-  <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/17178994/CF330569_d23622.jpg" alt="Toyota Vellfire 20 2.4Z" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Auction photos coming soon</span></div><span class="status wait"><i></i>Preparing to ship</span></div>
+  <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/17178994/CF330569_d23622.jpg" alt="Toyota Vellfire 20 2.4Z" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Auction photos coming soon</span></div><span class="status wait js-status" data-etd="" data-eta="" data-t-prep="Preparing to ship" data-t-wait="Preparing to ship" data-t-sail="In transit" data-t-arrived="Arrived in Poti"><i></i>Preparing to ship</span></div>
   <div class="body"><h3>Toyota Vellfire 20<small>2.4Z · 2014</small></h3>
   <div class="specs"><span>121 664 km</span><span>2.4 petrol</span><span>black</span></div>
-  <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Yokohama → Poti</span></div>
-  <div class="price"><div><small>Ukraine · customs-cleared in Ukraine</small><b>$13 000</b></div><div class="ge">Georgia<br><strong>$7 400</strong></div></div>
+  <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Japan → Poti</span></div>
+  <div class="price"><div><small>Ukraine, incl. customs</small><b>$13 000</b></div><div class="ge">Georgia<br><strong>$7 400</strong></div></div>
   </div></a><a class="card" href="/en/cars/tr-09/" data-fam="minivan" data-st="prep">
-  <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/17191981/CF336719_59928a.jpg" alt="Toyota Vellfire 20 2.4Z Golden Eyes II" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Auction photos coming soon</span></div><span class="status wait"><i></i>Preparing to ship</span></div>
+  <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/17191981/CF336719_59928a.jpg" alt="Toyota Vellfire 20 2.4Z Golden Eyes II" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Auction photos coming soon</span></div><span class="status wait js-status" data-etd="" data-eta="" data-t-prep="Preparing to ship" data-t-wait="Preparing to ship" data-t-sail="In transit" data-t-arrived="Arrived in Poti"><i></i>Preparing to ship</span></div>
   <div class="body"><h3>Toyota Vellfire 20<small>2.4Z Golden Eyes II · 2014</small></h3>
   <div class="specs"><span>142 814 km</span><span>2.4 petrol</span><span>black</span></div>
-  <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Nagoya → Poti</span></div>
-  <div class="price"><div><small>Ukraine · customs-cleared in Ukraine</small><b>$13 000</b></div><div class="ge">Georgia<br><strong>$7 500</strong></div></div>
+  <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Japan → Poti</span></div>
+  <div class="price"><div><small>Ukraine, incl. customs</small><b>$13 000</b></div><div class="ge">Georgia<br><strong>$7 500</strong></div></div>
   </div></a><a class="card" href="/en/cars/tr-10/" data-fam="minivan" data-st="prep">
-  <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/17192421/CF336943_6b22d6.jpg" alt="Toyota Alphard 20 240S Type Gold II" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>ALPHARD 20</b><span>Auction photos coming soon</span></div><span class="status wait"><i></i>Preparing to ship</span></div>
+  <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/17192421/CF336943_6b22d6.jpg" alt="Toyota Alphard 20 240S Type Gold II" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>ALPHARD 20</b><span>Auction photos coming soon</span></div><span class="status wait js-status" data-etd="" data-eta="" data-t-prep="Preparing to ship" data-t-wait="Preparing to ship" data-t-sail="In transit" data-t-arrived="Arrived in Poti"><i></i>Preparing to ship</span></div>
   <div class="body"><h3>Toyota Alphard 20<small>240S Type Gold II · 2014</small></h3>
   <div class="specs"><span>156 196 km</span><span>2.4 petrol</span><span>pearl white</span></div>
-  <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Osaka → Poti</span></div>
-  <div class="price"><div><small>Ukraine · customs-cleared in Ukraine</small><b>$13 000</b></div><div class="ge">Georgia<br><strong>$7 500</strong></div></div>
+  <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Japan → Poti</span></div>
+  <div class="price"><div><small>Ukraine, incl. customs</small><b>$13 000</b></div><div class="ge">Georgia<br><strong>$7 500</strong></div></div>
   </div></a><a class="card" href="/en/cars/tr-11/" data-fam="minivan" data-st="prep">
-  <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/17127465/CF275400_fb101f.jpg" alt="Toyota Vellfire 30 2.5Z A Edition Golden Eyes" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 30</b><span>Auction photos coming soon</span></div><span class="status wait"><i></i>Preparing to ship</span></div>
+  <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/17127465/CF275400_fb101f.jpg" alt="Toyota Vellfire 30 2.5Z A Edition Golden Eyes" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 30</b><span>Auction photos coming soon</span></div><span class="status wait js-status" data-etd="" data-eta="" data-t-prep="Preparing to ship" data-t-wait="Preparing to ship" data-t-sail="In transit" data-t-arrived="Arrived in Poti"><i></i>Preparing to ship</span></div>
   <div class="body"><h3>Toyota Vellfire 30<small>2.5Z A Edition Golden Eyes · 2016</small></h3>
   <div class="specs"><span>152 786 km</span><span>2.5 petrol</span><span>pearl white</span></div>
-  <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Yokohama → Poti</span></div>
-  <div class="price"><div><small>Ukraine · customs-cleared in Ukraine</small><b>$20 000</b></div><div class="ge">Georgia<br><strong>$11 200</strong></div></div>
+  <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Japan → Poti</span></div>
+  <div class="price"><div><small>Ukraine, incl. customs</small><b>$20 000</b></div><div class="ge">Georgia<br><strong>$11 200</strong></div></div>
   </div></a></div><p class="empty" id="emptyMsg" hidden>No cars match this filter.</p><div class="artlinks"><a class="artlink" href="/en/blog/alphard-from-japan-cost/"><span class="eyebrow">Article</span><b>How much does it cost to import a Toyota Alphard / Vellfire from Japan to Ukraine in 2026</b></a><a class="artlink" href="/en/blog/steering-conversion-georgia/"><span class="eyebrow">Article</span><b>How Japanese cars are converted to left-hand drive in Georgia: a workshop photo story</b></a></div><p class="modlinks"><a href="/en/toyota-alphard-vellfire/">Toyota Alphard / Vellfire →</a> · <a href="/en/nissan-note-e-power/">Nissan Note e-Power →</a></p>
 </section>
 
@@ -463,7 +469,7 @@ footer a{color:var(--muted)}
       <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg><b data-i18n="w1">Honest mileage</b><p data-i18n="w1s">Every mileage figure is confirmed by the Japanese auction sheet. We show it before you book.</p></div>
       <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b data-i18n="w2">Booking costs less</b><p data-i18n="w2s">A car in transit can be booked before arrival at a lower price.</p></div>
       <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/><path d="M12 4v5.5M5.2 15.5l4.6-2.3M18.8 15.5l-4.6-2.3"/></svg><b data-i18n="w3">Steering done right</b><p data-i18n="w3s">We compare Georgian workshops and choose the best one for each model.</p></div>
-      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg><b data-i18n="w4">Pickup in Ukraine</b><p data-i18n="w4s">Odesa and Kyiv. The car is cleared through Ukrainian customs.</p></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg><b data-i18n="w4">Pickup in Ukraine</b><p data-i18n="w4s">Odesa and Kyiv. Ukrainian customs are included in the price.</p></div>
     </div>
   </div>
 </section>
@@ -472,7 +478,7 @@ footer a{color:var(--muted)}
   <div class="wrap">
     <h2 data-i18n="del_title">Where we deliver</h2>
     <div class="dest">
-      <article><span class="flag"><i style="background:#0057b7"></i><i style="background:#ffd700"></i></span><h3 data-i18n="d_ua">Ukraine</h3><p data-i18n="d_ua_s">Our main route.</p><ul><li data-i18n="d_ua_1">Pickup in Odesa and Kyiv</li><li data-i18n="d_ua_2">Price includes customs and registration</li></ul></article>
+      <article><span class="flag"><i style="background:#0057b7"></i><i style="background:#ffd700"></i></span><h3 data-i18n="d_ua">Ukraine</h3><p data-i18n="d_ua_s">Our main route.</p><ul><li data-i18n="d_ua_1">Pickup in Odesa and Kyiv</li><li data-i18n="d_ua_2">Price includes Ukrainian customs</li></ul></article>
       <article><span class="flag"><i style="background:#fff"></i><i style="background:#e8112d"></i><i style="background:#fff"></i></span><h3 data-i18n="d_ge">Georgia</h3><p data-i18n="d_ge_s">Take the car before conversion.</p><ul><li data-i18n="d_ge_1">Rustavi, with or without conversion</li><li data-i18n="d_ge_2">For car dealers</li></ul></article>
       <article><span class="flag"><i style="background:#169b62"></i><i style="background:#fff"></i><i style="background:#ff883e"></i></span><h3 data-i18n="d_ie">Ireland</h3><p data-i18n="d_ie_s">New route, delivery to Dublin.</p><ul><li data-i18n="d_ie_1">Container or Ro-Ro to Dublin</li><li data-i18n="d_ie_2">Start with one car, quote on request</li></ul></article>
     </div>
@@ -483,7 +489,7 @@ footer a{color:var(--muted)}
   <div class="wrap">
     <h2 data-i18n="faq_title">Questions</h2>
     <details><summary data-i18n="q1">Can I book a car that is still in transit?</summary><p data-i18n="a1">Yes. Booking before arrival costs less than buying after. Send us the car number from the site and we&#x27;ll send the auction sheet and all photos.</p></details>
-    <details><summary data-i18n="q2">What does the Ukraine price include?</summary><p data-i18n="a2">The price is for a car cleared through Ukrainian customs, picked up in Odesa or Kyiv.</p></details>
+    <details><summary data-i18n="q2">What does the Ukraine price include?</summary><p data-i18n="a2">The price includes Ukrainian customs, with pickup in Odesa or Kyiv.</p></details>
     <details><summary data-i18n="q3">How is the steering converted?</summary><p data-i18n="a3">Workshops in Georgia do the conversion. We compare their work and choose the best one for each model.</p></details>
     <details><summary data-i18n="q4">Can I order a different car?</summary><p data-i18n="a4">Yes. We&#x27;ll find a car for your budget at Japanese auctions and send options with auction sheets.</p></details>
   </div>
@@ -494,26 +500,28 @@ footer a{color:var(--muted)}
     <div>
       <p class="eyebrow" data-i18n="ct_eyebrow">Get in touch</p>
       <h2 data-i18n="ct_title">Message us — we&#x27;ll reply with the auction sheet</h2>
-      <p style="margin-top:18px"><span class="phone">+380 66 366 68 86</span><button class="copy" type="button" data-copy="+380663666886" data-done="Number copied">Copy</button></p>
+      <p style="margin-top:18px"><a class="phone" href="tel:+380663666886">+380 66 366 68 86</a><button class="copy" type="button" data-copy="+380663666886" data-done="Number copied">Copy</button></p>
       <p style="color:var(--muted);margin:6px 0 0" data-i18n="ct_msg">Viber, Telegram, WhatsApp</p>
       <div class="row">
         <a class="btn red" href="https://t.me/+380663666886" target="_blank" rel="noopener">Telegram</a>
+        <a class="btn ghost" href="viber://chat?number=%2B380663666886">Viber</a>
         <a class="btn ghost" href="https://wa.me/380663666886" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn ghost" href="tel:+380663666886" data-i18n="call_btn">Call</a>
         <a class="btn ghost" href="https://t.me/truerides_chat" target="_blank" rel="noopener" data-i18n="ct_chat">True Rides chat</a>
         <a class="btn ghost" href="https://www.instagram.com/true_rides/" target="_blank" rel="noopener">Instagram</a>
       </div>
     </div>
     <div class="meta">
       <div><span class="eyebrow" data-i18n="ct_where">Where we are</span><div data-i18n="ct_where_s">Rustavi, Georgia · pickup in Odesa and Kyiv</div></div>
-      <div><span class="eyebrow">Viber</span><div>+380 66 366 68 86</div></div>
+      <div><span class="eyebrow">Telegram · Viber · WhatsApp</span><div><a href="tel:+380663666886">+380 66 366 68 86</a></div></div>
     </div>
   </div>
 </section>
 </main><footer><div class="wrap"><span>© 2026 True Rides Japan</span><span class="fmodels"><a href="/en/toyota-alphard-vellfire/">Toyota Alphard / Vellfire</a> · <a href="/en/nissan-note-e-power/">Nissan Note e-Power</a></span><span>trueridesjapan.com</span></div></footer>
 <div class="bar">
   <a class="btn red" href="https://t.me/+380663666886" target="_blank" rel="noopener">Telegram</a>
-  <a class="btn ghost" href="https://wa.me/380663666886" target="_blank" rel="noopener">WhatsApp</a>
-  <a class="btn ghost" href="/en/#catalog">Cars</a>
+  <a class="btn ghost" href="viber://chat?number=%2B380663666886">Viber</a>
+  <a class="btn ghost" href="tel:+380663666886">Call</a>
 </div>
 <script>
 (function(){
@@ -528,8 +536,12 @@ if(f){var fam="all",st="all";f.addEventListener("click",function(e){var b=e.targ
  if(b.dataset.fam){fam=b.dataset.fam}else if(b.dataset.st){st=st===b.dataset.st?"all":b.dataset.st}
  f.querySelectorAll("[data-fam]").forEach(function(x){x.setAttribute("aria-pressed",x.dataset.fam===fam)});
  f.querySelectorAll("[data-st]").forEach(function(x){x.setAttribute("aria-pressed",x.dataset.st===st)});
- var n=0;document.querySelectorAll("#grid .card").forEach(function(c){var ok=(fam==="all"||c.dataset.fam===fam)&&(st==="all"||c.dataset.st===st);c.hidden=!ok;if(ok)n++});
+ var G={transit:["sail","arrived"],prep:["wait","prep"]};var n=0;document.querySelectorAll("#grid .card").forEach(function(c){var ok=(fam==="all"||c.dataset.fam===fam)&&(st==="all"||G[st].indexOf(c.dataset.st)>=0);c.hidden=!ok;if(ok)n++});
  var em=document.getElementById("emptyMsg");if(em)em.hidden=n>0;});}
+var today=new Date().toISOString().slice(0,10);function stOf(e,d){if(e&&e<=today)return"arrived";if(d&&d<=today)return"sail";if(d)return"wait";return"prep"}
+document.querySelectorAll(".js-status").forEach(function(el){var s=stOf(el.dataset.eta,el.dataset.etd);var tx=el.getAttribute("data-t-"+s);if(tx){var i=el.querySelector("i");el.textContent=tx;if(i)el.prepend(i)}el.classList.toggle("wait",s==="wait"||s==="prep");var card=el.closest(".card");if(card)card.dataset.st=s});
+var cnt={transit:0,prep:0},sail=0;document.querySelectorAll("#grid .card").forEach(function(c){var s=c.dataset.st;if(s==="sail")sail++;if(s==="sail"||s==="arrived")cnt.transit++;else cnt.prep++});
+var ns=document.getElementById("nSail");if(ns)ns.textContent=sail;document.querySelectorAll("[data-cnt]").forEach(function(x){x.textContent=cnt[x.dataset.cnt]});
 var g=document.querySelector(".gal");
 if(g){g.addEventListener("click",function(e){var b=e.target.closest(".thumbs button");if(!b)return;var big=document.getElementById("big");big.src=b.dataset.src;
  g.querySelectorAll(".thumbs button").forEach(function(x){x.setAttribute("aria-current",x===b)})});}

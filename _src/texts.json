@@ -6,9 +6,16 @@
    "all_cars": "Все машины",
    "more_same": "Другие машины этой модели",
    "k_steer": "Руль",
-   "steer_v": "левый (переставлен в Грузии)",
+   "steer_v": "левый — переставляется в Грузии перед отправкой в Украину",
    "call": "Или позвоните:",
-   "nav_blog": "Статьи"
+   "nav_blog": "Статьи",
+   "st_wait": "Ждёт отправки",
+   "st_arrived": "Прибыл в Поти",
+   "call_btn": "Позвонить",
+   "phone_l": "Телефон:",
+   "tg_hint": "В Telegram и Viber укажите номер машины:",
+   "photo": "Фото",
+   "ua_full": "с растаможкой в Украине"
   },
   "uk": {
    "home": "Головна",
@@ -16,9 +23,16 @@
    "all_cars": "Усі авто",
    "more_same": "Інші авто цієї моделі",
    "k_steer": "Кермо",
-   "steer_v": "ліве (переставлене в Грузії)",
+   "steer_v": "ліве — переставляється в Грузії перед відправкою в Україну",
    "call": "Або зателефонуйте:",
-   "nav_blog": "Статті"
+   "nav_blog": "Статті",
+   "st_wait": "Чекає відправки",
+   "st_arrived": "Прибув у Поті",
+   "call_btn": "Зателефонувати",
+   "phone_l": "Телефон:",
+   "tg_hint": "У Telegram і Viber вкажіть номер авто:",
+   "photo": "Фото",
+   "ua_full": "з розмитненням в Україні"
   },
   "en": {
    "home": "Home",
@@ -26,9 +40,16 @@
    "all_cars": "All cars",
    "more_same": "More cars of this model",
    "k_steer": "Steering",
-   "steer_v": "left-hand (converted in Georgia)",
+   "steer_v": "left-hand — converted in Georgia before shipping to Ukraine",
    "call": "Or call:",
-   "nav_blog": "Articles"
+   "nav_blog": "Articles",
+   "st_wait": "Awaiting departure",
+   "st_arrived": "Arrived in Poti",
+   "call_btn": "Call",
+   "phone_l": "Phone:",
+   "tg_hint": "On Telegram and Viber, mention the car number:",
+   "photo": "Photo",
+   "ua_full": "incl. Ukrainian customs"
   }
  },
  "home": {
@@ -50,7 +71,7 @@
    "ru": {
     "h1": "Toyota Alphard / Vellfire",
     "title": "Toyota Alphard и Vellfire из Японии — от {price} | True Rides Japan",
-    "desc": "Минивэны Toyota Alphard и Vellfire 2014–2016 с аукционов Японии. Руль переставлен на левый, растаможено в Украине, выдача в Одессе и Киеве. От {price}.",
+    "desc": "Минивэны Toyota Alphard и Vellfire 2014–2016 с аукционов Японии. Руль переставлен на левый, с растаможкой в Украине, выдача в Одессе и Киеве. От {price}.",
     "lead": "Семиместные минивэны из Японии: 20-й кузов 2014 года и 30-й кузов 2016 года, двигатели 2.4 и 2.5. Покупаем на аукционах, переставляем руль на левый в Грузии, выдаём в Одессе и Киеве.",
     "text": [
      "Alphard и Vellfire — один и тот же минивэн Toyota, они отличаются в основном оформлением передней части. В Японии это популярный семейный и представительский автомобиль, поэтому на аукционах много машин с понятной историей и подтверждённым пробегом.",
@@ -61,7 +82,7 @@
    "uk": {
     "h1": "Toyota Alphard / Vellfire",
     "title": "Toyota Alphard і Vellfire з Японії — від {price} | True Rides Japan",
-    "desc": "Мінівени Toyota Alphard і Vellfire 2014–2016 з аукціонів Японії. Кермо переставлене на ліве, розмитнено в Україні, видача в Одесі та Києві. Від {price}.",
+    "desc": "Мінівени Toyota Alphard і Vellfire 2014–2016 з аукціонів Японії. Кермо переставлене на ліве, з розмитненням в Україні, видача в Одесі та Києві. Від {price}.",
     "lead": "Семимісні мінівени з Японії: 20-й кузов 2014 року та 30-й кузов 2016 року, двигуни 2.4 і 2.5. Купуємо на аукціонах, переставляємо кермо на ліве в Грузії, видаємо в Одесі та Києві.",
     "text": [
      "Alphard і Vellfire — один і той самий мінівен Toyota, вони відрізняються переважно оформленням передньої частини. У Японії це популярний сімейний і представницький автомобіль, тому на аукціонах багато машин зі зрозумілою історією та підтвердженим пробігом.",
@@ -72,7 +93,7 @@
    "en": {
     "h1": "Toyota Alphard / Vellfire",
     "title": "Toyota Alphard and Vellfire from Japan — from {price} | True Rides Japan",
-    "desc": "Toyota Alphard and Vellfire minivans, 2014–2016, from Japanese auctions. Converted to left-hand drive, cleared through Ukrainian customs, pickup in Odesa and Kyiv. From {price}.",
+    "desc": "Toyota Alphard and Vellfire minivans, 2014–2016, from Japanese auctions. Converted to left-hand drive, incl. Ukrainian customs, pickup in Odesa and Kyiv. From {price}.",
     "lead": "Seven-seat minivans from Japan: 20-series 2014 and 30-series 2016, 2.4 and 2.5 engines. We buy at auction, convert to left-hand drive in Georgia and hand over in Odesa and Kyiv.",
     "text": [
      "Alphard and Vellfire are the same Toyota minivan with different front styling. In Japan it is a popular family and executive car, so auctions offer many cars with a clear history and confirmed mileage.",
@@ -85,7 +106,7 @@
    "ru": {
     "h1": "Nissan Note e-Power",
     "title": "Nissan Note e-Power из Японии — от {price} | True Rides Japan",
-    "desc": "Гибридные Nissan Note e-Power 2019–2021 с аукционов Японии, в том числе полноприводный S FOUR. Руль переставлен на левый, растаможено в Украине, выдача в Одессе и Киеве. От {price}.",
+    "desc": "Гибридные Nissan Note e-Power 2019–2021 с аукционов Японии, в том числе полноприводный S FOUR. Руль переставлен на левый, с растаможкой в Украине, выдача в Одессе и Киеве. От {price}.",
     "lead": "Гибридные хэтчбеки из Японии: Note e-Power 2019 (кузов HE12) и 2021 (кузов E13), в том числе полноприводный S FOUR. Руль переставлен на левый, выдача в Одессе и Киеве.",
     "text": [
      "В Note e-Power колёса всегда крутит электромотор, а бензиновый мотор 1.2 только заряжает батарею. Заряжать машину от розетки не нужно.",
@@ -96,7 +117,7 @@
    "uk": {
     "h1": "Nissan Note e-Power",
     "title": "Nissan Note e-Power з Японії — від {price} | True Rides Japan",
-    "desc": "Гібридні Nissan Note e-Power 2019–2021 з аукціонів Японії, зокрема повнопривідний S FOUR. Кермо переставлене на ліве, розмитнено в Україні, видача в Одесі та Києві. Від {price}.",
+    "desc": "Гібридні Nissan Note e-Power 2019–2021 з аукціонів Японії, зокрема повнопривідний S FOUR. Кермо переставлене на ліве, з розмитненням в Україні, видача в Одесі та Києві. Від {price}.",
     "lead": "Гібридні хетчбеки з Японії: Note e-Power 2019 (кузов HE12) і 2021 (кузов E13), зокрема повнопривідний S FOUR. Кермо переставлене на ліве, видача в Одесі та Києві.",
     "text": [
      "У Note e-Power колеса завжди крутить електромотор, а бензиновий мотор 1.2 лише заряджає батарею. Заряджати авто від розетки не потрібно.",
@@ -107,7 +128,7 @@
    "en": {
     "h1": "Nissan Note e-Power",
     "title": "Nissan Note e-Power from Japan — from {price} | True Rides Japan",
-    "desc": "Nissan Note e-Power hybrids, 2019–2021, from Japanese auctions, including the all-wheel-drive S FOUR. Converted to left-hand drive, cleared through Ukrainian customs, pickup in Odesa and Kyiv. From {price}.",
+    "desc": "Nissan Note e-Power hybrids, 2019–2021, from Japanese auctions, including the all-wheel-drive S FOUR. Converted to left-hand drive, incl. Ukrainian customs, pickup in Odesa and Kyiv. From {price}.",
     "lead": "Hybrid hatchbacks from Japan: Note e-Power 2019 (HE12) and 2021 (E13), including the all-wheel-drive S FOUR. Converted to left-hand drive, pickup in Odesa and Kyiv.",
     "text": [
      "In the Note e-Power the wheels are always driven by the electric motor; the 1.2 petrol engine only charges the battery. No plug-in charging needed.",

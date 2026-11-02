@@ -16,7 +16,9 @@
   "loading": "Yokohama",
   "priceUA": 13000,
   "priceGE": 6700,
-  "damaged": true
+  "damaged": true,
+  "etd": "2026-11-09",
+  "sale": "free"
  },
  {
   "ref": "TR-02",
@@ -35,7 +37,9 @@
   "loading": "Nagoya",
   "priceUA": 13000,
   "priceGE": 7700,
-  "damaged": false
+  "damaged": false,
+  "etd": "2026-10-15",
+  "sale": "free"
  },
  {
   "ref": "TR-03",
@@ -54,7 +58,9 @@
   "loading": "Nagoya",
   "priceUA": 13000,
   "priceGE": 7700,
-  "damaged": false
+  "damaged": false,
+  "etd": "2026-10-30",
+  "sale": "free"
  },
  {
   "ref": "TR-04",
@@ -73,7 +79,9 @@
   "loading": "Yokohama",
   "priceUA": 13000,
   "priceGE": 7200,
-  "damaged": false
+  "damaged": false,
+  "etd": "2026-11-09",
+  "sale": "free"
  },
  {
   "ref": "TR-05",
@@ -92,7 +100,9 @@
   "loading": "Osaka",
   "priceUA": 13000,
   "priceGE": 8000,
-  "damaged": false
+  "damaged": false,
+  "etd": "2026-11-04",
+  "sale": "free"
  },
  {
   "ref": "TR-06",
@@ -111,7 +121,9 @@
   "loading": "Nagoya",
   "priceUA": 13000,
   "priceGE": 7300,
-  "damaged": false
+  "damaged": false,
+  "etd": "2026-11-12",
+  "sale": "free"
  },
  {
   "ref": "TR-07",
@@ -127,10 +139,12 @@
   "acc": "A/C Airbag Alloy Wheels Power Steering Power Window Power Slide Door",
   "vessel": null,
   "eta": null,
-  "loading": "Nagoya",
+  "loading": null,
   "priceUA": 13000,
   "priceGE": 6800,
-  "damaged": false
+  "damaged": false,
+  "etd": null,
+  "sale": "free"
  },
  {
   "ref": "TR-08",
@@ -146,10 +160,12 @@
   "acc": "A/C Airbag Alloy Wheels Power Steering Power Window Rear Spoiler Side Airbag Power Slide Door",
   "vessel": null,
   "eta": null,
-  "loading": "Yokohama",
+  "loading": null,
   "priceUA": 13000,
   "priceGE": 7400,
-  "damaged": false
+  "damaged": false,
+  "etd": null,
+  "sale": "free"
  },
  {
   "ref": "TR-09",
@@ -165,10 +181,12 @@
   "acc": "A/C Airbag Alloy Wheels Power Steering Power Window Push Start Power Slide Door",
   "vessel": null,
   "eta": null,
-  "loading": "Nagoya",
+  "loading": null,
   "priceUA": 13000,
   "priceGE": 7500,
-  "damaged": false
+  "damaged": false,
+  "etd": null,
+  "sale": "free"
  },
  {
   "ref": "TR-10",
@@ -184,10 +202,12 @@
   "acc": "A/C Airbag Alloy Wheels Power Steering Power Window ABS",
   "vessel": null,
   "eta": null,
-  "loading": "Osaka",
+  "loading": null,
   "priceUA": 13000,
   "priceGE": 7500,
-  "damaged": false
+  "damaged": false,
+  "etd": null,
+  "sale": "free"
  },
  {
   "ref": "TR-11",
@@ -203,10 +223,12 @@
   "acc": "A/C Airbag Alloy Wheels Power Steering Power Window ABS",
   "vessel": null,
   "eta": null,
-  "loading": "Yokohama",
+  "loading": null,
   "priceUA": 20000,
   "priceGE": 11200,
-  "damaged": false
+  "damaged": false,
+  "etd": null,
+  "sale": "free"
  },
  {
   "ref": "TR-12",
@@ -222,10 +244,12 @@
   "acc": "A/C Airbag Power Steering Power Window",
   "vessel": "MSC TAVVISHI VI",
   "eta": "2027-01-12",
-  "loading": "Osaka",
+  "loading": "Yokohama",
   "priceUA": 12000,
   "priceGE": 8900,
-  "damaged": false
+  "damaged": false,
+  "etd": "2026-11-24",
+  "sale": "free"
  },
  {
   "ref": "TR-13",
@@ -241,10 +265,12 @@
   "acc": "A/C Airbag Power Steering Power Window Rear Spoiler ABS Push Start Keyless Entry ESC",
   "vessel": null,
   "eta": null,
-  "loading": "Yokohama",
+  "loading": null,
   "priceUA": 12000,
   "priceGE": 8600,
-  "damaged": false
+  "damaged": false,
+  "etd": null,
+  "sale": "free"
  },
  {
   "ref": "TR-14",
@@ -263,7 +289,9 @@
   "loading": "Osaka",
   "priceUA": 10000,
   "priceGE": 7300,
-  "damaged": false
+  "damaged": false,
+  "etd": "2026-10-29",
+  "sale": "free"
  },
  {
   "ref": "TR-15",
@@ -282,7 +310,9 @@
   "loading": "Yokohama",
   "priceUA": 10000,
   "priceGE": 7000,
-  "damaged": false
+  "damaged": false,
+  "etd": "2026-10-27",
+  "sale": "free"
  },
  {
   "ref": "TR-16",
@@ -301,7 +331,9 @@
   "loading": "Nagoya",
   "priceUA": 10000,
   "priceGE": 7600,
-  "damaged": false
+  "damaged": false,
+  "etd": "2026-10-30",
+  "sale": "free"
  },
  {
   "ref": "TR-17",
@@ -317,9 +349,11 @@
   "acc": "Airbag Alloy Wheels Power Steering Power Window Navigation 360 Degree Camera",
   "vessel": null,
   "eta": null,
-  "loading": "Hakata",
+  "loading": null,
   "priceUA": 10000,
   "priceGE": 7200,
-  "damaged": false
+  "damaged": false,
+  "etd": null,
+  "sale": "free"
  }
 ]

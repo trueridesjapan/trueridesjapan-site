@@ -15,7 +15,7 @@
   "eta": "2026-12-12",
   "loading": "Yokohama",
   "priceUA": 13000,
-  "priceGE": 6700,
+  "priceGE": 6600,
   "damaged": true,
   "etd": "2026-11-09",
   "sale": "free"
@@ -36,7 +36,7 @@
   "eta": "2026-11-25",
   "loading": "Nagoya",
   "priceUA": 13000,
-  "priceGE": 7700,
+  "priceGE": 7600,
   "damaged": false,
   "etd": "2026-10-15",
   "sale": "free"
@@ -57,7 +57,7 @@
   "eta": "2026-12-03",
   "loading": "Nagoya",
   "priceUA": 13000,
-  "priceGE": 7700,
+  "priceGE": 7500,
   "damaged": false,
   "etd": "2026-10-30",
   "sale": "free"
@@ -78,7 +78,7 @@
   "eta": "2026-12-12",
   "loading": "Yokohama",
   "priceUA": 13000,
-  "priceGE": 7200,
+  "priceGE": 7100,
   "damaged": false,
   "etd": "2026-11-09",
   "sale": "free"
@@ -99,7 +99,7 @@
   "eta": "2026-12-27",
   "loading": "Osaka",
   "priceUA": 13000,
-  "priceGE": 8000,
+  "priceGE": 7900,
   "damaged": false,
   "etd": "2026-11-04",
   "sale": "free"
@@ -120,7 +120,7 @@
   "eta": "2026-12-19",
   "loading": "Nagoya",
   "priceUA": 13000,
-  "priceGE": 7300,
+  "priceGE": 7200,
   "damaged": false,
   "etd": "2026-11-12",
   "sale": "free"
@@ -141,7 +141,7 @@
   "eta": null,
   "loading": null,
   "priceUA": 13000,
-  "priceGE": 6800,
+  "priceGE": 6700,
   "damaged": false,
   "etd": null,
   "sale": "free"
@@ -162,7 +162,7 @@
   "eta": null,
   "loading": null,
   "priceUA": 13000,
-  "priceGE": 7400,
+  "priceGE": 7200,
   "damaged": false,
   "etd": null,
   "sale": "free"
@@ -183,7 +183,7 @@
   "eta": null,
   "loading": null,
   "priceUA": 13000,
-  "priceGE": 7500,
+  "priceGE": 7400,
   "damaged": false,
   "etd": null,
   "sale": "free"
@@ -204,7 +204,7 @@
   "eta": null,
   "loading": null,
   "priceUA": 13000,
-  "priceGE": 7500,
+  "priceGE": 7300,
   "damaged": false,
   "etd": null,
   "sale": "free"
@@ -225,7 +225,7 @@
   "eta": null,
   "loading": null,
   "priceUA": 20000,
-  "priceGE": 11200,
+  "priceGE": 11000,
   "damaged": false,
   "etd": null,
   "sale": "free"
@@ -246,7 +246,7 @@
   "eta": "2027-01-12",
   "loading": "Yokohama",
   "priceUA": 12000,
-  "priceGE": 8900,
+  "priceGE": 8700,
   "damaged": false,
   "etd": "2026-11-24",
   "sale": "free"
@@ -267,7 +267,7 @@
   "eta": null,
   "loading": null,
   "priceUA": 12000,
-  "priceGE": 8600,
+  "priceGE": 8400,
   "damaged": false,
   "etd": null,
   "sale": "free"
@@ -288,7 +288,7 @@
   "eta": "2026-12-19",
   "loading": "Osaka",
   "priceUA": 10000,
-  "priceGE": 7300,
+  "priceGE": 7200,
   "damaged": false,
   "etd": "2026-10-29",
   "sale": "free"
@@ -309,7 +309,7 @@
   "eta": "2026-12-03",
   "loading": "Yokohama",
   "priceUA": 10000,
-  "priceGE": 7000,
+  "priceGE": 6800,
   "damaged": false,
   "etd": "2026-10-27",
   "sale": "free"
@@ -330,7 +330,7 @@
   "eta": "2026-12-03",
   "loading": "Nagoya",
   "priceUA": 10000,
-  "priceGE": 7600,
+  "priceGE": 7400,
   "damaged": false,
   "etd": "2026-10-30",
   "sale": "free"
@@ -351,7 +351,7 @@
   "eta": null,
   "loading": null,
   "priceUA": 10000,
-  "priceGE": 7200,
+  "priceGE": 7100,
   "damaged": false,
   "etd": null,
   "sale": "free"

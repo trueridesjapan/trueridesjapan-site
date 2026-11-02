@@ -160,12 +160,14 @@
   "ru": {
    "label": "Статья",
    "title": "Как переделывают руль японских авто в Грузии: фоторепортаж из мастерской",
-   "desc": "Переделка руля с правого на левый шаг за шагом: моторный щит, педали, торпедо, проводка, тормозные трубки. Два способа переделки и сколько это стоит.",
+   "desc": "Переделка руля с правого на левый шаг за шагом: педали, шумоизоляция, торпедо, проводка, дворники. Три способа переделки, чем они отличаются и сколько это стоит.",
    "lead": "Правый руль — главный страх покупателя японской машины. Показываем, как переделка выглядит изнутри и почему мы держим её под контролем.",
-   "methods_h": "Два способа переделки",
+   "methods_h": "Три способа переделки",
    "methods": [
-    "Донорское левое торпедо. Ставят готовую панель от леворульной версии модели. Это дороже, и на рынке такой вариант берут редко.",
-    "Переделка родного торпедо. Каркас переделывают и собирают под левую сторону. Так делают большинство машин, и качество здесь целиком зависит от рук мастера."
+    "Готовый комплект LHD. Новое торпедо под левый руль, которое делают в Китае под конкретную модель. Так переделывают, например, Alphard и Vellfire.",
+    "Донорские запчасти. Торпедо и узлы снимают с леворульной версии той же модели. Получается заметно лучше, чем с перерезанным торпедо, но дороже.",
+    "Перерезанное родное торпедо. Самый дешёвый способ, и по качеству он уступает двум другим. Когда есть выбор — как у Toyota Aqua, которую можно сделать и донором, и перерезкой, — перекупы почти всегда берут дешёвый вариант. Заказчик может выбрать любой, мы объясним разницу.",
+    "У некоторых моделей донора просто нет. Так с Nissan Note: леворульной версии нет, поэтому остаётся только переделка родного торпедо. Ниже — фото именно такой переделки."
    ],
    "steps_h": "Шаг за шагом",
    "steps": [
@@ -213,12 +215,14 @@
   "uk": {
    "label": "Стаття",
    "title": "Як переобладнують кермо японських авто в Грузії: фоторепортаж із майстерні",
-   "desc": "Переобладнання керма з правого на ліве крок за кроком: моторний щит, педалі, торпедо, проводка, гальмівні трубки. Два способи переобладнання і скільки це коштує.",
+   "desc": "Переобладнання керма з правого на ліве крок за кроком: педалі, шумоізоляція, торпедо, проводка, двірники. Три способи переобладнання, чим вони відрізняються і скільки це коштує.",
    "lead": "Праве кермо — головний страх покупця японського авто. Показуємо, як переобладнання виглядає зсередини і чому ми тримаємо його під контролем.",
-   "methods_h": "Два способи переобладнання",
+   "methods_h": "Три способи переобладнання",
    "methods": [
-    "Донорська ліва торпедо. Ставлять готову панель від ліворульної версії моделі. Це дорожче, і на ринку такий варіант беруть рідко.",
-    "Переробка рідної торпедо. Каркас переробляють і збирають під лівий бік. Так роблять більшість авто, і якість тут цілком залежить від рук майстра."
+    "Готовий комплект LHD. Нова торпедо під ліве кермо, яку роблять у Китаї під конкретну модель. Так переобладнують, наприклад, Alphard і Vellfire.",
+    "Донорські запчастини. Торпедо й вузли знімають з ліворульної версії тієї ж моделі. Виходить помітно краще, ніж з перерізаною торпедо, але дорожче.",
+    "Перерізана рідна торпедо. Найдешевший спосіб, і за якістю він поступається двом іншим. Коли є вибір — як у Toyota Aqua, яку можна зробити і донором, і перерізанням, — перекупники майже завжди беруть дешевий варіант. Замовник може обрати будь-який, ми пояснимо різницю.",
+    "У деяких моделей донора просто немає. Так із Nissan Note: ліворульної версії немає, тому лишається тільки переробка рідної торпедо. Нижче — фото саме такого переобладнання."
    ],
    "steps_h": "Крок за кроком",
    "steps": [
@@ -266,12 +270,14 @@
   "en": {
    "label": "Article",
    "title": "How Japanese cars are converted to left-hand drive in Georgia: a workshop photo story",
-   "desc": "Right- to left-hand drive conversion step by step: firewall, pedals, dashboard, wiring, brake lines. The two conversion methods and what they cost.",
+   "desc": "Right- to left-hand drive conversion step by step: pedals, sound insulation, dashboard, wiring, wipers. The three conversion methods, how they differ and what they cost.",
    "lead": "Right-hand drive is the biggest worry for anyone buying a Japanese car. Here is what the conversion looks like inside and why we keep it under control.",
-   "methods_h": "Two ways to convert",
+   "methods_h": "Three ways to convert",
    "methods": [
-    "A donor left-hand dashboard. A ready-made panel from the left-hand-drive version is fitted. It costs more and the market rarely pays for it.",
-    "Reworking the original dashboard. The frame is rebuilt for the left side. Most cars are done this way, and the quality depends entirely on the workshop."
+    "A ready-made LHD kit. A new left-hand dashboard made in China for the specific model. This is how the Alphard and Vellfire are converted, for example.",
+    "Donor parts. The dashboard and components come from the left-hand-drive version of the same model. The result is clearly better than a cut dashboard, but it costs more.",
+    "Cutting the original dashboard. The cheapest method, and lower in quality than the other two. When there is a choice — as with the Toyota Aqua, which can be done either with donor parts or by cutting — resellers almost always take the cheap option. A customer can choose any method; we explain the difference.",
+    "Some models have no donor at all. The Nissan Note has no left-hand-drive version, so reworking the original dashboard is the only option. The photos below show exactly that kind of conversion."
    ],
    "steps_h": "Step by step",
    "steps": [

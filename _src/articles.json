@@ -22,7 +22,7 @@
     ],
     [
      "Переделка руля на левый — около $1 600",
-     "У Alphard и Vellfire руль не просто переносят на другую сторону. Для переделки используют специальный комплект RHD → LHD, сделанный под эту модель: левостороннее торпедо (передняя панель), рулевая рейка, педальный узел и крепления. Мастер ставит комплект, переносит приборную панель, переключает проводку климата и мультимедиа и меняет подрулевые переключатели. Переделку делают специализированные мастерские в Грузии — мы сравниваем их работу и под каждую модель выбираем ту, что делает её лучше."
+     "У Alphard и Vellfire руль не просто переносят на другую сторону. Для переделки используют специальный комплект RHD → LHD, сделанный под эту модель: левостороннее торпедо (передняя панель), рулевая рейка, педальный узел и крепления. Мастер ставит комплект, переносит приборную панель и переключает проводку климата и мультимедиа. Переделку делают специализированные мастерские в Грузии — мы сравниваем их работу и под каждую модель выбираем ту, что делает её лучше."
     ],
     [
      "Автовоз Грузия → Украина — около $950",
@@ -59,7 +59,7 @@
     ],
     [
      "Переобладнання керма на ліве — близько $1 600",
-     "В Alphard і Vellfire кермо не просто переносять на інший бік. Для переобладнання використовують спеціальний комплект RHD → LHD під цю модель: лівостороння торпедо (передня панель), рульова рейка, педальний вузол і кріплення. Майстер ставить комплект, переносить приладову панель, перемикає проводку клімату й мультимедіа та міняє підкермові перемикачі. Переобладнання роблять спеціалізовані майстерні в Грузії — ми порівнюємо їхню роботу й під кожну модель обираємо ту, що робить її краще."
+     "В Alphard і Vellfire кермо не просто переносять на інший бік. Для переобладнання використовують спеціальний комплект RHD → LHD під цю модель: лівостороння торпедо (передня панель), рульова рейка, педальний вузол і кріплення. Майстер ставить комплект, переносить приладову панель і перемикає проводку клімату й мультимедіа. Переобладнання роблять спеціалізовані майстерні в Грузії — ми порівнюємо їхню роботу й під кожну модель обираємо ту, що робить її краще."
     ],
     [
      "Автовоз Грузія → Україна — близько $950",
@@ -96,7 +96,7 @@
     ],
     [
      "Left-hand drive conversion — about $1,600",
-     "On the Alphard and Vellfire the steering is not simply moved across. The conversion uses a dedicated RHD → LHD kit for this model: a left-hand dashboard, steering rack, pedal box and mounts. The workshop fits the kit, moves the instrument cluster, rewires climate and multimedia controls and swaps the stalks. Specialist workshops in Georgia do the work; we compare them and choose the best one for each model."
+     "On the Alphard and Vellfire the steering is not simply moved across. The conversion uses a dedicated RHD → LHD kit for this model: a left-hand dashboard, steering rack, pedal box and mounts. The workshop fits the kit, moves the instrument cluster and rewires the climate and multimedia controls. Specialist workshops in Georgia do the work; we compare them and choose the best one for each model."
     ],
     [
      "Car carrier Georgia → Ukraine — about $950",
@@ -122,9 +122,9 @@
    ]
   },
   "cap": {
-   "ru": "Vellfire 20-го кузова в мастерской: торпедо и пол разобраны под переделку",
-   "uk": "Vellfire 20-го кузова в майстерні: торпедо й підлогу розібрано під переобладнання",
-   "en": "A 20-series Vellfire in the workshop: dashboard and floor stripped for conversion"
+   "ru": "Vellfire 20-го кузова в мастерской: торпедо разобрано под переделку",
+   "uk": "Vellfire 20-го кузова в майстерні: торпедо розібрано під переобладнання",
+   "en": "A 20-series Vellfire in the workshop with the dashboard stripped for conversion"
   },
   "og": "assets/blog/alphard/vellfire-torpeda.jpg"
  },
@@ -135,45 +135,31 @@
   "og": "assets/blog/rul/08.jpg",
   "photos": {
    "0": [
-    "assets/blog/rul/01.jpg"
+    "assets/blog/rul/04.jpg"
    ],
    "1": [
-    "assets/blog/rul/02.jpg"
+    "assets/blog/rul/05.jpg"
    ],
    "2": [
     "assets/blog/rul/03.jpg"
    ],
    "3": [
-    "assets/blog/rul/04.jpg"
-   ],
-   "4": [
-    "assets/blog/rul/05.jpg"
-   ],
-   "5": [
-    "assets/blog/rul/06.jpg"
-   ],
-   "6": [
     "assets/blog/rul/07.jpg"
    ],
-   "7": [
+   "4": [
     "assets/blog/rul/08.jpg"
    ],
-   "8": [
+   "5": [
     "assets/blog/rul/09.jpg"
    ],
-   "9": [
-    "assets/blog/rul/10.jpg"
-   ],
-   "10": [
+   "6": [
+    "assets/blog/rul/12.jpg",
     "assets/blog/rul/11.jpg"
    ],
-   "11": [
-    "assets/blog/rul/12.jpg"
-   ],
-   "12": [
+   "7": [
     "assets/blog/rul/13.jpg"
    ],
-   "13": [
+   "8": [
     "assets/blog/rul/14.jpg"
    ]
   },
@@ -190,32 +176,20 @@
    "steps_h": "Шаг за шагом",
    "steps": [
     [
-     "Старое отверстие закрывают",
-     "Отверстие рулевой колонки справа закрывают — потом оно прячется под ковриком."
-    ],
-    [
-     "Моторный щит разбирают до металла",
-     "Чтобы перенести колонку и педали, щит открывают до голого металла."
-    ],
-    [
-     "Восстанавливают шумоизоляцию",
-     "После работ щит снова закрывают шумоизоляцией, как было с завода."
-    ],
-    [
      "Новый «стакан» и педали слева",
-     "Под колонку ставят новый «стакан», педали переносят на левую сторону."
+     "Под рулевую колонку ставят новый «стакан», педали переносят на левую сторону."
     ],
     [
      "Педальный узел",
-     "На фото — педальный узел Nissan Serena на своём новом месте."
+     "Положение педального узла точно вымеряют. На фото — Nissan Serena."
     ],
     [
-     "Каркас торпедо",
-     "Каркас торпедо переделывают под левое расположение руля."
+     "Шумоизоляция",
+     "Старое отверстие рулевой колонки заваривают листом металла, сверху щит закрывают шумоизоляцией, как было с завода."
     ],
     [
-     "Готовое торпедо",
-     "Торпедо собрано: дефлекторы, кнопки и панель на своих местах."
+     "Торпедо переделано",
+     "Торпедо собрано под левый руль: дефлекторы, кнопки и панель на своих местах."
     ],
     [
      "Руль слева",
@@ -226,16 +200,8 @@
      "Жабо — панель под лобовым стеклом — после переделки перекрашивают."
     ],
     [
-     "Проводку удлиняют",
-     "Жгуты проводки удлиняют под новое расположение узлов."
-    ],
-    [
-     "Термостойкая изолента",
-     "Изолируют специальной термостойкой изолентой — в Грузии такую не продают, её заказывают отдельно."
-    ],
-    [
-     "Соединения паяют",
-     "Провода паяют, а не скручивают: так соединение не окислится и не отойдёт."
+     "Проводка",
+     "Проводку удлиняют под новое расположение узлов и изолируют специальной термостойкой изолентой — в Грузии такую не продают, её заказывают отдельно. Провода могут паять, а могут скручивать — это зависит от мастера и цены работы."
     ],
     [
      "Тормозные трубки",
@@ -263,32 +229,20 @@
    "steps_h": "Крок за кроком",
    "steps": [
     [
-     "Старий отвір закривають",
-     "Отвір рульової колонки справа закривають — потім він ховається під килимком."
-    ],
-    [
-     "Моторний щит розбирають до металу",
-     "Щоб перенести колонку й педалі, щит відкривають до голого металу."
-    ],
-    [
-     "Відновлюють шумоізоляцію",
-     "Після робіт щит знову закривають шумоізоляцією, як було із заводу."
-    ],
-    [
      "Новий «стакан» і педалі зліва",
-     "Під колонку ставлять новий «стакан», педалі переносять на лівий бік."
+     "Під рульову колонку ставлять новий «стакан», педалі переносять на лівий бік."
     ],
     [
      "Педальний вузол",
-     "На фото — педальний вузол Nissan Serena на новому місці."
+     "Положення педального вузла точно вимірюють. На фото — Nissan Serena."
     ],
     [
-     "Каркас торпедо",
-     "Каркас торпедо переробляють під ліве розташування керма."
+     "Шумоізоляція",
+     "Старий отвір рульової колонки заварюють листом металу, зверху щит закривають шумоізоляцією, як було із заводу."
     ],
     [
-     "Готова торпедо",
-     "Торпедо зібрана: дефлектори, кнопки й панель на своїх місцях."
+     "Торпедо переобладнана",
+     "Торпедо зібрана під ліве кермо: дефлектори, кнопки й панель на своїх місцях."
     ],
     [
      "Кермо зліва",
@@ -299,16 +253,8 @@
      "Жабо — панель під лобовим склом — після переобладнання перефарбовують."
     ],
     [
-     "Проводку подовжують",
-     "Джгути проводки подовжують під нове розташування вузлів."
-    ],
-    [
-     "Термостійка ізострічка",
-     "Ізолюють спеціальною термостійкою ізострічкою — у Грузії такої не продають, її замовляють окремо."
-    ],
-    [
-     "З'єднання паяють",
-     "Дроти паяють, а не скручують: так з'єднання не окисниться і не відійде."
+     "Проводка",
+     "Проводку подовжують під нове розташування вузлів та ізолюють спеціальною термостійкою ізострічкою — у Грузії такої не продають, її замовляють окремо. Дроти можуть паяти, а можуть скручувати — це залежить від майстра й ціни роботи."
     ],
     [
      "Гальмівні трубки",
@@ -336,32 +282,20 @@
    "steps_h": "Step by step",
    "steps": [
     [
-     "The old opening is sealed",
-     "The right-hand steering column opening is closed up and ends up hidden under the carpet."
-    ],
-    [
-     "The firewall is stripped to bare metal",
-     "To move the column and pedals, the firewall is opened down to bare metal."
-    ],
-    [
-     "Sound insulation is restored",
-     "After the work the firewall is covered with sound insulation again, as from the factory."
-    ],
-    [
      "New column mount and pedals on the left",
-     "A new column mount goes in and the pedals move to the left side."
+     "A new steering column mount goes in and the pedals move to the left side."
     ],
     [
      "Pedal box",
-     "Shown here: the pedal box of a Nissan Serena in its new position."
+     "The pedal box position is measured precisely. Shown here: a Nissan Serena."
     ],
     [
-     "Dashboard frame",
-     "The dashboard frame is rebuilt for a left-hand steering position."
+     "Sound insulation",
+     "The old steering column opening is welded shut with sheet metal, then the firewall is covered with sound insulation as from the factory."
     ],
     [
-     "Finished dashboard",
-     "The dashboard is reassembled with vents, switches and trim in place."
+     "Dashboard converted",
+     "The dashboard is reassembled for left-hand drive, with vents, switches and trim in place."
     ],
     [
      "Steering on the left",
@@ -372,16 +306,8 @@
      "The cowl panel under the windscreen is repainted after the conversion."
     ],
     [
-     "Wiring is extended",
-     "Harnesses are extended to reach the new component positions."
-    ],
-    [
-     "Heat-resistant tape",
-     "Joints are wrapped in heat-resistant tape that is not sold in Georgia and is ordered separately."
-    ],
-    [
-     "Joints are soldered",
-     "Wires are soldered, not twisted, so connections do not corrode or come loose."
+     "Wiring",
+     "Harnesses are extended to the new component positions and wrapped in heat-resistant tape that is not sold in Georgia and is ordered separately. Wires may be soldered or twisted, depending on the workshop and the price of the job."
     ],
     [
      "Brake lines",

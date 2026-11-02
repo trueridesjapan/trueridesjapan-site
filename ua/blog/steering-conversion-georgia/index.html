@@ -283,6 +283,23 @@ footer a{color:var(--muted)}
 .methods{padding-left:20px;margin:0 0 8px}
 .methods li{color:var(--muted);margin-bottom:10px;line-height:1.6}
 .steps .figs{max-width:600px;grid-template-columns:repeat(auto-fill,minmax(180px,280px))}
+.posts{display:grid;gap:16px;padding-block:10px 56px}
+.postcard{display:grid;grid-template-columns:220px 1fr;gap:20px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;text-decoration:none;color:var(--fg);transition:border-color .15s}
+.postcard:hover{border-color:var(--faint)}
+.pimg{background:var(--panel2);min-height:160px}
+.pimg img{width:100%;height:100%;object-fit:cover;display:block}
+.pbody{padding:18px 18px 18px 0;min-width:0}
+.pbody h2{font-size:20px;margin:8px 0}
+.pbody p{color:var(--muted);margin:0;font-size:15px}
+@media (max-width:640px){.postcard{grid-template-columns:1fr;gap:0}.pimg{aspect-ratio:16/9;min-height:0}.pbody{padding:16px}}
+@media (max-width:1000px){nav.main{gap:16px}}
+@media (max-width:820px){
+  header.top .wrap{flex-wrap:wrap;row-gap:6px}
+  nav.main{display:flex!important;order:3;width:100%;margin-left:0;gap:18px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+  nav.main::-webkit-scrollbar{display:none}
+  nav.main a{white-space:nowrap;font-size:13px}
+  nav.main a:nth-child(2){display:none}
+}
 </style>
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Як переобладнують кермо японських авто в Грузії: фоторепортаж із майстерні", "description": "Переобладнання керма з правого на ліве крок за кроком: моторний щит, педалі, торпедо, проводка, гальмівні трубки. Два способи переобладнання і скільки це коштує.", "inLanguage": "uk", "datePublished": "2026-11-02", "dateModified": "2026-11-02", "author": {"@type": "Organization", "name": "True Rides Japan", "url": "https://trueridesjapan.com"}, "publisher": {"@type": "Organization", "name": "True Rides Japan", "logo": {"@type": "ImageObject", "url": "https://trueridesjapan.com/assets/logo.png"}}, "image": "https://trueridesjapan.com/assets/blog/rul/08.jpg", "mainEntityOfPage": "https://trueridesjapan.com/ua/blog/steering-conversion-georgia/"}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Головна", "item": "https://trueridesjapan.com/ua/"}, {"@type": "ListItem", "position": 2, "name": "Nissan Note e-Power", "item": "https://trueridesjapan.com/ua/nissan-note-e-power/"}, {"@type": "ListItem", "position": 3, "name": "Стаття", "item": "https://trueridesjapan.com/ua/blog/steering-conversion-georgia/"}]}]</script>
 </head>
@@ -294,6 +311,7 @@ footer a{color:var(--muted)}
       <a href="/ua/#catalog">Авто</a>
       <a href="/ua/#route">Як привозимо</a>
       <a href="/ua/#delivery">Доставка</a>
+      <a href="/ua/blog/">Статті</a>
       <a href="/ua/#contacts">Контакти</a>
     </nav>
     <nav class="langs" aria-label="Language"><a href="/blog/steering-conversion-georgia/" hreflang="ru" aria-current="false">RU</a><a href="/ua/blog/steering-conversion-georgia/" hreflang="uk" aria-current="true">UA</a><a href="/en/blog/steering-conversion-georgia/" hreflang="en" aria-current="false">EN</a></nav>

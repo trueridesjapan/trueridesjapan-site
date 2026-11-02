@@ -6,7 +6,7 @@
 ## Структура
 - Сайт статический, генерируется скриптом: **`python3 _src/build.py`**. HTML-файлы в корне, `ua/`, `en/`, `cars/`, `toyota-alphard-vellfire/`, `nissan-note-e-power/`, а также `sitemap.xml` и `robots.txt` — результат генерации, руками их не править.
 - Данные: `data/cars.json` (машины, публичные поля), `data/images.json` (фото: локальные `assets/cars/...` и ссылки BeForward).
-- Шаблоны и тексты: `_src/build.py`, `_src/i18n.json` (интерфейс), `_src/texts.json` (SEO-тексты главной и страниц моделей), `_src/articles.json` (статьи `/blog/<slug>/` на трёх языках), `_src/dicts.json` (цвета, опции, порты), `_src/page.css` + `_src/extra.css`, `_src/main_sections.html` (разделы главной).
+- Шаблоны и тексты: `_src/build.py`, `_src/i18n.json` (интерфейс), `_src/texts.json` (SEO-тексты главной и страниц моделей), `_src/articles.json` (статьи `/blog/<slug>/` на трёх языках, список статей — `/blog/`), `_src/dicts.json` (цвета, опции, порты), `_src/page.css` + `_src/extra.css`, `_src/main_sections.html` (разделы главной).
 - Языки: русский — корень `/`, украинский — `/ua/`, английский — `/en/`. Страница машины: `/cars/tr-05/`, `/ua/cars/tr-05/`…
 - Хостинг: Cloudflare Pages, автодеплой из ветки `main` (без команды сборки — HTML коммитится готовым).
 - Порядок правки: изменить данные/шаблоны → `python3 _src/build.py` → проверить → commit → push в `main`.

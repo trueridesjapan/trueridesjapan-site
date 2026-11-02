@@ -193,6 +193,7 @@ def header(lg, path):
       <a href="{home}#catalog">{t(lg,'nav_catalog')}</a>
       <a href="{home}#route">{t(lg,'nav_route')}</a>
       <a href="{home}#delivery">{t(lg,'nav_delivery')}</a>
+      <a href="{url(lg, 'blog/')}">{t(lg,'nav_blog')}</a>
       <a href="{home}#contacts">{t(lg,'nav_contacts')}</a>
     </nav>
     <nav class="langs" aria-label="Language">{langs}</nav>
@@ -424,6 +425,29 @@ def art_links(lg, fam=None):
     return "".join(f'<a class="artlink" href="{url(lg, art_path(a))}"><span class="eyebrow">{esc(a[lg]["label"])}</span><b>{esc(a[lg]["title"])}</b></a>' for a in items)
 
 
+def page_blog(lg):
+    path = "blog/"
+    B = X["blog"][lg]
+    crumbs = [(t(lg, "home"), abs_url(lg)), (B["h1"], abs_url(lg, path))]
+    ld = [crumbs_ld(crumbs), {"@context": "https://schema.org", "@type": "ItemList",
+          "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": abs_url(lg, art_path(a))} for i, a in enumerate(ARTICLES)]}]
+    items = ""
+    for a in sorted(ARTICLES, key=lambda a: a["date"], reverse=True):
+        A = a[lg]
+        img = a.get("og", "assets/og.jpg")
+        items += f'''<a class="postcard" href="{url(lg, art_path(a))}"><div class="pimg"><img src="/{img}" alt="" loading="lazy"></div><div class="pbody"><span class="eyebrow">{esc(X["models"][a["fam"]][lg]["h1"])}</span><h2>{esc(A["title"])}</h2><p>{esc(A["desc"])}</p></div></a>'''
+    body = f"""<main>
+<section class="wrap pagehead">
+  <nav class="crumbs"><a href="{url(lg)}">{t(lg,'home')}</a> › <span>{esc(B['h1'])}</span></nav>
+  <h1>{esc(B['h1'])}</h1>
+  <p class="lead">{esc(B['lead'])}</p>
+</section>
+<section class="wrap posts">{items}</section>
+</main>
+"""
+    write(PREFIX[lg] + path + "index.html", head(lg, path, B["title"], B["lead"], "assets/og.jpg", ld) + header(lg, path) + body + footer(lg) + SCRIPT)
+
+
 def page_article(lg, a):
     A = a[lg]
     path = art_path(a)
@@ -461,7 +485,7 @@ def page_article(lg, a):
 
 # ---------- sitemap / robots ----------
 def sitemap():
-    paths = [""] + [FAMILY_SLUG[f] + "/" for f in ["minivan", "note"]] + [art_path(a) for a in ARTICLES] + [car_slug(c) for c in CARS]
+    paths = [""] + [FAMILY_SLUG[f] + "/" for f in ["minivan", "note"]] + ["blog/"] + [art_path(a) for a in ARTICLES] + [car_slug(c) for c in CARS]
     out = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">']
     for p in paths:
         for lg in LANGS:
@@ -490,5 +514,6 @@ if __name__ == "__main__":
             page_car(lg, c)
         for a in ARTICLES:
             page_article(lg, a)
+        page_blog(lg)
     n = sitemap()
     print(f"OK: {n} страниц")

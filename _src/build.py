@@ -23,6 +23,7 @@ CARS = json.load(open(os.path.join(ROOT, "data", "cars.json"), encoding="utf-8")
 IMGS = json.load(open(os.path.join(ROOT, "data", "images.json"), encoding="utf-8"))
 CSS = open(os.path.join(SRC, "page.css"), encoding="utf-8").read() + open(os.path.join(SRC, "extra.css"), encoding="utf-8").read()
 MAIN = open(os.path.join(SRC, "main_sections.html"), encoding="utf-8").read()
+ARTICLES = json.load(open(os.path.join(SRC, "articles.json"), encoding="utf-8"))
 
 LANGS = ["ru", "uk", "en"]
 PREFIX = {"ru": "", "uk": "ua/", "en": "en/"}
@@ -325,7 +326,7 @@ def page_home(lg):
     m = m.replace('<div class="filters" id="filters"></div>', f'<div class="filters" id="filters">{filt}</div>')
     m = m.replace('<div class="grid" id="grid"></div>',
                   f'<div class="grid" id="grid">{"".join(card(c, lg) for c in cs)}</div><p class="empty" id="emptyMsg" hidden>{t(lg,"empty")}</p>'
-                  f'<p class="modlinks">{" · ".join(f"<a href=\"{url(lg, FAMILY_SLUG[f]+"/")}\">{esc(X["models"][f][lg]["h1"])} →</a>" for f in ["minivan","note"])}</p>')
+                  f'<div class="artlinks">{art_links(lg)}</div><p class="modlinks">{" · ".join(f"<a href=\"{url(lg, FAMILY_SLUG[f]+"/")}\">{esc(X["models"][f][lg]["h1"])} →</a>" for f in ["minivan","note"])}</p>')
     m = m.replace('<button class="copy" type="button" id="copyPhone" data-i18n="copy">', f'<button class="copy" type="button" data-copy="+380663666886" data-done="{esc(t(lg,"copied"))}">')
     items = [{"@type": "ListItem", "position": i + 1, "url": abs_url(lg, car_slug(c))} for i, c in enumerate(cs)]
     ld = [DEALER, {"@context": "https://schema.org", "@type": "ItemList", "itemListElement": items}]
@@ -356,6 +357,7 @@ def page_model(lg, fam):
   <div class="grid" id="grid">{"".join(card(c, lg) for c in cs)}</div>
 </section>
 <section class="band"><div class="wrap prose">{paras}
+  <div class="artlinks">{art_links(lg, fam)}</div>
   <div class="ctas"><a class="btn red" href="https://t.me/+380663666886" target="_blank" rel="noopener">{TG_ICO}<span>{t(lg,'cta_tg')}</span></a><a class="btn ghost" href="{url(lg)}#catalog">{t(lg,'all_cars')}</a></div>
 </div></section>
 </main>
@@ -412,9 +414,47 @@ def page_car(lg, c):
     write(PREFIX[lg] + path + "index.html", head(lg, path, title, desc, img, ld) + header(lg, path) + body + footer(lg) + SCRIPT)
 
 
+# ---------- статьи ----------
+def art_path(a):
+    return f"blog/{a['slug']}/"
+
+
+def art_links(lg, fam=None):
+    items = [a for a in ARTICLES if fam is None or a["fam"] == fam]
+    return "".join(f'<a class="artlink" href="{url(lg, art_path(a))}"><span class="eyebrow">{esc(a[lg]["label"])}</span><b>{esc(a[lg]["title"])}</b></a>' for a in items)
+
+
+def page_article(lg, a):
+    A = a[lg]
+    path = art_path(a)
+    M = X["models"][a["fam"]][lg]
+    steps = "".join(f'<li><h2>{esc(h)}</h2><p>{esc(p)}</p>' + (f'<p class="kit">{esc(A["kit"])} <a href="{a["kit_url"]}" target="_blank" rel="nofollow noopener">{esc(a["kit_url"].split("/")[2])}</a></p>' if i == 3 and a.get("kit_url") else "") + "</li>" for i, (h, p) in enumerate(A["steps"]))
+    cs = sort_cars([c for c in CARS if c["fam"] == a["fam"]])[:4]
+    crumbs = [(t(lg, "home"), abs_url(lg)), (M["h1"], abs_url(lg, FAMILY_SLUG[a["fam"]] + "/")), (A["label"], abs_url(lg, path))]
+    ld = [{"@context": "https://schema.org", "@type": "Article", "headline": A["title"], "description": A["desc"], "inLanguage": HREFLANG[lg],
+           "datePublished": a["date"], "dateModified": a["date"], "author": {"@type": "Organization", "name": "True Rides Japan", "url": SITE},
+           "publisher": {"@type": "Organization", "name": "True Rides Japan", "logo": {"@type": "ImageObject", "url": SITE + "/assets/logo.png"}},
+           "image": SITE + "/assets/og.jpg", "mainEntityOfPage": abs_url(lg, path)}, crumbs_ld(crumbs)]
+    body = f"""<main>
+<article class="wrap article">
+  <nav class="crumbs"><a href="{url(lg)}">{t(lg,'home')}</a> › <a href="{url(lg, FAMILY_SLUG[a['fam']]+'/')}">{esc(M['h1'])}</a> › <span>{esc(A['label'])}</span></nav>
+  <h1>{esc(A['title'])}</h1>
+  <p class="lead">{esc(A['lead'])}</p>
+  <ol class="steps">{steps}</ol>
+  <p class="total">{esc(A['total'])}</p>
+  <h2>{esc(A['outro_h'])}</h2>
+  <p>{esc(A['outro'])}</p>
+  <div class="ctas"><a class="btn red" href="{url(lg, FAMILY_SLUG[a['fam']]+'/')}">{esc(A['cta'])} →</a><a class="btn ghost" href="https://t.me/+380663666886" target="_blank" rel="noopener">{TG_ICO}<span>{t(lg,'cta_tg')}</span></a></div>
+</article>
+<section class="catalog wrap"><div class="grid">{"".join(card(c, lg) for c in cs)}</div></section>
+</main>
+"""
+    write(PREFIX[lg] + path + "index.html", head(lg, path, A["title"] + " | True Rides Japan", A["desc"], "assets/og.jpg", ld) + header(lg, path) + body + footer(lg) + SCRIPT)
+
+
 # ---------- sitemap / robots ----------
 def sitemap():
-    paths = [""] + [FAMILY_SLUG[f] + "/" for f in ["minivan", "note"]] + [car_slug(c) for c in CARS]
+    paths = [""] + [FAMILY_SLUG[f] + "/" for f in ["minivan", "note"]] + [art_path(a) for a in ARTICLES] + [car_slug(c) for c in CARS]
     out = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">']
     for p in paths:
         for lg in LANGS:
@@ -427,7 +467,7 @@ def sitemap():
 
 
 def clean():
-    for d in ["ua", "en", "cars"] + list(FAMILY_SLUG.values()):
+    for d in ["ua", "en", "cars", "blog"] + list(FAMILY_SLUG.values()):
         p = os.path.join(ROOT, d)
         if os.path.isdir(p):
             shutil.rmtree(p)
@@ -441,5 +481,7 @@ if __name__ == "__main__":
             page_model(lg, f)
         for c in CARS:
             page_car(lg, c)
+        for a in ARTICLES:
+            page_article(lg, a)
     n = sitemap()
     print(f"OK: {n} страниц")

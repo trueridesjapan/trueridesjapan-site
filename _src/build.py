@@ -1,0 +1,445 @@
+#!/usr/bin/env python3
+"""Генератор сайта True Rides Japan.
+
+Источники:  data/cars.json, data/images.json, _src/*.
+Результат:  готовые HTML-страницы в корне репозитория (/, /ua/, /en/, страницы моделей и машин),
+            sitemap.xml, robots.txt.
+Запуск:     python3 _src/build.py
+"""
+import json, os, re, html, shutil
+from datetime import date
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SRC = os.path.join(ROOT, "_src")
+SITE = "https://trueridesjapan.com"
+TODAY = date.today().isoformat()
+
+T = json.load(open(os.path.join(SRC, "i18n.json"), encoding="utf-8"))
+X = json.load(open(os.path.join(SRC, "texts.json"), encoding="utf-8"))
+for lg in T:
+    T[lg].update(X["ui"][lg])
+D = json.load(open(os.path.join(SRC, "dicts.json"), encoding="utf-8"))
+CARS = json.load(open(os.path.join(ROOT, "data", "cars.json"), encoding="utf-8"))
+IMGS = json.load(open(os.path.join(ROOT, "data", "images.json"), encoding="utf-8"))
+CSS = open(os.path.join(SRC, "page.css"), encoding="utf-8").read() + open(os.path.join(SRC, "extra.css"), encoding="utf-8").read()
+MAIN = open(os.path.join(SRC, "main_sections.html"), encoding="utf-8").read()
+
+LANGS = ["ru", "uk", "en"]
+PREFIX = {"ru": "", "uk": "ua/", "en": "en/"}
+HREFLANG = {"ru": "ru", "uk": "uk", "en": "en"}
+LI = {"ru": 0, "uk": 1, "en": 2}
+OGLOC = {"ru": "ru_RU", "uk": "uk_UA", "en": "en_GB"}
+MONTHS = {
+    "ru": ["янв", "фев", "мар", "апр", "мая", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"],
+    "uk": ["січ", "лют", "бер", "квіт", "трав", "черв", "лип", "серп", "вер", "жовт", "лист", "груд"],
+    "en": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+}
+FAMILY_SLUG = {"minivan": "toyota-alphard-vellfire", "note": "nissan-note-e-power"}
+
+esc = lambda s: html.escape(str(s), quote=True)
+nbsp = " "
+
+
+def num(n):
+    return f"{n:,}".replace(",", nbsp)
+
+
+def usd(n):
+    return "$" + num(n)
+
+
+def t(lg, k):
+    return T[lg].get(k, k)
+
+
+def url(lg, path=""):
+    return "/" + PREFIX[lg] + path
+
+
+def abs_url(lg, path=""):
+    return SITE + url(lg, path)
+
+
+# ---------- данные машины ----------
+def pretty_grade(g):
+    g = re.sub(r"^HYBRID\s+", "", g).replace("E-POWER", "e-Power")
+    out = []
+    for w in g.split(" "):
+        if w == "2":
+            out.append("II")
+        elif re.fullmatch(r"e-Power|X|S|FOUR|240S|2\.4Z|2\.5Z|A|G|AUTECH", w):
+            out.append(w)
+        else:
+            out.append(w[:1] + w[1:].lower())
+    return " ".join(out)
+
+
+def names(c):
+    g = pretty_grade(c["grade"])
+    if c["fam"] == "note" and "e-Power" not in g:
+        g = "e-Power " + g
+    model = c["model"] + (" " + c["gen"] if c["fam"] == "minivan" else "")
+    return model, g
+
+
+def engine(c, lg):
+    return "1.2 " + t(lg, "epower") if c["fam"] == "note" else f"{c['engine']/1000:.1f} " + t(lg, "petrol")
+
+
+def color(c, lg):
+    return D["COLORS"].get(c["color"], [c["color"]] * 3)[LI[lg]]
+
+
+def options(c, lg):
+    s, out = c["acc"], []
+    if "GOLDEN EYES" in c["grade"]:
+        out.append(D["OPTS"]["GOLDEN"][LI[lg]])
+    for k in ["Power Slide Door", "Body Kit", "Sunroof", "Back Camera", "360 Degree Camera", "Rear Spoiler", "Side Airbag"]:
+        if k in s:
+            out.append(D["OPTS"][k][LI[lg]])
+    if "Push Start" in s and "Keyless" in s:
+        out.append(D["OPTS"]["SMART"][LI[lg]])
+    elif "Push Start" in s:
+        out.append(D["OPTS"]["Push Start"][LI[lg]])
+    return out
+
+
+def dshort(d, lg):
+    y, m, dd = map(int, d.split("-"))
+    return f"{dd} {MONTHS[lg][m-1]}"
+
+
+def vessel(v):
+    return re.sub(r"\b([A-Z]{4,})\b", lambda m: m.group(1).capitalize(), v)
+
+
+def route(c, lg):
+    port = D["PORTS"].get(c["loading"], [c["loading"]] * 3)[LI[lg]]
+    poti = {"ru": "Поти", "uk": "Поті", "en": "Poti"}[lg]
+    return f"{port} → {poti}" + (f" · {vessel(c['vessel'])}" if c.get("vessel") else "")
+
+
+def status(c, lg):
+    return f"{t(lg,'transit')} · {t(lg,'eta')}{dshort(c['eta'], lg)}" if c.get("eta") else t(lg, "prep")
+
+
+def car_slug(c):
+    return f"cars/{c['ref'].lower()}/"
+
+
+def photos(c):
+    return IMGS.get(c["ref"], [])
+
+
+def img_src(p, depth):
+    """Локальные файлы — относительно корня сайта, внешние ссылки как есть."""
+    return p if p.startswith("http") else "/" + p
+
+
+# ---------- общие куски ----------
+SHIP = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg>'
+TG_ICO = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5z"/></svg>'
+SUN = '<svg id="icoSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>'
+MOON = '<svg id="icoMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>'
+
+
+def head(lg, path, title, desc, image, ld, alts=True):
+    links = ""
+    if alts:
+        for l2 in LANGS:
+            links += f'<link rel="alternate" hreflang="{HREFLANG[l2]}" href="{abs_url(l2, path)}">\n'
+        links += f'<link rel="alternate" hreflang="x-default" href="{abs_url("ru", path)}">\n'
+    img = image if image.startswith("http") else SITE + "/" + image.lstrip("/")
+    return f"""<!doctype html>
+<html lang="{HREFLANG[lg]}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>{esc(title)}</title>
+<meta name="description" content="{esc(desc)}">
+<link rel="canonical" href="{abs_url(lg, path)}">
+{links}<link rel="icon" href="/assets/logo.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="True Rides Japan">
+<meta property="og:locale" content="{OGLOC[lg]}">
+<meta property="og:url" content="{abs_url(lg, path)}">
+<meta property="og:title" content="{esc(title)}">
+<meta property="og:description" content="{esc(desc)}">
+<meta property="og:image" content="{esc(img)}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script>try{{var th=localStorage.getItem("tr_theme");if(th==="light"||th==="dark")document.documentElement.setAttribute("data-theme",th)}}catch(e){{}}</script>
+<style>:root{{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}}body{{margin:0}}img{{max-width:100%}}
+{CSS}</style>
+<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
+</head>
+<body>
+"""
+
+
+def header(lg, path):
+    langs = "".join(
+        f'<a href="{url(l2, path)}" hreflang="{HREFLANG[l2]}" aria-current="{"true" if l2 == lg else "false"}">{ {"ru":"RU","uk":"UA","en":"EN"}[l2] }</a>'
+        for l2 in LANGS
+    )
+    home = url(lg)
+    return f"""<header class="top">
+  <div class="wrap">
+    <a class="brand" href="{home}" aria-label="True Rides Japan"><span class="dot"></span><span><b>TRUE RIDES</b><small>JAPAN</small></span></a>
+    <nav class="main">
+      <a href="{home}#catalog">{t(lg,'nav_catalog')}</a>
+      <a href="{home}#route">{t(lg,'nav_route')}</a>
+      <a href="{home}#delivery">{t(lg,'nav_delivery')}</a>
+      <a href="{home}#contacts">{t(lg,'nav_contacts')}</a>
+    </nav>
+    <nav class="langs" aria-label="Language">{langs}</nav>
+    <button class="tbtn" type="button" id="themeBtn" aria-label="Theme">{SUN}{MOON}</button>
+  </div>
+</header>
+"""
+
+
+def footer(lg):
+    home = url(lg)
+    models = " · ".join(f'<a href="{url(lg, FAMILY_SLUG[f]+"/")}">{esc(X["models"][f][lg]["h1"])}</a>' for f in ["minivan", "note"])
+    return f"""<footer><div class="wrap"><span>© 2026 True Rides Japan</span><span class="fmodels">{models}</span><span>trueridesjapan.com</span></div></footer>
+<div class="bar">
+  <a class="btn red" href="https://t.me/+380663666886" target="_blank" rel="noopener">Telegram</a>
+  <a class="btn ghost" href="https://wa.me/380663666886" target="_blank" rel="noopener">WhatsApp</a>
+  <a class="btn ghost" href="{home}#catalog">{t(lg,'nav_catalog')}</a>
+</div>
+"""
+
+
+SCRIPT = """<script>
+(function(){
+var d=document.documentElement;
+function isDark(){var a=d.getAttribute("data-theme");if(a)return a==="dark";return !matchMedia("(prefers-color-scheme: light)").matches}
+function paint(){var k=isDark();var s=document.getElementById("icoSun"),m=document.getElementById("icoMoon");if(s)s.toggleAttribute("hidden",!k);if(m)m.toggleAttribute("hidden",k)}
+var tb=document.getElementById("themeBtn");if(tb)tb.addEventListener("click",function(){var n=isDark()?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("tr_theme",n)}catch(e){}paint()});
+try{matchMedia("(prefers-color-scheme: light)").addEventListener("change",paint)}catch(e){}
+paint();
+var f=document.getElementById("filters");
+if(f){var fam="all",st="all";f.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;
+ if(b.dataset.fam){fam=b.dataset.fam}else if(b.dataset.st){st=st===b.dataset.st?"all":b.dataset.st}
+ f.querySelectorAll("[data-fam]").forEach(function(x){x.setAttribute("aria-pressed",x.dataset.fam===fam)});
+ f.querySelectorAll("[data-st]").forEach(function(x){x.setAttribute("aria-pressed",x.dataset.st===st)});
+ var n=0;document.querySelectorAll("#grid .card").forEach(function(c){var ok=(fam==="all"||c.dataset.fam===fam)&&(st==="all"||c.dataset.st===st);c.hidden=!ok;if(ok)n++});
+ var em=document.getElementById("emptyMsg");if(em)em.hidden=n>0;});}
+var g=document.querySelector(".gal");
+if(g){g.addEventListener("click",function(e){var b=e.target.closest(".thumbs button");if(!b)return;var big=document.getElementById("big");big.src=b.dataset.src;
+ g.querySelectorAll(".thumbs button").forEach(function(x){x.setAttribute("aria-current",x===b)})});}
+document.querySelectorAll("img[data-fallback]").forEach(function(im){im.addEventListener("error",function(){var c=im.closest(".ph");if(c)c.classList.add("noimg");im.remove()})});
+document.querySelectorAll("[data-copy]").forEach(function(b){b.addEventListener("click",function(){var v=b.dataset.copy;if(navigator.clipboard)navigator.clipboard.writeText(v).then(function(){b.textContent=b.dataset.done}).catch(function(){})})});
+})();
+</script>
+</body>
+</html>
+"""
+
+
+def placeholder(c, lg):
+    tag = ("NOTE " + c["gen"]) if c["fam"] == "note" else (c["model"].split(" ")[1].upper() + " " + c["gen"])
+    return f'<div class="none"><b>{tag}</b><span>{t(lg,"nophoto")}</span></div>'
+
+
+def badge(c, lg):
+    cls = "status" if c.get("eta") else "status wait"
+    return f'<span class="{cls}"><i></i>{esc(status(c, lg))}</span>'
+
+
+def card(c, lg):
+    model, g = names(c)
+    ph = photos(c)
+    imgs = (f'<img src="{img_src(ph[0],0)}" alt="{esc(model+" "+g)}" loading="lazy" referrerpolicy="no-referrer" data-fallback>' if ph else "")
+    awd = '<span class="awd">4WD</span>' if c["drive"] == "4WD" else ""
+    st = "transit" if c.get("eta") else "prep"
+    return f"""<a class="card" href="{url(lg, car_slug(c))}" data-fam="{c['fam']}" data-st="{st}">
+  <div class="ph{'' if ph else ' noimg'}">{imgs}{placeholder(c, lg)}{badge(c, lg)}</div>
+  <div class="body"><h3>{esc(model)}<small>{esc(g)} · {c['year']}</small></h3>
+  <div class="specs"><span>{num(c['mileage'])} {t(lg,'km')}</span><span>{esc(engine(c, lg))}</span>{awd}<span>{esc(color(c, lg))}</span></div>
+  <div class="ship">{SHIP}<span>{esc(route(c, lg))}</span></div>
+  <div class="price"><div><small>{t(lg,'ua')} · {t(lg,'ua_s')}</small><b>{usd(c['priceUA'])}</b></div><div class="ge">{t(lg,'ge')}<br><strong>{usd(c['priceGE'])}</strong></div></div>
+  </div></a>"""
+
+
+def sort_cars(cs):
+    return sorted(cs, key=lambda c: (0 if c.get("eta") else 1, c.get("eta") or "9", c["priceUA"]))
+
+
+def car_ld(c, lg):
+    model, g = names(c)
+    brand, mdl = c["model"].split(" ", 1)
+    return {
+        "@context": "https://schema.org", "@type": "Car",
+        "name": f"{model} {g} {c['year']}", "brand": {"@type": "Brand", "name": brand}, "model": mdl,
+        "vehicleModelDate": str(c["year"]), "color": color(c, lg),
+        "mileageFromOdometer": {"@type": "QuantitativeValue", "value": c["mileage"], "unitCode": "KMT"},
+        "driveWheelConfiguration": "https://schema.org/AllWheelDriveConfiguration" if c["drive"] == "4WD" else "https://schema.org/FrontWheelDriveConfiguration",
+        "vehicleEngine": {"@type": "EngineSpecification", "engineDisplacement": {"@type": "QuantitativeValue", "value": round(c["engine"] / 1000, 1), "unitCode": "LTR"}},
+        "steeringPosition": "https://schema.org/LeftHandDriving",
+        "image": [p if p.startswith("http") else SITE + "/" + p for p in photos(c)[:6]],
+        "url": abs_url(lg, car_slug(c)),
+        "offers": {"@type": "Offer", "price": c["priceUA"], "priceCurrency": "USD", "availability": "https://schema.org/PreOrder",
+                   "areaServed": "UA", "seller": {"@type": "AutoDealer", "name": "True Rides Japan", "url": SITE}},
+    }
+
+
+def crumbs_ld(items):
+    return {"@context": "https://schema.org", "@type": "BreadcrumbList",
+            "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": n, "item": u} for i, (n, u) in enumerate(items)]}
+
+
+DEALER = {"@context": "https://schema.org", "@type": "AutoDealer", "name": "True Rides Japan", "url": SITE + "/",
+          "logo": SITE + "/assets/logo.png", "image": SITE + "/assets/og.jpg", "telephone": "+380663666886",
+          "address": {"@type": "PostalAddress", "addressLocality": "Rustavi", "addressCountry": "GE"},
+          "areaServed": ["UA", "GE", "IE"], "sameAs": ["https://www.instagram.com/true_rides/", "https://t.me/truerides_chat"]}
+
+
+def write(rel, content):
+    p = os.path.join(ROOT, rel)
+    os.makedirs(os.path.dirname(p), exist_ok=True)
+    open(p, "w", encoding="utf-8").write(content)
+
+
+# ---------- главная ----------
+def fill_i18n(markup, lg):
+    markup = re.sub(r'(<(\w+)([^>]*?)data-i18n-html="(\w+)"([^>]*)>)(</\2>)', lambda m: m.group(1) + t(lg, m.group(4)) + m.group(6), markup)
+    markup = re.sub(r'(<(\w+)([^>]*?)data-i18n="(\w+)"([^>]*)>)(</\2>)', lambda m: m.group(1) + esc(t(lg, m.group(4))) + m.group(6), markup)
+    return markup
+
+
+def page_home(lg):
+    cs = sort_cars(CARS)
+    transit = sum(1 for c in CARS if c.get("eta"))
+    m = fill_i18n(MAIN, lg)
+    m = m.replace('<img class="emblem" src="assets/logo.png"', '<img class="emblem" src="/assets/logo.png"')
+    m = m.replace('<div class="facts" id="facts"></div>',
+                  f'<div class="facts" id="facts"><div><b>{len(CARS)}</b><span>{t(lg,"f1")}</span></div><div><b>{transit}</b><span>{t(lg,"f2")}</span></div><div><b>~4</b><span>{t(lg,"f3")}</span></div></div>')
+    cnt = lambda f: sum(1 for c in CARS if f == "all" or c["fam"] == f)
+    stc = lambda s: sum(1 for c in CARS if (s == "transit") == bool(c.get("eta")))
+    filt = "".join(f'<button class="chip" type="button" data-fam="{f}" aria-pressed="{"true" if f=="all" else "false"}">{t(lg,f)}<span class="n">{cnt(f)}</span></button>' for f in ["all", "minivan", "note"])
+    filt += '<span class="sep"></span>' + "".join(f'<button class="chip" type="button" data-st="{s}" aria-pressed="false">{t(lg,s)}<span class="n">{stc(s)}</span></button>' for s in ["transit", "prep"])
+    m = m.replace('<div class="filters" id="filters"></div>', f'<div class="filters" id="filters">{filt}</div>')
+    m = m.replace('<div class="grid" id="grid"></div>',
+                  f'<div class="grid" id="grid">{"".join(card(c, lg) for c in cs)}</div><p class="empty" id="emptyMsg" hidden>{t(lg,"empty")}</p>'
+                  f'<p class="modlinks">{" · ".join(f"<a href=\"{url(lg, FAMILY_SLUG[f]+"/")}\">{esc(X["models"][f][lg]["h1"])} →</a>" for f in ["minivan","note"])}</p>')
+    m = m.replace('<button class="copy" type="button" id="copyPhone" data-i18n="copy">', f'<button class="copy" type="button" data-copy="+380663666886" data-done="{esc(t(lg,"copied"))}">')
+    items = [{"@type": "ListItem", "position": i + 1, "url": abs_url(lg, car_slug(c))} for i, c in enumerate(cs)]
+    ld = [DEALER, {"@context": "https://schema.org", "@type": "ItemList", "itemListElement": items}]
+    title = X["home"][lg]["title"]
+    desc = X["home"][lg]["desc"]
+    write(PREFIX[lg] + "index.html", head(lg, "", title, desc, "assets/og.jpg", ld) + header(lg, "") + m + footer(lg) + SCRIPT)
+
+
+# ---------- страница модели ----------
+def page_model(lg, fam):
+    M = X["models"][fam][lg]
+    cs = sort_cars([c for c in CARS if c["fam"] == fam])
+    path = FAMILY_SLUG[fam] + "/"
+    minp = min(c["priceUA"] for c in cs)
+    paras = "".join(f"<p>{esc(p)}</p>" for p in M["text"])
+    crumbs = [(t(lg, "home"), abs_url(lg)), (M["h1"], abs_url(lg, path))]
+    ld = [DEALER, crumbs_ld(crumbs), {"@context": "https://schema.org", "@type": "ItemList",
+          "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": abs_url(lg, car_slug(c))} for i, c in enumerate(cs)]}]
+    img = next((photos(c)[0] for c in cs if photos(c)), "assets/og.jpg")
+    body = f"""<main>
+<section class="wrap pagehead">
+  <nav class="crumbs"><a href="{url(lg)}">{t(lg,'home')}</a> › <span>{esc(M['h1'])}</span></nav>
+  <h1>{esc(M['h1'])}</h1>
+  <p class="lead">{esc(M['lead'])}</p>
+  <p class="fromprice">{t(lg,'from_price')} <b>{usd(minp)}</b> · {t(lg,'ua_s')}</p>
+</section>
+<section class="catalog wrap" id="catalog">
+  <div class="grid" id="grid">{"".join(card(c, lg) for c in cs)}</div>
+</section>
+<section class="band"><div class="wrap prose">{paras}
+  <div class="ctas"><a class="btn red" href="https://t.me/+380663666886" target="_blank" rel="noopener">{TG_ICO}<span>{t(lg,'cta_tg')}</span></a><a class="btn ghost" href="{url(lg)}#catalog">{t(lg,'all_cars')}</a></div>
+</div></section>
+</main>
+"""
+    write(PREFIX[lg] + path + "index.html", head(lg, path, M["title"].replace("{price}", usd(minp)), M["desc"].replace("{price}", usd(minp)), img, ld) + header(lg, path) + body + footer(lg) + SCRIPT)
+
+
+# ---------- страница машины ----------
+def page_car(lg, c):
+    model, g = names(c)
+    path = car_slug(c)
+    ph = photos(c)
+    fam = c["fam"]
+    M = X["models"][fam][lg]
+    opts = options(c, lg)
+    if ph:
+        big = f'<img id="big" src="{img_src(ph[0],0)}" alt="{esc(model+" "+g+" "+str(c["year"]))}" referrerpolicy="no-referrer" data-fallback>'
+        thumbs = "".join(f'<button type="button" data-src="{img_src(p,0)}" aria-current="{"true" if i==0 else "false"}"><img src="{img_src(p,0)}" alt="" loading="lazy" referrerpolicy="no-referrer" data-fallback></button>' for i, p in enumerate(ph))
+        gal = f'<div class="gal"><div class="main ph">{big}{placeholder(c, lg)}</div>' + (f'<div class="thumbs">{thumbs}</div>' if len(ph) > 1 else "") + "</div>"
+    else:
+        gal = f'<div class="gal"><div class="main ph noimg">{placeholder(c, lg)}</div></div>'
+    drive = ("4WD, " + t(lg, "awd")) if c["drive"] == "4WD" else t(lg, "fwd")
+    msg = f"{t(lg,'msg')} {model} {g} {c['year']}, {num(c['mileage'])} {t(lg,'km')} ({c['ref']})"
+    from urllib.parse import quote
+    wa = "https://wa.me/380663666886?text=" + quote(msg)
+    note = f'<div class="note">{t(lg,"damaged")}</div>' if c.get("damaged") else ""
+    optsh = (f'<div><p class="eyebrow" style="margin:0 0 8px">{t(lg,"opts")}</p><div class="opts">' + "".join(f"<span>{esc(o)}</span>" for o in opts) + "</div></div>") if opts else ""
+    others = [x for x in sort_cars(CARS) if x["fam"] == fam and x["ref"] != c["ref"]][:4]
+    crumbs = [(t(lg, "home"), abs_url(lg)), (M["h1"], abs_url(lg, FAMILY_SLUG[fam] + "/")), (c["ref"], abs_url(lg, path))]
+    body = f"""<main>
+<section class="wrap pagehead">
+  <nav class="crumbs"><a href="{url(lg)}">{t(lg,'home')}</a> › <a href="{url(lg, FAMILY_SLUG[fam]+'/')}">{esc(M['h1'])}</a> › <span>{c['ref']}</span></nav>
+</section>
+<section class="wrap carpage">
+  {gal}
+  <div class="info">
+    <div><p class="eyebrow">№ {c['ref']} · {esc(status(c, lg))}</p><h1>{esc(model)} {c['year']}</h1><div class="sub">{esc(g)}</div></div>
+    <div class="prices"><div class="ua"><small>{t(lg,'ua')}</small><b>{usd(c['priceUA'])}</b><small>{t(lg,'ua_s')}</small></div><div><small>{t(lg,'ge')}</small><b>{usd(c['priceGE'])}</b><small>{t(lg,'ge_s')}</small></div></div>
+    <p class="book">{t(lg,'book')}</p>
+    {note}
+    <table class="kv"><tr><td>{t(lg,'k_status')}</td><td>{esc(status(c, lg))}</td></tr><tr><td>{t(lg,'k_year')}</td><td>{c['year']}</td></tr><tr><td>{t(lg,'k_mileage')}</td><td>{num(c['mileage'])} {t(lg,'km')}</td></tr><tr><td>{t(lg,'k_engine')}</td><td>{esc(engine(c, lg))}</td></tr><tr><td>{t(lg,'k_drive')}</td><td>{esc(drive)}</td></tr><tr><td>{t(lg,'k_color')}</td><td>{esc(color(c, lg))}</td></tr><tr><td>{t(lg,'k_steer')}</td><td>{t(lg,'steer_v')}</td></tr><tr><td>{t(lg,'k_route')}</td><td>{esc(route(c, lg))}</td></tr></table>
+    {optsh}
+    <div class="ctas"><a class="btn red" href="{esc(wa)}" target="_blank" rel="noopener">WhatsApp · {t(lg,'write')}</a><a class="btn ghost" href="https://t.me/+380663666886" target="_blank" rel="noopener">{TG_ICO}Telegram</a></div>
+    <p class="book">{t(lg,'call')} <b>+380 66 366 68 86</b> · Viber, Telegram, WhatsApp</p>
+  </div>
+</section>
+{f'''<section class="catalog wrap"><div class="cat-head"><h2>{t(lg,'more_same')}</h2><a class="btn ghost" href="{url(lg, FAMILY_SLUG[fam]+'/')}">{esc(M['h1'])} →</a></div><div class="grid">{"".join(card(x, lg) for x in others)}</div></section>''' if others else ''}
+</main>
+"""
+    title = f"{model} {g} {c['year']}, {num(c['mileage'])} {t(lg,'km')} — {usd(c['priceUA'])} | True Rides Japan"
+    desc = f"{status(c, lg)}. {engine(c, lg)}, {drive}, {color(c, lg)}" + (", " + ", ".join(opts[:3]) if opts else "") + f". {t(lg,'ua')}: {usd(c['priceUA'])} ({t(lg,'ua_s')}). {t(lg,'ge')}: {usd(c['priceGE'])}."
+    img = ph[0] if ph else "assets/og.jpg"
+    ld = [car_ld(c, lg), crumbs_ld(crumbs)]
+    write(PREFIX[lg] + path + "index.html", head(lg, path, title, desc, img, ld) + header(lg, path) + body + footer(lg) + SCRIPT)
+
+
+# ---------- sitemap / robots ----------
+def sitemap():
+    paths = [""] + [FAMILY_SLUG[f] + "/" for f in ["minivan", "note"]] + [car_slug(c) for c in CARS]
+    out = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">']
+    for p in paths:
+        for lg in LANGS:
+            alts = "".join(f'<xhtml:link rel="alternate" hreflang="{HREFLANG[l2]}" href="{abs_url(l2, p)}"/>' for l2 in LANGS)
+            out.append(f"  <url><loc>{abs_url(lg, p)}</loc><lastmod>{TODAY}</lastmod>{alts}</url>")
+    out.append("</urlset>")
+    write("sitemap.xml", "\n".join(out) + "\n")
+    write("robots.txt", f"User-agent: *\nAllow: /\nDisallow: /_src/\n\nSitemap: {SITE}/sitemap.xml\n")
+    return len(paths) * len(LANGS)
+
+
+def clean():
+    for d in ["ua", "en", "cars"] + list(FAMILY_SLUG.values()):
+        p = os.path.join(ROOT, d)
+        if os.path.isdir(p):
+            shutil.rmtree(p)
+
+
+if __name__ == "__main__":
+    clean()
+    for lg in LANGS:
+        page_home(lg)
+        for f in ["minivan", "note"]:
+            page_model(lg, f)
+        for c in CARS:
+            page_car(lg, c)
+    n = sitemap()
+    print(f"OK: {n} страниц")

@@ -149,15 +149,9 @@
    "4": [
     "assets/blog/rul/08.jpg"
    ],
-   "5": [
-    "assets/blog/rul/09.jpg"
-   ],
    "6": [
     "assets/blog/rul/12.jpg",
     "assets/blog/rul/11.jpg"
-   ],
-   "7": [
-    "assets/blog/rul/13.jpg"
    ],
    "8": [
     "assets/blog/rul/14.jpg"
@@ -196,8 +190,8 @@
      "Колонка и руль стоят слева, приборная панель перед водителем."
     ],
     [
-     "Жабо перекрашено",
-     "Жабо — панель под лобовым стеклом — после переделки перекрашивают."
+     "Дворники и жабо",
+     "Дворники переделывают, чтобы они работали в привычном режиме для левого руля, а не под правый. Жабо — панель под лобовым стеклом — изначально сделано под другое расположение дворников, поэтому его тоже дорабатывают и перекрашивают."
     ],
     [
      "Проводка",
@@ -249,8 +243,8 @@
      "Колонка й кермо стоять зліва, приладова панель перед водієм."
     ],
     [
-     "Жабо перефарбоване",
-     "Жабо — панель під лобовим склом — після переобладнання перефарбовують."
+     "Двірники та жабо",
+     "Двірники переробляють, щоб вони працювали у звичному режимі для лівого керма, а не під праве. Жабо — панель під лобовим склом — спочатку зроблене під інше розташування двірників, тому його теж доробляють і перефарбовують."
     ],
     [
      "Проводка",
@@ -302,8 +296,8 @@
      "Column and wheel are on the left, with the instruments in front of the driver."
     ],
     [
-     "Cowl repainted",
-     "The cowl panel under the windscreen is repainted after the conversion."
+     "Wipers and cowl",
+     "The wipers are reworked so they sweep the usual way for left-hand drive, not for right-hand drive. The cowl panel under the windscreen is made for the original wiper layout, so it is modified and repainted too."
     ],
     [
      "Wiring",

@@ -45,3 +45,10 @@ footer a{color:var(--muted)}
 .artlink{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--fg)}
 .artlink:hover{border-color:var(--faint)}
 .artlink b{display:block;margin-top:4px}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:6px 0 14px}
+.figs figure{margin:0;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--panel2)}
+.figs img{display:block;width:100%;height:auto}
+.figcap{grid-column:1/-1;font-size:13px!important;margin:0!important}
+.methods{padding-left:20px;margin:0 0 8px}
+.methods li{color:var(--muted);margin-bottom:10px;line-height:1.6}
+.steps .figs{max-width:600px;grid-template-columns:repeat(auto-fill,minmax(180px,280px))}

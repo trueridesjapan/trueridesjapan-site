@@ -428,20 +428,27 @@ def page_article(lg, a):
     A = a[lg]
     path = art_path(a)
     M = X["models"][a["fam"]][lg]
-    steps = "".join(f'<li><h2>{esc(h)}</h2><p>{esc(p)}</p>' + (f'<p class="kit">{esc(A["kit"])} <a href="{a["kit_url"]}" target="_blank" rel="nofollow noopener">{esc(a["kit_url"].split("/")[2])}</a></p>' if i == 3 and a.get("kit_url") else "") + "</li>" for i, (h, p) in enumerate(A["steps"]))
+    def figs(i, h):
+        ph = a.get("photos", {}).get(str(i), [])
+        if not ph:
+            return ""
+        cap = a.get("cap", {}).get(lg, h)
+        return '<div class="figs">' + "".join(f'<figure><img src="/{p}" alt="{esc(cap)}" loading="lazy"></figure>' for p in ph) + (f'<p class="figcap">{esc(cap)}</p>' if a.get("cap") else "") + "</div>"
+    steps = "".join(f'<li><h2>{esc(h)}</h2><p>{esc(p)}</p>' + figs(i, h) + (f'<p class="kit">{esc(A["kit"])} <a href="{a["kit_url"]}" target="_blank" rel="nofollow noopener">{esc(a["kit_url"].split("/")[2])}</a></p>' if i == 3 and a.get("kit_url") else "") + "</li>" for i, (h, p) in enumerate(A["steps"]))
+    methods = (f'<h2>{esc(A["methods_h"])}</h2><ul class="methods">' + "".join(f"<li>{esc(m)}</li>" for m in A["methods"]) + f'</ul><h2>{esc(A["steps_h"])}</h2>') if A.get("methods") else ""
     cs = sort_cars([c for c in CARS if c["fam"] == a["fam"]])[:4]
     crumbs = [(t(lg, "home"), abs_url(lg)), (M["h1"], abs_url(lg, FAMILY_SLUG[a["fam"]] + "/")), (A["label"], abs_url(lg, path))]
     ld = [{"@context": "https://schema.org", "@type": "Article", "headline": A["title"], "description": A["desc"], "inLanguage": HREFLANG[lg],
            "datePublished": a["date"], "dateModified": a["date"], "author": {"@type": "Organization", "name": "True Rides Japan", "url": SITE},
            "publisher": {"@type": "Organization", "name": "True Rides Japan", "logo": {"@type": "ImageObject", "url": SITE + "/assets/logo.png"}},
-           "image": SITE + "/assets/og.jpg", "mainEntityOfPage": abs_url(lg, path)}, crumbs_ld(crumbs)]
+           "image": SITE + "/" + a.get("og", "assets/og.jpg"), "mainEntityOfPage": abs_url(lg, path)}, crumbs_ld(crumbs)]
     body = f"""<main>
 <article class="wrap article">
   <nav class="crumbs"><a href="{url(lg)}">{t(lg,'home')}</a> › <a href="{url(lg, FAMILY_SLUG[a['fam']]+'/')}">{esc(M['h1'])}</a> › <span>{esc(A['label'])}</span></nav>
   <h1>{esc(A['title'])}</h1>
   <p class="lead">{esc(A['lead'])}</p>
-  <ol class="steps">{steps}</ol>
-  <p class="total">{esc(A['total'])}</p>
+  {methods}<ol class="steps">{steps}</ol>
+  {f'<p class="total">{esc(A["total"])}</p>' if A.get("total") else ""}
   <h2>{esc(A['outro_h'])}</h2>
   <p>{esc(A['outro'])}</p>
   <div class="ctas"><a class="btn red" href="{url(lg, FAMILY_SLUG[a['fam']]+'/')}">{esc(A['cta'])} →</a><a class="btn ghost" href="https://t.me/+380663666886" target="_blank" rel="noopener">{TG_ICO}<span>{t(lg,'cta_tg')}</span></a></div>
@@ -449,7 +456,7 @@ def page_article(lg, a):
 <section class="catalog wrap"><div class="grid">{"".join(card(c, lg) for c in cs)}</div></section>
 </main>
 """
-    write(PREFIX[lg] + path + "index.html", head(lg, path, A["title"] + " | True Rides Japan", A["desc"], "assets/og.jpg", ld) + header(lg, path) + body + footer(lg) + SCRIPT)
+    write(PREFIX[lg] + path + "index.html", head(lg, path, A["title"] + " | True Rides Japan", A["desc"], a.get("og", "assets/og.jpg"), ld) + header(lg, path) + body + footer(lg) + SCRIPT)
 
 
 # ---------- sitemap / robots ----------

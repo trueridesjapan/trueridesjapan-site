@@ -15,7 +15,9 @@
    "phone_l": "Телефон:",
    "tg_hint": "В Telegram и Viber укажите номер машины:",
    "photo": "Фото",
-   "ua_full": "с растаможкой в Украине"
+   "ua_full": "с растаможкой в Украине",
+   "call_l": "Позвонить:",
+   "msg_l": "Telegram, Viber, WhatsApp:"
   },
   "uk": {
    "home": "Головна",
@@ -32,7 +34,9 @@
    "phone_l": "Телефон:",
    "tg_hint": "У Telegram і Viber вкажіть номер авто:",
    "photo": "Фото",
-   "ua_full": "з розмитненням в Україні"
+   "ua_full": "з розмитненням в Україні",
+   "call_l": "Зателефонувати:",
+   "msg_l": "Telegram, Viber, WhatsApp:"
   },
   "en": {
    "home": "Home",
@@ -49,7 +53,9 @@
    "phone_l": "Phone:",
    "tg_hint": "On Telegram and Viber, mention the car number:",
    "photo": "Photo",
-   "ua_full": "incl. Ukrainian customs"
+   "ua_full": "incl. Ukrainian customs",
+   "call_l": "Call:",
+   "msg_l": "Telegram, Viber, WhatsApp:"
   }
  },
  "home": {

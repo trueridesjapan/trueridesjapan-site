@@ -238,7 +238,7 @@ def footer(lg):
 <div class="bar">
   <a class="btn red" href="https://t.me/+380663666886" target="_blank" rel="noopener">Telegram</a>
   <a class="btn ghost" href="viber://chat?number=%2B380663666886">Viber</a>
-  <a class="btn ghost" href="tel:+380663666886">{t(lg,'call_btn')}</a>
+  <a class="btn ghost" href="tel:+995511184186">{t(lg,'call_btn')}</a>
 </div>
 """
 
@@ -276,6 +276,8 @@ document.querySelectorAll("[data-copy]").forEach(function(b){b.addEventListener(
 
 PHONE = "+380663666886"
 PHONE_TXT = "+380 66 366 68 86"
+CALL = "+995511184186"
+CALL_TXT = "+995 511 18 41 86"
 
 
 def contact_buttons(lg, msg="", ref=""):
@@ -286,9 +288,9 @@ def contact_buttons(lg, msg="", ref=""):
   <a class="btn red" href="https://t.me/+380663666886" target="_blank" rel="noopener">{TG_ICO}Telegram</a>
   <a class="btn ghost" href="viber://chat?number=%2B380663666886">Viber</a>
   <a class="btn ghost" href="{esc(wa)}" target="_blank" rel="noopener">WhatsApp</a>
-  <a class="btn ghost" href="tel:{PHONE}">{t(lg,'call_btn')}</a>
+  <a class="btn ghost" href="tel:{CALL}">{t(lg,'call_btn')}</a>
 </div>
-<p class="book">{t(lg,'phone_l')} <b class="sel">{PHONE_TXT}</b> <button class="copy" type="button" data-copy="{PHONE}" data-done="{esc(t(lg,'copied'))}">{t(lg,'copy')}</button></p>{hint}'''
+<p class="book">{t(lg,'call_l')} <a class="sel" href="tel:{CALL}"><b>{CALL_TXT}</b></a><br>{t(lg,'msg_l')} <b class="sel">{PHONE_TXT}</b></p>{hint}'''
 
 
 def placeholder(c, lg):
@@ -345,7 +347,7 @@ def crumbs_ld(items):
 
 
 DEALER = {"@context": "https://schema.org", "@type": "AutoDealer", "name": "True Rides Japan", "url": SITE + "/",
-          "logo": SITE + "/assets/logo.png", "image": SITE + "/assets/og.jpg", "telephone": "+380663666886",
+          "logo": SITE + "/assets/logo.png", "image": SITE + "/assets/og.jpg", "telephone": "+995511184186",
           "address": {"@type": "PostalAddress", "addressLocality": "Rustavi", "addressCountry": "GE"},
           "areaServed": ["UA", "GE", "IE"], "sameAs": ["https://www.instagram.com/true_rides/", "https://t.me/truerides_chat"]}
 

@@ -309,6 +309,12 @@ a.phone{color:var(--fg);text-decoration:none}
 .cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media (min-width:1000px){.carpage .cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .contact .book a{color:var(--fg)}
+
+/* Emblem: dark theme uses a version with a thin light rim so the chrome letters don't sink into the background */
+.hero .em-light{display:none}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .hero .em-light{display:block}:root:not([data-theme="dark"]) .hero .em-dark{display:none}}
+:root[data-theme="light"] .hero .em-light{display:block}
+:root[data-theme="light"] .hero .em-dark{display:none}
 </style>
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://trueridesjapan.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Articles", "item": "https://trueridesjapan.com/en/blog/"}]}, {"@context": "https://schema.org", "@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": 1, "url": "https://trueridesjapan.com/en/blog/alphard-from-japan-cost/"}, {"@type": "ListItem", "position": 2, "url": "https://trueridesjapan.com/en/blog/steering-conversion-georgia/"}]}]</script>
 </head>

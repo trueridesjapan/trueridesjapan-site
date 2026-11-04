@@ -309,6 +309,12 @@ a.phone{color:var(--fg);text-decoration:none}
 .cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media (min-width:1000px){.carpage .cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .contact .book a{color:var(--fg)}
+
+/* Emblem: dark theme uses a version with a thin light rim so the chrome letters don't sink into the background */
+.hero .em-light{display:none}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .hero .em-light{display:block}:root:not([data-theme="dark"]) .hero .em-dark{display:none}}
+:root[data-theme="light"] .hero .em-light{display:block}
+:root[data-theme="light"] .hero .em-dark{display:none}
 </style>
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "AutoDealer", "name": "True Rides Japan", "url": "https://trueridesjapan.com/", "logo": "https://trueridesjapan.com/assets/logo.png", "image": "https://trueridesjapan.com/assets/og.jpg", "telephone": "+995511184186", "address": {"@type": "PostalAddress", "addressLocality": "Rustavi", "addressCountry": "GE"}, "areaServed": ["UA", "GE", "IE"], "sameAs": ["https://www.instagram.com/true_rides/", "https://t.me/truerides_chat"]}, {"@context": "https://schema.org", "@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": 1, "url": "https://trueridesjapan.com/ua/cars/tr-02/"}, {"@type": "ListItem", "position": 2, "url": "https://trueridesjapan.com/ua/cars/tr-15/"}, {"@type": "ListItem", "position": 3, "url": "https://trueridesjapan.com/ua/cars/tr-16/"}, {"@type": "ListItem", "position": 4, "url": "https://trueridesjapan.com/ua/cars/tr-03/"}, {"@type": "ListItem", "position": 5, "url": "https://trueridesjapan.com/ua/cars/tr-01/"}, {"@type": "ListItem", "position": 6, "url": "https://trueridesjapan.com/ua/cars/tr-04/"}, {"@type": "ListItem", "position": 7, "url": "https://trueridesjapan.com/ua/cars/tr-14/"}, {"@type": "ListItem", "position": 8, "url": "https://trueridesjapan.com/ua/cars/tr-06/"}, {"@type": "ListItem", "position": 9, "url": "https://trueridesjapan.com/ua/cars/tr-05/"}, {"@type": "ListItem", "position": 10, "url": "https://trueridesjapan.com/ua/cars/tr-12/"}, {"@type": "ListItem", "position": 11, "url": "https://trueridesjapan.com/ua/cars/tr-17/"}, {"@type": "ListItem", "position": 12, "url": "https://trueridesjapan.com/ua/cars/tr-13/"}, {"@type": "ListItem", "position": 13, "url": "https://trueridesjapan.com/ua/cars/tr-07/"}, {"@type": "ListItem", "position": 14, "url": "https://trueridesjapan.com/ua/cars/tr-08/"}, {"@type": "ListItem", "position": 15, "url": "https://trueridesjapan.com/ua/cars/tr-09/"}, {"@type": "ListItem", "position": 16, "url": "https://trueridesjapan.com/ua/cars/tr-10/"}, {"@type": "ListItem", "position": 17, "url": "https://trueridesjapan.com/ua/cars/tr-11/"}]}]</script>
 </head>
@@ -338,9 +344,9 @@ a.phone{color:var(--fg);text-decoration:none}
         <a class="btn red" href="#catalog" data-i18n="cta_cars">Дивитися авто</a>
         <a class="btn ghost" href="https://t.me/+380663666886" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5z"/></svg><span data-i18n="cta_tg">Написати в Telegram</span></a>
       </div>
-      <div class="facts" id="facts"><div><b>17</b><span>авто вже куплено</span></div><div><b id="nSail">5</b><span>пливуть у Поті просто зараз</span></div><div><b>~4</b><span>місяці від аукціону до Одеси</span></div></div>
+      <div class="facts" id="facts"><div><b>17</b><span>авто вже куплено</span></div><div><b id="nSail">6</b><span>пливуть у Поті просто зараз</span></div><div><b>~4</b><span>місяці від аукціону до Одеси</span></div></div>
     </div>
-    <img class="emblem" src="/assets/logo.png" alt="True Rides Japan">
+    <img class="emblem em-light" src="/assets/logo.png" alt="True Rides Japan"><img class="emblem em-dark" src="/assets/logo-dark.png" alt="True Rides Japan">
   </div>
 </section>
 
@@ -358,7 +364,7 @@ a.phone{color:var(--fg);text-decoration:none}
 <section class="catalog wrap" id="catalog">
   <div class="cat-head">
     <div><p class="eyebrow" data-i18n="cat_eyebrow">Наявність і авто в дорозі</p><h2 data-i18n="cat_title">Авто</h2></div>
-    <div class="filters" id="filters"><button class="chip" type="button" data-fam="all" aria-pressed="true">Усі<span class="n">17</span></button><button class="chip" type="button" data-fam="minivan" aria-pressed="false">Alphard / Vellfire<span class="n">11</span></button><button class="chip" type="button" data-fam="note" aria-pressed="false">Nissan Note<span class="n">6</span></button><span class="sep"></span><button class="chip" type="button" data-st="transit" aria-pressed="false">У дорозі<span class="n" data-cnt="transit">5</span></button><button class="chip" type="button" data-st="prep" aria-pressed="false">Готується до відправки<span class="n" data-cnt="prep">12</span></button></div>
+    <div class="filters" id="filters"><button class="chip" type="button" data-fam="all" aria-pressed="true">Усі<span class="n">17</span></button><button class="chip" type="button" data-fam="minivan" aria-pressed="false">Alphard / Vellfire<span class="n">11</span></button><button class="chip" type="button" data-fam="note" aria-pressed="false">Nissan Note<span class="n">6</span></button><span class="sep"></span><button class="chip" type="button" data-st="transit" aria-pressed="false">У дорозі<span class="n" data-cnt="transit">6</span></button><button class="chip" type="button" data-st="prep" aria-pressed="false">Готується до відправки<span class="n" data-cnt="prep">11</span></button></div>
   </div>
   <div class="grid" id="grid"><a class="card" href="/ua/cars/tr-02/" data-fam="minivan" data-st="sail">
   <div class="ph"><img src="/assets/cars/TR-02-1.jpg" alt="Toyota Vellfire 20 2.4Z" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Фото з аукціону незабаром</span></div><span class="status js-status" data-etd="2026-10-15" data-eta="2026-11-25" data-t-prep="Готується до відправки" data-t-wait="Чекає відправки · ~15 жовт 2026" data-t-sail="У дорозі · Поті ~25 лист 2026" data-t-arrived="Прибув у Поті"><i></i>У дорозі · Поті ~25 лист 2026</span></div>
@@ -408,8 +414,8 @@ a.phone{color:var(--fg);text-decoration:none}
   <div class="specs"><span>111 284 км</span><span>2.4 бензин</span><span>бордовий</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Нагоя → Поті · MSC General IV</span></div>
   <div class="price"><div><small>Україна, з розмитненням</small><b>$13 000</b></div><div class="ge">Грузія<br><strong>$7 200</strong></div></div>
-  </div></a><a class="card" href="/ua/cars/tr-05/" data-fam="minivan" data-st="wait">
-  <div class="ph"><img src="/assets/cars/TR-05-1.jpg" alt="Toyota Alphard 20 240S Type Gold II" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>ALPHARD 20</b><span>Фото з аукціону незабаром</span></div><span class="status wait js-status" data-etd="2026-11-04" data-eta="2026-12-27" data-t-prep="Готується до відправки" data-t-wait="Чекає відправки · ~4 лист 2026" data-t-sail="У дорозі · Поті ~27 груд 2026" data-t-arrived="Прибув у Поті"><i></i>Чекає відправки · ~4 лист 2026</span></div>
+  </div></a><a class="card" href="/ua/cars/tr-05/" data-fam="minivan" data-st="sail">
+  <div class="ph"><img src="/assets/cars/TR-05-1.jpg" alt="Toyota Alphard 20 240S Type Gold II" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>ALPHARD 20</b><span>Фото з аукціону незабаром</span></div><span class="status js-status" data-etd="2026-11-04" data-eta="2026-12-27" data-t-prep="Готується до відправки" data-t-wait="Чекає відправки · ~4 лист 2026" data-t-sail="У дорозі · Поті ~27 груд 2026" data-t-arrived="Прибув у Поті"><i></i>У дорозі · Поті ~27 груд 2026</span></div>
   <div class="body"><h3>Toyota Alphard 20<small>240S Type Gold II · 2014</small></h3>
   <div class="specs"><span>112 251 км</span><span>2.4 бензин</span><span>білий перламутр</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Осака → Поті · MSC Tiger III</span></div>

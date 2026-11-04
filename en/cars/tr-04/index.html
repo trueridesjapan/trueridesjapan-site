@@ -309,6 +309,12 @@ a.phone{color:var(--fg);text-decoration:none}
 .cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media (min-width:1000px){.carpage .cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .contact .book a{color:var(--fg)}
+
+/* Emblem: dark theme uses a version with a thin light rim so the chrome letters don't sink into the background */
+.hero .em-light{display:none}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .hero .em-light{display:block}:root:not([data-theme="dark"]) .hero .em-dark{display:none}}
+:root[data-theme="light"] .hero .em-light{display:block}
+:root[data-theme="light"] .hero .em-dark{display:none}
 </style>
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Car", "name": "Toyota Vellfire 20 2.4Z G Edition 2014", "brand": {"@type": "Brand", "name": "Toyota"}, "model": "Vellfire", "vehicleModelDate": "2014", "color": "black", "mileageFromOdometer": {"@type": "QuantitativeValue", "value": 140656, "unitCode": "KMT"}, "driveWheelConfiguration": "https://schema.org/FrontWheelDriveConfiguration", "vehicleEngine": {"@type": "EngineSpecification", "engineDisplacement": {"@type": "QuantitativeValue", "value": 2.4, "unitCode": "LTR"}}, "steeringPosition": "https://schema.org/LeftHandDriving", "image": ["https://image-cdn.beforward.jp/large/202610/16975744/CF126391_f9e466.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_280f7d.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_c63546.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_79964f.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_7c6e9b.JPG", "https://image-cdn.beforward.jp/large/202610/16975744/CF126391_326ec5.JPG"], "url": "https://trueridesjapan.com/en/cars/tr-04/", "offers": {"@type": "Offer", "price": 13000, "priceCurrency": "USD", "availability": "https://schema.org/PreOrder", "areaServed": "UA", "seller": {"@type": "AutoDealer", "name": "True Rides Japan", "url": "https://trueridesjapan.com"}}}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://trueridesjapan.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Toyota Alphard / Vellfire", "item": "https://trueridesjapan.com/en/toyota-alphard-vellfire/"}, {"@type": "ListItem", "position": 3, "name": "TR-04", "item": "https://trueridesjapan.com/en/cars/tr-04/"}]}]</script>
 </head>

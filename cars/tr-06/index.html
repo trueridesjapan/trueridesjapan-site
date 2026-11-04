@@ -309,6 +309,12 @@ a.phone{color:var(--fg);text-decoration:none}
 .cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media (min-width:1000px){.carpage .cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .contact .book a{color:var(--fg)}
+
+/* Emblem: dark theme uses a version with a thin light rim so the chrome letters don't sink into the background */
+.hero .em-light{display:none}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .hero .em-light{display:block}:root:not([data-theme="dark"]) .hero .em-dark{display:none}}
+:root[data-theme="light"] .hero .em-light{display:block}
+:root[data-theme="light"] .hero .em-dark{display:none}
 </style>
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Car", "name": "Toyota Vellfire 20 2.4Z Golden Eyes II 2014", "brand": {"@type": "Brand", "name": "Toyota"}, "model": "Vellfire", "vehicleModelDate": "2014", "color": "бордовый", "mileageFromOdometer": {"@type": "QuantitativeValue", "value": 111284, "unitCode": "KMT"}, "driveWheelConfiguration": "https://schema.org/FrontWheelDriveConfiguration", "vehicleEngine": {"@type": "EngineSpecification", "engineDisplacement": {"@type": "QuantitativeValue", "value": 2.4, "unitCode": "LTR"}}, "steeringPosition": "https://schema.org/LeftHandDriving", "image": ["https://trueridesjapan.com/assets/cars/TR-06-1.jpg", "https://trueridesjapan.com/assets/cars/TR-06-2.jpg", "https://image-cdn.beforward.jp/large/202610/17114540/CF263759_a99bdd.jpg", "https://image-cdn.beforward.jp/large/202610/17114540/CF263759_b1a3b6.jpg", "https://image-cdn.beforward.jp/large/202610/17114540/CF263759_1cd6e3.jpg", "https://image-cdn.beforward.jp/large/202610/17114540/CF263759_8a8b20.jpg"], "url": "https://trueridesjapan.com/cars/tr-06/", "offers": {"@type": "Offer", "price": 13000, "priceCurrency": "USD", "availability": "https://schema.org/PreOrder", "areaServed": "UA", "seller": {"@type": "AutoDealer", "name": "True Rides Japan", "url": "https://trueridesjapan.com"}}}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://trueridesjapan.com/"}, {"@type": "ListItem", "position": 2, "name": "Toyota Alphard / Vellfire", "item": "https://trueridesjapan.com/toyota-alphard-vellfire/"}, {"@type": "ListItem", "position": 3, "name": "TR-06", "item": "https://trueridesjapan.com/cars/tr-06/"}]}]</script>
 </head>

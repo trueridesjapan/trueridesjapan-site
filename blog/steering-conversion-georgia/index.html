@@ -309,6 +309,12 @@ a.phone{color:var(--fg);text-decoration:none}
 .cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media (min-width:1000px){.carpage .cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .contact .book a{color:var(--fg)}
+
+/* Emblem: dark theme uses a version with a thin light rim so the chrome letters don't sink into the background */
+.hero .em-light{display:none}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .hero .em-light{display:block}:root:not([data-theme="dark"]) .hero .em-dark{display:none}}
+:root[data-theme="light"] .hero .em-light{display:block}
+:root[data-theme="light"] .hero .em-dark{display:none}
 </style>
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Как переделывают руль японских авто в Грузии: фоторепортаж из мастерской", "description": "Переделка руля с правого на левый шаг за шагом: педали, шумоизоляция, торпедо, проводка, дворники. Три способа переделки, чем они отличаются и сколько это стоит.", "inLanguage": "ru", "datePublished": "2026-11-02", "dateModified": "2026-11-02", "author": {"@type": "Organization", "name": "True Rides Japan", "url": "https://trueridesjapan.com"}, "publisher": {"@type": "Organization", "name": "True Rides Japan", "logo": {"@type": "ImageObject", "url": "https://trueridesjapan.com/assets/logo.png"}}, "image": "https://trueridesjapan.com/assets/blog/rul/08.jpg", "mainEntityOfPage": "https://trueridesjapan.com/blog/steering-conversion-georgia/"}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://trueridesjapan.com/"}, {"@type": "ListItem", "position": 2, "name": "Nissan Note e-Power", "item": "https://trueridesjapan.com/nissan-note-e-power/"}, {"@type": "ListItem", "position": 3, "name": "Статья", "item": "https://trueridesjapan.com/blog/steering-conversion-georgia/"}]}]</script>
 </head>

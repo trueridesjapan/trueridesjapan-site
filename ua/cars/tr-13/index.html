@@ -309,6 +309,12 @@ a.phone{color:var(--fg);text-decoration:none}
 .cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media (min-width:1000px){.carpage .cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .contact .book a{color:var(--fg)}
+
+/* Emblem: dark theme uses a version with a thin light rim so the chrome letters don't sink into the background */
+.hero .em-light{display:none}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .hero .em-light{display:block}:root:not([data-theme="dark"]) .hero .em-dark{display:none}}
+:root[data-theme="light"] .hero .em-light{display:block}
+:root[data-theme="light"] .hero .em-dark{display:none}
 </style>
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Car", "name": "Nissan Note e-Power S 2021", "brand": {"@type": "Brand", "name": "Nissan"}, "model": "Note", "vehicleModelDate": "2021", "color": "сріблястий", "mileageFromOdometer": {"@type": "QuantitativeValue", "value": 63319, "unitCode": "KMT"}, "driveWheelConfiguration": "https://schema.org/FrontWheelDriveConfiguration", "vehicleEngine": {"@type": "EngineSpecification", "engineDisplacement": {"@type": "QuantitativeValue", "value": 1.2, "unitCode": "LTR"}}, "steeringPosition": "https://schema.org/LeftHandDriving", "image": ["https://image-cdn.beforward.jp/large/202610/17026358/CF171632_432223.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_363a7a.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_75022c.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_f29baf.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_9a25d2.jpg", "https://image-cdn.beforward.jp/large/202610/17026358/CF171632_6edc57.jpg"], "url": "https://trueridesjapan.com/ua/cars/tr-13/", "offers": {"@type": "Offer", "price": 12000, "priceCurrency": "USD", "availability": "https://schema.org/PreOrder", "areaServed": "UA", "seller": {"@type": "AutoDealer", "name": "True Rides Japan", "url": "https://trueridesjapan.com"}}}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Головна", "item": "https://trueridesjapan.com/ua/"}, {"@type": "ListItem", "position": 2, "name": "Nissan Note e-Power", "item": "https://trueridesjapan.com/ua/nissan-note-e-power/"}, {"@type": "ListItem", "position": 3, "name": "TR-13", "item": "https://trueridesjapan.com/ua/cars/tr-13/"}]}]</script>
 </head>

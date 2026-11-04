@@ -368,7 +368,8 @@ def page_home(lg):
     cs = sort_cars(CARS)
     transit = sum(1 for c in CARS if state(c) == "sail")
     m = fill_i18n(MAIN, lg)
-    m = m.replace('<img class="emblem" src="assets/logo.png"', '<img class="emblem" src="/assets/logo.png"')
+    m = m.replace('<img class="emblem em-light" src="assets/logo.png"', '<img class="emblem em-light" src="/assets/logo.png"')
+    m = m.replace('src="assets/logo-dark.png"', 'src="/assets/logo-dark.png"')
     m = m.replace('<div class="facts" id="facts"></div>',
                   f'<div class="facts" id="facts"><div><b>{len(CARS)}</b><span>{t(lg,"f1")}</span></div><div><b id="nSail">{transit}</b><span>{t(lg,"f2")}</span></div><div><b>~4</b><span>{t(lg,"f3")}</span></div></div>')
     cnt = lambda f: sum(1 for c in CARS if f == "all" or c["fam"] == f)

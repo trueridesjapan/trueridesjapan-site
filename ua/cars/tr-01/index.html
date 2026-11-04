@@ -309,6 +309,12 @@ a.phone{color:var(--fg);text-decoration:none}
 .cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media (min-width:1000px){.carpage .cbtns{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .contact .book a{color:var(--fg)}
+
+/* Emblem: dark theme uses a version with a thin light rim so the chrome letters don't sink into the background */
+.hero .em-light{display:none}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .hero .em-light{display:block}:root:not([data-theme="dark"]) .hero .em-dark{display:none}}
+:root[data-theme="light"] .hero .em-light{display:block}
+:root[data-theme="light"] .hero .em-dark{display:none}
 </style>
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Car", "name": "Toyota Alphard 20 240S Type Gold II 2014", "brand": {"@type": "Brand", "name": "Toyota"}, "model": "Alphard", "vehicleModelDate": "2014", "color": "білий перламутр", "mileageFromOdometer": {"@type": "QuantitativeValue", "value": 144950, "unitCode": "KMT"}, "driveWheelConfiguration": "https://schema.org/FrontWheelDriveConfiguration", "vehicleEngine": {"@type": "EngineSpecification", "engineDisplacement": {"@type": "QuantitativeValue", "value": 2.4, "unitCode": "LTR"}}, "steeringPosition": "https://schema.org/LeftHandDriving", "image": ["https://image-cdn.beforward.jp/large/202610/16793195/CE893961_e79651.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_6d51e0.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_ffe8eb.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_bfb780.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_cf0943.JPG", "https://image-cdn.beforward.jp/large/202610/16793195/CE893961_eb8b75.JPG"], "url": "https://trueridesjapan.com/ua/cars/tr-01/", "offers": {"@type": "Offer", "price": 13000, "priceCurrency": "USD", "availability": "https://schema.org/PreOrder", "areaServed": "UA", "seller": {"@type": "AutoDealer", "name": "True Rides Japan", "url": "https://trueridesjapan.com"}}}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Головна", "item": "https://trueridesjapan.com/ua/"}, {"@type": "ListItem", "position": 2, "name": "Toyota Alphard / Vellfire", "item": "https://trueridesjapan.com/ua/toyota-alphard-vellfire/"}, {"@type": "ListItem", "position": 3, "name": "TR-01", "item": "https://trueridesjapan.com/ua/cars/tr-01/"}]}]</script>
 </head>

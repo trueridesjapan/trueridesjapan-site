@@ -137,13 +137,13 @@
   "engine": 2360,
   "drive": "4WD",
   "acc": "A/C Airbag Alloy Wheels Power Steering Power Window Power Slide Door",
-  "vessel": null,
-  "eta": null,
+  "vessel": "MSC TAMPA V",
+  "eta": "2026-12-27",
   "loading": null,
   "priceUA": 13000,
   "priceGE": 6700,
   "damaged": false,
-  "etd": null,
+  "etd": "2026-11-19",
   "sale": "free"
  },
  {
@@ -222,12 +222,12 @@
   "drive": "2WD",
   "acc": "A/C Airbag Alloy Wheels Power Steering Power Window ABS",
   "vessel": null,
-  "eta": null,
+  "eta": "2027-01-12",
   "loading": null,
   "priceUA": 20000,
   "priceGE": 11000,
   "damaged": false,
-  "etd": null,
+  "etd": "2026-11-24",
   "sale": "free"
  },
  {
@@ -264,12 +264,12 @@
   "drive": "2WD",
   "acc": "A/C Airbag Power Steering Power Window Rear Spoiler ABS Push Start Keyless Entry ESC",
   "vessel": null,
-  "eta": null,
+  "eta": "2027-01-12",
   "loading": null,
   "priceUA": 12000,
   "priceGE": 8400,
   "damaged": false,
-  "etd": null,
+  "etd": "2026-11-24",
   "sale": "free"
  },
  {

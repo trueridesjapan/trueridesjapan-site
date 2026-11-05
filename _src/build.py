@@ -136,7 +136,8 @@ def state(c):
 def status_texts(c, lg):
     return {
         "prep": t(lg, "prep"),
-        "wait": f"{t(lg,'st_wait')} · ~{dshort(c['etd'], lg)}" if c.get("etd") else t(lg, "prep"),
+        "wait": (f"{t(lg,'st_wait')} · ~{dshort(c['etd'], lg)}"
+                 + (f" · {t(lg,'eta')}{dshort(c['eta'], lg)}" if c.get("eta") else "")) if c.get("etd") else t(lg, "prep"),
         "sail": f"{t(lg,'transit')} · {t(lg,'eta')}{dshort(c['eta'], lg)}" if c.get("eta") else t(lg, "transit"),
         "arrived": t(lg, "st_arrived"),
     }

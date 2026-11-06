@@ -17,7 +17,7 @@
   "priceUA": 13000,
   "priceGE": 6600,
   "damaged": true,
-  "etd": "2026-11-09",
+  "etd": "2026-11-12",
   "sale": "free"
  },
  {
@@ -80,7 +80,7 @@
   "priceUA": 13000,
   "priceGE": 7100,
   "damaged": false,
-  "etd": "2026-11-09",
+  "etd": "2026-11-12",
   "sale": "free"
  },
  {
@@ -242,13 +242,13 @@
   "engine": 1190,
   "drive": "4WD",
   "acc": "A/C Airbag Power Steering Power Window",
-  "vessel": "MSC TAVVISHI VI",
-  "eta": "2027-01-12",
-  "loading": "Yokohama",
+  "vessel": "MSC ZAINA III",
+  "eta": "2026-12-22",
+  "loading": "Osaka",
   "priceUA": 12000,
   "priceGE": 8700,
   "damaged": false,
-  "etd": "2026-11-24",
+  "etd": "2026-11-11",
   "sale": "free"
  },
  {

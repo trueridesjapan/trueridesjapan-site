@@ -355,5 +355,26 @@
   "damaged": false,
   "etd": null,
   "sale": "free"
+ },
+ {
+  "ref": "TR-18",
+  "model": "Toyota Vellfire",
+  "gen": "30",
+  "fam": "minivan",
+  "year": 2017,
+  "grade": "2.5Z A EDITION GOLDEN EYES",
+  "mileage": 145751,
+  "color": "Pearl",
+  "engine": 2490,
+  "drive": "2WD",
+  "acc": "A/C Airbag Alloy Wheels Power Steering Power Window Rear Spoiler Back Camera SMART Push Start Power Slide Door",
+  "vessel": null,
+  "eta": null,
+  "loading": null,
+  "priceUA": 20000,
+  "priceGE": 12000,
+  "damaged": false,
+  "etd": null,
+  "sale": "free"
  }
 ]

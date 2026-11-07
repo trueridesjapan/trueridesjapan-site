@@ -589,6 +589,8 @@ def sitemap():
     if SEO.get("indexnow"):
         write(SEO["indexnow"] + ".txt", SEO["indexnow"])
     write("llms.txt", llms_txt())
+    if SEO.get("yandex"):
+        write(f"yandex_{SEO['yandex']}.html", f'<html>\n    <head>\n        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">\n    </head>\n    <body>Verification: {SEO["yandex"]}</body>\n</html>\n')
     return n
 
 

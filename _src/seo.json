@@ -1,7 +1,7 @@
 {
  "_note": "Коды подтверждения: google — Search Console (HTML-тег, только значение content), yandex — Яндекс Вебмастер, bing — Bing Webmaster Tools. indexnow — ключ IndexNow (файл <ключ>.txt в корне).",
  "google": "",
- "yandex": "",
+ "yandex": "9dcc27e0b0045c74",
  "bing": "",
  "indexnow": "6f9acf58984646e48cd8e9869bf5ff86"
 }

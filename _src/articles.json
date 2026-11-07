@@ -322,5 +322,28 @@
    "outro": "We visited every conversion specialist we know in Georgia and compared their work. Each model goes to the workshop that does it best. Converting a 12-series Nissan Note costs about $500 (about $650 with soldered wiring), a 13-series Note about $1,600, and a 20-series Alphard / Vellfire about $1,600 with a dedicated kit.",
    "cta": "View cars in transit"
   }
+ },
+ {
+  "slug": "car-from-japan-to-armenia",
+  "fam": "note",
+  "date": "2026-11-07",
+  "free": true,
+  "langs": [
+   "ru",
+   "hy"
+  ],
+  "og": "assets/blog/rul/08.jpg",
+  "ru": {
+   "label": "Статья",
+   "eyebrow": "Армения",
+   "title": "Машина из Японии для Армении: дешевле, чем у перепродавца, с гарантией на переделку руля",
+   "desc": "Покупка авто на аукционе в Японии для Армении под ключ: переделка руля в Грузии с гарантией 1 год в Армении, прозрачная цена, поэтапная оплата с залогом $200. Пример расчёта Nissan Note E13."
+  },
+  "hy": {
+   "label": "Հոդված",
+   "eyebrow": "Հայաստան",
+   "title": "Մեքենա Ճապոնիայից Հայաստանի համար՝ վերավաճառողից էժան, ղեկի փոխման երաշխիքով",
+   "desc": "Մեքենայի գնում Ճապոնիայի աճուրդից Հայաստանի համար՝ ղեկի փոխում Վրաստանում 1 տարվա երաշխիքով Հայաստանում, թափանցիկ գին, փուլային վճարում $200 կանխավճարով։ Nissan Note E13-ի հաշվարկի օրինակ։"
+  }
  }
 ]

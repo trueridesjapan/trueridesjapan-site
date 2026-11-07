@@ -26,10 +26,14 @@ MAIN = open(os.path.join(SRC, "main_sections.html"), encoding="utf-8").read()
 ARTICLES = json.load(open(os.path.join(SRC, "articles.json"), encoding="utf-8"))
 
 LANGS = ["ru", "uk", "en"]
-PREFIX = {"ru": "", "uk": "ua/", "en": "en/"}
-HREFLANG = {"ru": "ru", "uk": "uk", "en": "en"}
+PREFIX = {"ru": "", "uk": "ua/", "en": "en/", "hy": "hy/"}
+HREFLANG = {"ru": "ru", "uk": "uk", "en": "en", "hy": "hy"}
 LI = {"ru": 0, "uk": 1, "en": 2}
-OGLOC = {"ru": "ru_RU", "uk": "uk_UA", "en": "en_GB"}
+OGLOC = {"ru": "ru_RU", "uk": "uk_UA", "en": "en_GB", "hy": "hy_AM"}
+LANG_LABEL = {"ru": "RU", "uk": "UA", "en": "EN", "hy": "HY"}
+# Статьи могут быть не на всех языках сайта (поле "langs"); армянский (hy) есть только у отдельных статей.
+alangs = lambda a: a.get("langs", LANGS)
+ui_lang = lambda lg: lg if lg in LANGS else "ru"
 MONTHS = {
     "ru": ["янв", "фев", "мар", "апр", "мая", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"],
     "uk": ["січ", "лют", "бер", "квіт", "трав", "черв", "лип", "серп", "вер", "жовт", "лист", "груд"],
@@ -176,7 +180,7 @@ MOON = '<svg id="icoMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" 
 def head(lg, path, title, desc, image, ld, alts=True):
     links = ""
     if alts:
-        for l2 in LANGS:
+        for l2 in (alts if isinstance(alts, list) else LANGS):
             links += f'<link rel="alternate" hreflang="{HREFLANG[l2]}" href="{abs_url(l2, path)}">\n'
         links += f'<link rel="alternate" hreflang="x-default" href="{abs_url("ru", path)}">\n'
     img = image if image.startswith("http") else SITE + "/" + image.lstrip("/")
@@ -209,10 +213,11 @@ def head(lg, path, title, desc, image, ld, alts=True):
 """
 
 
-def header(lg, path):
+def header(lg, path, langs_list=None, cur=None):
+    cur = cur or lg
     langs = "".join(
-        f'<a href="{url(l2, path)}" hreflang="{HREFLANG[l2]}" aria-current="{"true" if l2 == lg else "false"}">{ {"ru":"RU","uk":"UA","en":"EN"}[l2] }</a>'
-        for l2 in LANGS
+        f'<a href="{url(l2, path)}" hreflang="{HREFLANG[l2]}" aria-current="{"true" if l2 == cur else "false"}">{LANG_LABEL[l2]}</a>'
+        for l2 in (langs_list or LANGS)
     )
     home = url(lg)
     return f"""<header class="top">
@@ -475,7 +480,7 @@ def art_path(a):
 
 
 def art_links(lg, fam=None):
-    items = [a for a in ARTICLES if fam is None or a["fam"] == fam]
+    items = [a for a in ARTICLES if (fam is None or a["fam"] == fam) and lg in alangs(a)]
     return "".join(f'<a class="artlink" href="{url(lg, art_path(a))}"><span class="eyebrow">{esc(a[lg]["label"])}</span><b>{esc(a[lg]["title"])}</b></a>' for a in items)
 
 
@@ -484,12 +489,12 @@ def page_blog(lg):
     B = X["blog"][lg]
     crumbs = [(t(lg, "home"), abs_url(lg)), (B["h1"], abs_url(lg, path))]
     ld = [crumbs_ld(crumbs), {"@context": "https://schema.org", "@type": "ItemList",
-          "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": abs_url(lg, art_path(a))} for i, a in enumerate(ARTICLES)]}]
+          "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": abs_url(lg, art_path(a))} for i, a in enumerate([a for a in ARTICLES if lg in alangs(a)])]}]
     items = ""
-    for a in sorted(ARTICLES, key=lambda a: a["date"], reverse=True):
+    for a in sorted([a for a in ARTICLES if lg in alangs(a)], key=lambda a: a["date"], reverse=True):
         A = a[lg]
         img = a.get("og", "assets/og.jpg")
-        items += f'''<a class="postcard" href="{url(lg, art_path(a))}"><div class="pimg"><img src="/{img}" alt="" loading="lazy"></div><div class="pbody"><span class="eyebrow">{esc(X["models"][a["fam"]][lg]["h1"])}</span><h2>{esc(A["title"])}</h2><p>{esc(A["desc"])}</p></div></a>'''
+        items += f'''<a class="postcard" href="{url(lg, art_path(a))}"><div class="pimg"><img src="/{img}" alt="" loading="lazy"></div><div class="pbody"><span class="eyebrow">{esc(A.get("eyebrow") or X["models"][a["fam"]][lg]["h1"])}</span><h2>{esc(A["title"])}</h2><p>{esc(A["desc"])}</p></div></a>'''
     body = f"""<main>
 <section class="wrap pagehead">
   <nav class="crumbs"><a href="{url(lg)}">{t(lg,'home')}</a> › <span>{esc(B['h1'])}</span></nav>
@@ -537,22 +542,48 @@ def page_article(lg, a):
     write(PREFIX[lg] + path + "index.html", head(lg, path, A["title"] + " | True Rides Japan", A["desc"], a.get("og", "assets/og.jpg"), ld) + header(lg, path) + body + footer(lg) + SCRIPT)
 
 
+def page_article_free(lg, a):
+    """Статья со свободным текстом: тело — готовый HTML из _src/articles/<slug>.<lg>.html."""
+    A = a[lg]
+    ui = ui_lang(lg)
+    path = art_path(a)
+    body_html = open(os.path.join(SRC, "articles", f"{a['slug']}.{lg}.html"), encoding="utf-8").read()
+    B = X["blog"][ui]
+    crumbs = [(t(ui, "home"), abs_url(ui)), (B["h1"], abs_url(ui, "blog/")), (A["label"], abs_url(lg, path))]
+    ld = [{"@context": "https://schema.org", "@type": "Article", "headline": A["title"], "description": A["desc"], "inLanguage": HREFLANG[lg],
+           "datePublished": a["date"], "dateModified": a.get("updated", a["date"]), "author": {"@type": "Organization", "name": "True Rides Japan", "url": SITE},
+           "publisher": {"@type": "Organization", "name": "True Rides Japan", "logo": {"@type": "ImageObject", "url": SITE + "/assets/logo.png"}},
+           "image": SITE + "/" + a.get("og", "assets/og.jpg"), "mainEntityOfPage": abs_url(lg, path)}, crumbs_ld(crumbs)]
+    body = f"""<main>
+<article class="wrap article free" lang="{HREFLANG[lg]}">
+  <nav class="crumbs"><a href="{url(ui)}">{t(ui,'home')}</a> › <a href="{url(ui, 'blog/')}">{esc(B['h1'])}</a> › <span>{esc(A['label'])}</span></nav>
+  <h1>{esc(A['title'])}</h1>
+{body_html}
+</article>
+</main>
+"""
+    write(PREFIX[lg] + path + "index.html", head(lg, path, A["title"] + " | True Rides Japan", A["desc"], a.get("og", "assets/og.jpg"), ld, alts=alangs(a))
+          + header(ui, path, langs_list=alangs(a), cur=lg) + body + footer(ui) + SCRIPT)
+
+
 # ---------- sitemap / robots ----------
 def sitemap():
-    paths = [""] + [FAMILY_SLUG[f] + "/" for f in ["minivan", "note"]] + ["blog/"] + [art_path(a) for a in ARTICLES] + [car_slug(c) for c in CARS]
+    paths = [(p, LANGS) for p in [""] + [FAMILY_SLUG[f] + "/" for f in ["minivan", "note"]] + ["blog/"]] + [(art_path(a), alangs(a)) for a in ARTICLES] + [(car_slug(c), LANGS) for c in CARS]
     out = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">']
-    for p in paths:
-        for lg in LANGS:
-            alts = "".join(f'<xhtml:link rel="alternate" hreflang="{HREFLANG[l2]}" href="{abs_url(l2, p)}"/>' for l2 in LANGS)
+    n = 0
+    for p, lgs in paths:
+        for lg in lgs:
+            alts = "".join(f'<xhtml:link rel="alternate" hreflang="{HREFLANG[l2]}" href="{abs_url(l2, p)}"/>' for l2 in lgs)
             out.append(f"  <url><loc>{abs_url(lg, p)}</loc><lastmod>{TODAY}</lastmod>{alts}</url>")
+            n += 1
     out.append("</urlset>")
     write("sitemap.xml", "\n".join(out) + "\n")
     write("robots.txt", f"User-agent: *\nAllow: /\nDisallow: /_src/\n\nSitemap: {SITE}/sitemap.xml\n")
-    return len(paths) * len(LANGS)
+    return n
 
 
 def clean():
-    for d in ["ua", "en", "cars", "blog"] + list(FAMILY_SLUG.values()):
+    for d in ["ua", "en", "hy", "cars", "blog"] + list(FAMILY_SLUG.values()):
         p = os.path.join(ROOT, d)
         if os.path.isdir(p):
             shutil.rmtree(p)
@@ -567,7 +598,12 @@ if __name__ == "__main__":
         for c in CARS:
             page_car(lg, c)
         for a in ARTICLES:
-            page_article(lg, a)
+            if lg in alangs(a):
+                (page_article_free if "free" in a else page_article)(lg, a)
         page_blog(lg)
+    for a in ARTICLES:
+        for lg in alangs(a):
+            if lg not in LANGS:
+                page_article_free(lg, a)
     n = sitemap()
     print(f"OK: {n} страниц")

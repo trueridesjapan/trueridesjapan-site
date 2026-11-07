@@ -24,6 +24,10 @@ IMGS = json.load(open(os.path.join(ROOT, "data", "images.json"), encoding="utf-8
 CSS = open(os.path.join(SRC, "page.css"), encoding="utf-8").read() + open(os.path.join(SRC, "extra.css"), encoding="utf-8").read()
 MAIN = open(os.path.join(SRC, "main_sections.html"), encoding="utf-8").read()
 ARTICLES = json.load(open(os.path.join(SRC, "articles.json"), encoding="utf-8"))
+# Коды подтверждения поисковиков (Google Search Console, Яндекс Вебмастер, Bing) и ключ IndexNow.
+SEO = json.load(open(os.path.join(SRC, "seo.json"), encoding="utf-8"))
+VERIFY_META = "".join(f'<meta name="{n}" content="{html.escape(v, quote=True)}">\n' for n, v in
+                      [("google-site-verification", SEO.get("google")), ("yandex-verification", SEO.get("yandex")), ("msvalidate.01", SEO.get("bing"))] if v)
 
 LANGS = ["ru", "uk", "en"]
 PREFIX = {"ru": "", "uk": "ua/", "en": "en/", "hy": "hy/"}
@@ -192,7 +196,7 @@ def head(lg, path, title, desc, image, ld, alts=True):
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{abs_url(lg, path)}">
-{links}<link rel="icon" href="/assets/logo.png">
+{links}{VERIFY_META}<link rel="icon" href="/assets/logo.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="True Rides Japan">
 <meta property="og:locale" content="{OGLOC[lg]}">
@@ -354,7 +358,7 @@ def crumbs_ld(items):
 DEALER = {"@context": "https://schema.org", "@type": "AutoDealer", "name": "True Rides Japan", "url": SITE + "/",
           "logo": SITE + "/assets/logo.png", "image": SITE + "/assets/og.jpg", "telephone": "+995511184186",
           "address": {"@type": "PostalAddress", "addressLocality": "Rustavi", "addressCountry": "GE"},
-          "areaServed": ["UA", "GE", "IE"], "sameAs": ["https://www.instagram.com/true_rides/", "https://t.me/truerides_chat"]}
+          "areaServed": ["UA", "GE", "AM", "IE"], "sameAs": ["https://www.instagram.com/true_rides/", "https://t.me/truerides_chat"]}
 
 
 def write(rel, content):
@@ -554,6 +558,9 @@ def page_article_free(lg, a):
            "datePublished": a["date"], "dateModified": a.get("updated", a["date"]), "author": {"@type": "Organization", "name": "True Rides Japan", "url": SITE},
            "publisher": {"@type": "Organization", "name": "True Rides Japan", "logo": {"@type": "ImageObject", "url": SITE + "/assets/logo.png"}},
            "image": SITE + "/" + a.get("og", "assets/og.jpg"), "mainEntityOfPage": abs_url(lg, path)}, crumbs_ld(crumbs)]
+    if A.get("faq"):
+        ld.append({"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": HREFLANG[lg],
+                   "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": ans}} for q, ans in A["faq"]]})
     body = f"""<main>
 <article class="wrap article free" lang="{HREFLANG[lg]}">
   <nav class="crumbs"><a href="{url(ui)}">{t(ui,'home')}</a> › <a href="{url(ui, 'blog/')}">{esc(B['h1'])}</a> › <span>{esc(A['label'])}</span></nav>
@@ -579,7 +586,37 @@ def sitemap():
     out.append("</urlset>")
     write("sitemap.xml", "\n".join(out) + "\n")
     write("robots.txt", f"User-agent: *\nAllow: /\nDisallow: /_src/\n\nSitemap: {SITE}/sitemap.xml\n")
+    if SEO.get("indexnow"):
+        write(SEO["indexnow"] + ".txt", SEO["indexnow"])
+    write("llms.txt", llms_txt())
     return n
+
+
+def llms_txt():
+    """Краткое описание сайта для ИИ-ассистентов (ChatGPT, Perplexity и т.п.)."""
+    arts = "\n".join(f"- [{a[lg]['title']}]({abs_url(lg, art_path(a))})" for a in ARTICLES for lg in alangs(a))
+    return f"""# True Rides Japan
+
+> True Rides Japan (trueridesjapan.com) — покупка автомобилей на японских аукционах под заказ и продажа машин в пути: Япония → порт Поти (Грузия) → переделка руля с правого на левый в Грузии → выдача в Грузии, Украине (Одесса, Киев) или для клиентов из Армении. Основные модели: Toyota Alphard / Vellfire, Nissan Note e-Power. Владелец — Виталий, Рустави, Грузия.
+
+## Услуга для Армении
+- Покупка авто в Японии под ключ: фиксированная услуга $550, клиент оформляется получателем, переделка руля в Грузии с гарантией 1 год, которая действует в Армении (сервис под Ереваном). Поэтапная оплата, залог $200.
+- Контакт: Telegram https://t.me/VTruerides, чат https://t.me/truerides_chat
+
+## Разделы
+- [Каталог машин]({SITE}/)
+- [Toyota Alphard / Vellfire]({abs_url("ru", FAMILY_SLUG["minivan"] + "/")})
+- [Nissan Note e-Power]({abs_url("ru", FAMILY_SLUG["note"] + "/")})
+- [Статьи]({abs_url("ru", "blog/")})
+
+## Статьи
+{arts}
+
+## Контакты
+- Telegram / Viber / WhatsApp: +380663666886
+- Чат: https://t.me/truerides_chat
+- Instagram: https://www.instagram.com/true_rides/
+"""
 
 
 def clean():

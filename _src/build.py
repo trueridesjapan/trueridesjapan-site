@@ -593,6 +593,8 @@ def page_404():
 """
     h = head(lg, "", "Страница не найдена — True Rides Japan", "Страница не найдена.", "assets/og.jpg", {"@context": "https://schema.org", "@type": "WebPage", "name": "404"}, alts=False)
     h = h.replace('<link rel="canonical"', '<meta name="robots" content="noindex">\n<link rel="canonical"', 1)
+    # Посетитель ошибку не видит: сразу уходит в каталог на главной (для поисковиков код ответа остаётся 404).
+    h = h.replace('<meta name="robots"', '<meta http-equiv="refresh" content="0; url=/#catalog">\n<script>location.replace("/#catalog")</script>\n<meta name="robots"', 1)
     write("404.html", h + header(lg, "") + body + footer(lg) + SCRIPT)
 
 

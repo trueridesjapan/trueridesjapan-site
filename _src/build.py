@@ -23,6 +23,8 @@ CARS = json.load(open(os.path.join(ROOT, "data", "cars.json"), encoding="utf-8")
 IMGS = json.load(open(os.path.join(ROOT, "data", "images.json"), encoding="utf-8"))
 CSS = open(os.path.join(SRC, "page.css"), encoding="utf-8").read() + open(os.path.join(SRC, "extra.css"), encoding="utf-8").read()
 MAIN = open(os.path.join(SRC, "main_sections.html"), encoding="utf-8").read()
+# Дата последней сверки расписания с BeForward (показывается в карточке машины).
+META = json.load(open(os.path.join(ROOT, "data", "meta.json"), encoding="utf-8"))
 ARTICLES = json.load(open(os.path.join(SRC, "articles.json"), encoding="utf-8"))
 # Коды подтверждения поисковиков (Google Search Console, Яндекс Вебмастер, Bing) и ключ IndexNow.
 SEO = json.load(open(os.path.join(SRC, "seo.json"), encoding="utf-8"))
@@ -127,7 +129,9 @@ def route(c, lg):
         return {"ru": "Япония → Поти", "uk": "Японія → Поті", "en": "Japan → Poti"}[lg]
     port = D["PORTS"].get(c["loading"], [c["loading"]] * 3)[LI[lg]]
     poti = {"ru": "Поти", "uk": "Поті", "en": "Poti"}[lg]
-    return f"{port} → {poti}" + (f" · {vessel(c['vessel'])}" if c.get("vessel") else "")
+    # vessel2 — судно на текущем этапе после перегрузки (например, Сингапур/Текирдаг → Поти).
+    nxt = (f", {t(lg,'then')} {vessel(c['vessel2'])}" if c.get("vessel2") else "")
+    return f"{port} → {poti}" + (f" · {vessel(c['vessel'])}{nxt}" if c.get("vessel") else "")
 
 
 def state(c):
@@ -342,7 +346,7 @@ def car_ld(c, lg):
         "mileageFromOdometer": {"@type": "QuantitativeValue", "value": c["mileage"], "unitCode": "KMT"},
         "driveWheelConfiguration": "https://schema.org/AllWheelDriveConfiguration" if c["drive"] == "4WD" else "https://schema.org/FrontWheelDriveConfiguration",
         "vehicleEngine": {"@type": "EngineSpecification", "engineDisplacement": {"@type": "QuantitativeValue", "value": round(c["engine"] / 1000, 1), "unitCode": "LTR"}},
-        "steeringPosition": "https://schema.org/LeftHandDriving",
+        "steeringPosition": "https://schema.org/RightHandDriving",
         "image": [p if p.startswith("http") else SITE + "/" + p for p in photos(c)[:6]],
         "url": abs_url(lg, car_slug(c)),
         "offers": {"@type": "Offer", "price": c["priceUA"], "priceCurrency": "USD", "availability": "https://schema.org/PreOrder",
@@ -463,6 +467,7 @@ def page_car(lg, c):
     <p class="book">{t(lg,'book')}</p>
     {note}
     <table class="kv"><tr><td>{t(lg,'k_status')}</td><td><span class="js-status"{status_attrs(c, lg)}>{esc(status(c, lg))}</span></td></tr><tr><td>{t(lg,'k_year')}</td><td>{c['year']}</td></tr><tr><td>{t(lg,'k_mileage')}</td><td>{num(c['mileage'])} {t(lg,'km')}</td></tr><tr><td>{t(lg,'k_engine')}</td><td>{esc(engine(c, lg))}</td></tr><tr><td>{t(lg,'k_drive')}</td><td>{esc(drive)}</td></tr><tr><td>{t(lg,'k_color')}</td><td>{esc(color(c, lg))}</td></tr><tr><td>{t(lg,'k_steer')}</td><td>{t(lg,'steer_v')}</td></tr><tr><td>{t(lg,'k_route')}</td><td>{esc(route(c, lg))}</td></tr></table>
+    {f'<p class="book">{t(lg,"upd")} {dshort(META["schedule_updated"], lg)}</p>' if c.get("etd") else ""}
     {optsh}
     <p class="eyebrow" style="margin:0">{t(lg,'write')} · № {c['ref']}</p>
     {contact_buttons(lg, msg, c['ref'])}
@@ -574,6 +579,23 @@ def page_article_free(lg, a):
 
 
 # ---------- sitemap / robots ----------
+def page_404():
+    """404.html в корне: Cloudflare Pages отдаёт его с кодом 404 на любой несуществующий адрес."""
+    lg = "ru"
+    body = f"""<main><section class="wrap pagehead" style="padding:80px 0 120px">
+  <p class="eyebrow">404</p>
+  <h1>Страница не найдена</h1>
+  <p class="lead">Такой страницы нет — возможно, машина уже продана или адрес набран с ошибкой.</p>
+  <p class="lead" lang="uk">Сторінку не знайдено. <a href="/ua/">Перейти на головну</a></p>
+  <p class="lead" lang="en">Page not found. <a href="/en/">Go to the home page</a></p>
+  <p><a class="btn red" href="/#catalog">Смотреть машины</a></p>
+</section></main>
+"""
+    h = head(lg, "", "Страница не найдена — True Rides Japan", "Страница не найдена.", "assets/og.jpg", {"@context": "https://schema.org", "@type": "WebPage", "name": "404"}, alts=False)
+    h = h.replace('<link rel="canonical"', '<meta name="robots" content="noindex">\n<link rel="canonical"', 1)
+    write("404.html", h + header(lg, "") + body + footer(lg) + SCRIPT)
+
+
 def sitemap():
     paths = [(p, LANGS) for p in [""] + [FAMILY_SLUG[f] + "/" for f in ["minivan", "note"]] + ["blog/"]] + [(art_path(a), alangs(a)) for a in ARTICLES] + [(car_slug(c), LANGS) for c in CARS]
     out = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">']
@@ -644,5 +666,6 @@ if __name__ == "__main__":
         for lg in alangs(a):
             if lg not in LANGS:
                 page_article_free(lg, a)
+    page_404()
     n = sitemap()
     print(f"OK: {n} страниц")

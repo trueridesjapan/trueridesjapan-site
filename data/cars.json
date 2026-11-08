@@ -40,7 +40,8 @@
   "priceGE": 7600,
   "damaged": false,
   "etd": "2026-10-15",
-  "sale": "free"
+  "sale": "free",
+  "container": "BEAU5889710"
  },
  {
   "ref": "TR-03",
@@ -61,7 +62,8 @@
   "priceGE": 7500,
   "damaged": false,
   "etd": "2026-10-30",
-  "sale": "free"
+  "sale": "free",
+  "container": "MSBU7589364"
  },
  {
   "ref": "TR-04",
@@ -313,7 +315,8 @@
   "priceGE": 6800,
   "damaged": false,
   "etd": "2026-10-27",
-  "sale": "free"
+  "sale": "free",
+  "container": "FFAU3866692"
  },
  {
   "ref": "TR-16",
@@ -334,7 +337,8 @@
   "priceGE": 7400,
   "damaged": false,
   "etd": "2026-10-30",
-  "sale": "free"
+  "sale": "free",
+  "container": "TEMU8369578"
  },
  {
   "ref": "TR-17",

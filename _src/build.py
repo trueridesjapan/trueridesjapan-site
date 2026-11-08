@@ -467,6 +467,9 @@ def page_car(lg, c):
     from urllib.parse import quote
     wa = "https://wa.me/380663666886?text=" + quote(msg)
     note = f'<div class="note">{t(lg,"damaged")}</div>' if c.get("damaged") else ""
+    # Своё примечание к машине: поле "note" в cars.json — {"ru": ..., "uk": ..., "en": ...}
+    if c.get("note"):
+        note += f'<div class="note">{esc(c["note"][lg])}</div>'
     optsh = (f'<div><p class="eyebrow" style="margin:0 0 8px">{t(lg,"opts")}</p><div class="opts">' + "".join(f"<span>{esc(o)}</span>" for o in opts) + "</div></div>") if opts else ""
     others = [x for x in sort_cars(CARS) if x["fam"] == fam and x["ref"] != c["ref"]][:4]
     crumbs = [(t(lg, "home"), abs_url(lg)), (M["h1"], abs_url(lg, FAMILY_SLUG[fam] + "/")), (c["ref"], abs_url(lg, path))]
@@ -478,7 +481,7 @@ def page_car(lg, c):
   {gal}
   <div class="info">
     <div><p class="eyebrow">№ {c['ref']} · <span class="js-status"{status_attrs(c, lg)}>{esc(status(c, lg))}</span></p><h1>{esc(model)} {c['year']}</h1><div class="sub">{esc(g)}</div></div>
-    <div class="prices"><div class="ua"><small>{t(lg,'ua')}</small><b>{usd(c['priceUA'])}</b><small>{t(lg,'ua_s')}</small></div><div><small>{t(lg,'ge')}</small><b>{usd(c['priceGE'])}</b><small>{t(lg,'ge_s')}</small></div></div>
+    <div class="prices"><div class="ua"><small>{t(lg,'ua')}</small><b>{usd(c['priceUA'])}</b><small>{t(lg,'ua_s')}</small></div><div><small>{t(lg,'ge')}</small><b>{usd(c['priceGE'])}</b>{('<small>'+t(lg,'ge_s')+'</small>') if t(lg,'ge_s') else ''}</div></div>
     <p class="book">{esc(deposit_text(c, lg))} <a class="bkl" href="{url(lg)}#booking">{t(lg,'bk_link')}</a></p>
     {note}
     <table class="kv"><tr><td>{t(lg,'k_status')}</td><td><span class="js-status"{status_attrs(c, lg)}>{esc(status(c, lg))}</span></td></tr><tr><td>{t(lg,'k_year')}</td><td>{c['year']}</td></tr><tr><td>{t(lg,'k_mileage')}</td><td>{num(c['mileage'])} {t(lg,'km')}</td></tr><tr><td>{t(lg,'k_engine')}</td><td>{esc(engine(c, lg))}</td></tr><tr><td>{t(lg,'k_drive')}</td><td>{esc(drive)}</td></tr><tr><td>{t(lg,'k_color')}</td><td>{esc(color(c, lg))}</td></tr><tr><td>{t(lg,'k_steer')}</td><td>{t(lg,'steer_v')}</td></tr><tr><td>{t(lg,'k_route')}</td><td>{esc(route(c, lg))}</td></tr>{container_row(c, lg)}</table>

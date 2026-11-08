@@ -166,16 +166,12 @@ def status_attrs(c, lg):
 
 
 def deposit(c):
-    """Фиксированная бронь по группе: Note HE12 / E13, Alphard·Vellfire 20 / 30."""
-    """Возвращает (Украина, Грузия)."""
-    return {"HE12": (3000, 3000), "E13": (4500, 3500), "20": (4000, 3000), "30": (5000, 5000)}[c["gen"]]
+    """Фиксированная бронь по группе (одинаковая для Украины и Грузии): Note HE12 / E13, Alphard·Vellfire 20 / 30."""
+    return {"HE12": 3000, "E13": 4500, "20": 4000, "30": 5000}[c["gen"]]
 
 
 def deposit_text(c, lg):
-    ua, ge = deposit(c)
-    if ua == ge:
-        return t(lg, "bk_car").format(amt=usd(ua))
-    return t(lg, "bk_car2").format(ua=usd(ua), ge=usd(ge))
+    return t(lg, "bk_car").format(amt=usd(deposit(c)))
 
 
 def car_slug(c):

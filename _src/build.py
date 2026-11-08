@@ -167,7 +167,15 @@ def status_attrs(c, lg):
 
 def deposit(c):
     """Фиксированная бронь по группе: Note HE12 / E13, Alphard·Vellfire 20 / 30."""
-    return {"HE12": 3000, "E13": 3500, "20": 3000, "30": 5000}[c["gen"]]
+    """Возвращает (Украина, Грузия)."""
+    return {"HE12": (3000, 3000), "E13": (4500, 3500), "20": (4000, 3000), "30": (5000, 5000)}[c["gen"]]
+
+
+def deposit_text(c, lg):
+    ua, ge = deposit(c)
+    if ua == ge:
+        return t(lg, "bk_car").format(amt=usd(ua))
+    return t(lg, "bk_car2").format(ua=usd(ua), ge=usd(ge))
 
 
 def car_slug(c):
@@ -470,7 +478,7 @@ def page_car(lg, c):
   <div class="info">
     <div><p class="eyebrow">№ {c['ref']} · <span class="js-status"{status_attrs(c, lg)}>{esc(status(c, lg))}</span></p><h1>{esc(model)} {c['year']}</h1><div class="sub">{esc(g)}</div></div>
     <div class="prices"><div class="ua"><small>{t(lg,'ua')}</small><b>{usd(c['priceUA'])}</b><small>{t(lg,'ua_s')}</small></div><div><small>{t(lg,'ge')}</small><b>{usd(c['priceGE'])}</b><small>{t(lg,'ge_s')}</small></div></div>
-    <p class="book">{esc(t(lg,'bk_car').format(amt=usd(deposit(c))))} <a class="bkl" href="{url(lg)}#booking">{t(lg,'bk_link')}</a></p>
+    <p class="book">{esc(deposit_text(c, lg))} <a class="bkl" href="{url(lg)}#booking">{t(lg,'bk_link')}</a></p>
     {note}
     <table class="kv"><tr><td>{t(lg,'k_status')}</td><td><span class="js-status"{status_attrs(c, lg)}>{esc(status(c, lg))}</span></td></tr><tr><td>{t(lg,'k_year')}</td><td>{c['year']}</td></tr><tr><td>{t(lg,'k_mileage')}</td><td>{num(c['mileage'])} {t(lg,'km')}</td></tr><tr><td>{t(lg,'k_engine')}</td><td>{esc(engine(c, lg))}</td></tr><tr><td>{t(lg,'k_drive')}</td><td>{esc(drive)}</td></tr><tr><td>{t(lg,'k_color')}</td><td>{esc(color(c, lg))}</td></tr><tr><td>{t(lg,'k_steer')}</td><td>{t(lg,'steer_v')}</td></tr><tr><td>{t(lg,'k_route')}</td><td>{esc(route(c, lg))}</td></tr></table>
     {f'<p class="book">{t(lg,"upd")} {dshort(META["schedule_updated"], lg)}</p>' if c.get("etd") else ""}

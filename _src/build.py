@@ -120,18 +120,23 @@ def dshort(d, lg):
     return f"{dd} {MONTHS[lg][m-1]} {y}"
 
 
-def vessel(v):
-    return re.sub(r"\b([A-Z]{4,})\b", lambda m: m.group(1).capitalize(), v)
-
-
 def route(c, lg):
     if not c.get("loading"):
         return {"ru": "Япония → Поти", "uk": "Японія → Поті", "en": "Japan → Poti"}[lg]
     port = D["PORTS"].get(c["loading"], [c["loading"]] * 3)[LI[lg]]
     poti = {"ru": "Поти", "uk": "Поті", "en": "Poti"}[lg]
-    # vessel2 — судно на текущем этапе после перегрузки (например, Сингапур/Текирдаг → Поти).
-    nxt = (f", {t(lg,'then')} {vessel(c['vessel2'])}" if c.get("vessel2") else "")
-    return f"{port} → {poti}" + (f" · {vessel(c['vessel'])}{nxt}" if c.get("vessel") else "")
+    # Названия судов (vessel/vessel2) на сайте не показываем — только маршрут; для клиента — номер контейнера.
+    return f"{port} → {poti}"
+
+
+def container_row(c, lg):
+    """Строка «Контейнер» на странице машины: номер со ссылкой на отслеживание MSC."""
+    cn = (c.get("container") or "").strip().upper()
+    if not cn:
+        return ""
+    url = f"https://www.msc.com/en/track-a-shipment?trackingNumber={cn}"
+    return (f"<tr><td>{t(lg,'k_container')}</td><td><a href=\"{url}\" target=\"_blank\" "
+            f"rel=\"noopener\">{esc(cn)}</a></td></tr>")
 
 
 def state(c):
@@ -476,7 +481,7 @@ def page_car(lg, c):
     <div class="prices"><div class="ua"><small>{t(lg,'ua')}</small><b>{usd(c['priceUA'])}</b><small>{t(lg,'ua_s')}</small></div><div><small>{t(lg,'ge')}</small><b>{usd(c['priceGE'])}</b><small>{t(lg,'ge_s')}</small></div></div>
     <p class="book">{esc(deposit_text(c, lg))} <a class="bkl" href="{url(lg)}#booking">{t(lg,'bk_link')}</a></p>
     {note}
-    <table class="kv"><tr><td>{t(lg,'k_status')}</td><td><span class="js-status"{status_attrs(c, lg)}>{esc(status(c, lg))}</span></td></tr><tr><td>{t(lg,'k_year')}</td><td>{c['year']}</td></tr><tr><td>{t(lg,'k_mileage')}</td><td>{num(c['mileage'])} {t(lg,'km')}</td></tr><tr><td>{t(lg,'k_engine')}</td><td>{esc(engine(c, lg))}</td></tr><tr><td>{t(lg,'k_drive')}</td><td>{esc(drive)}</td></tr><tr><td>{t(lg,'k_color')}</td><td>{esc(color(c, lg))}</td></tr><tr><td>{t(lg,'k_steer')}</td><td>{t(lg,'steer_v')}</td></tr><tr><td>{t(lg,'k_route')}</td><td>{esc(route(c, lg))}</td></tr></table>
+    <table class="kv"><tr><td>{t(lg,'k_status')}</td><td><span class="js-status"{status_attrs(c, lg)}>{esc(status(c, lg))}</span></td></tr><tr><td>{t(lg,'k_year')}</td><td>{c['year']}</td></tr><tr><td>{t(lg,'k_mileage')}</td><td>{num(c['mileage'])} {t(lg,'km')}</td></tr><tr><td>{t(lg,'k_engine')}</td><td>{esc(engine(c, lg))}</td></tr><tr><td>{t(lg,'k_drive')}</td><td>{esc(drive)}</td></tr><tr><td>{t(lg,'k_color')}</td><td>{esc(color(c, lg))}</td></tr><tr><td>{t(lg,'k_steer')}</td><td>{t(lg,'steer_v')}</td></tr><tr><td>{t(lg,'k_route')}</td><td>{esc(route(c, lg))}</td></tr>{container_row(c, lg)}</table>
     {f'<p class="book">{t(lg,"upd")} {dshort(META["schedule_updated"], lg)}</p>' if c.get("etd") else ""}
     {optsh}
     <p class="eyebrow" style="margin:0">{t(lg,'write')} · № {c['ref']}</p>

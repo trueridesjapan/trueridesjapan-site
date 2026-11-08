@@ -294,7 +294,8 @@
   "priceGE": 7200,
   "damaged": false,
   "etd": "2026-10-29",
-  "sale": "free"
+  "sale": "free",
+  "container": "TGBU9909074"
  },
  {
   "ref": "TR-15",

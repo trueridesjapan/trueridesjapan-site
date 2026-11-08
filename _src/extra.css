@@ -84,3 +84,8 @@ a.phone{color:var(--fg);text-decoration:none}
 @media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .hero .em-light{display:block}:root:not([data-theme="dark"]) .hero .em-dark{display:none}}
 :root[data-theme="light"] .hero .em-light{display:block}
 :root[data-theme="light"] .hero .em-dark{display:none}
+
+/* Условия брони на главной */
+.bk{max-width:760px;margin:0;padding-left:22px;display:grid;gap:14px;line-height:1.55}
+.bk ul{margin:8px 0 0;padding-left:18px;display:grid;gap:6px;color:var(--muted)}
+.book a.bkl{color:var(--fg);white-space:nowrap}

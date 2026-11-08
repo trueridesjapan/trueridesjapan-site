@@ -316,6 +316,11 @@ a.phone{color:var(--fg);text-decoration:none}
 @media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .hero .em-light{display:block}:root:not([data-theme="dark"]) .hero .em-dark{display:none}}
 :root[data-theme="light"] .hero .em-light{display:block}
 :root[data-theme="light"] .hero .em-dark{display:none}
+
+/* Условия брони на главной */
+.bk{max-width:760px;margin:0;padding-left:22px;display:grid;gap:14px;line-height:1.55}
+.bk ul{margin:8px 0 0;padding-left:18px;display:grid;gap:6px;color:var(--muted)}
+.book a.bkl{color:var(--fg);white-space:nowrap}
 </style>
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "AutoDealer", "name": "True Rides Japan", "url": "https://trueridesjapan.com/", "logo": "https://trueridesjapan.com/assets/logo.png", "image": "https://trueridesjapan.com/assets/og.jpg", "telephone": "+995511184186", "address": {"@type": "PostalAddress", "addressLocality": "Rustavi", "addressCountry": "GE"}, "areaServed": ["UA", "GE", "AM", "IE"], "sameAs": ["https://www.instagram.com/true_rides/", "https://t.me/truerides_chat"]}, {"@context": "https://schema.org", "@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": 1, "url": "https://trueridesjapan.com/ua/cars/tr-15/"}, {"@type": "ListItem", "position": 2, "url": "https://trueridesjapan.com/ua/cars/tr-16/"}, {"@type": "ListItem", "position": 3, "url": "https://trueridesjapan.com/ua/cars/tr-03/"}, {"@type": "ListItem", "position": 4, "url": "https://trueridesjapan.com/ua/cars/tr-02/"}, {"@type": "ListItem", "position": 5, "url": "https://trueridesjapan.com/ua/cars/tr-01/"}, {"@type": "ListItem", "position": 6, "url": "https://trueridesjapan.com/ua/cars/tr-04/"}, {"@type": "ListItem", "position": 7, "url": "https://trueridesjapan.com/ua/cars/tr-14/"}, {"@type": "ListItem", "position": 8, "url": "https://trueridesjapan.com/ua/cars/tr-06/"}, {"@type": "ListItem", "position": 9, "url": "https://trueridesjapan.com/ua/cars/tr-05/"}, {"@type": "ListItem", "position": 10, "url": "https://trueridesjapan.com/ua/cars/tr-12/"}, {"@type": "ListItem", "position": 11, "url": "https://trueridesjapan.com/ua/cars/tr-07/"}, {"@type": "ListItem", "position": 12, "url": "https://trueridesjapan.com/ua/cars/tr-13/"}, {"@type": "ListItem", "position": 13, "url": "https://trueridesjapan.com/ua/cars/tr-11/"}, {"@type": "ListItem", "position": 14, "url": "https://trueridesjapan.com/ua/cars/tr-17/"}, {"@type": "ListItem", "position": 15, "url": "https://trueridesjapan.com/ua/cars/tr-08/"}, {"@type": "ListItem", "position": 16, "url": "https://trueridesjapan.com/ua/cars/tr-09/"}, {"@type": "ListItem", "position": 17, "url": "https://trueridesjapan.com/ua/cars/tr-10/"}, {"@type": "ListItem", "position": 18, "url": "https://trueridesjapan.com/ua/cars/tr-18/"}]}]</script>
 </head>
@@ -498,6 +503,17 @@ a.phone{color:var(--fg);text-decoration:none}
       <article><span class="flag"><i style="background:#fff"></i><i style="background:#e8112d"></i><i style="background:#fff"></i></span><h3 data-i18n="d_ge">Грузія</h3><p data-i18n="d_ge_s">Можна забрати одразу в порту.</p><ul><li data-i18n="d_ge_1">Отримання в порту Поті, доставка до Руставі — за домовленістю</li><li data-i18n="d_ge_2">Підходить автодилерам</li></ul></article>
       <article><span class="flag"><i style="background:#169b62"></i><i style="background:#fff"></i><i style="background:#ff883e"></i></span><h3 data-i18n="d_ie">Ірландія</h3><p data-i18n="d_ie_s">Новий напрямок, доставка до Дубліна.</p><ul><li data-i18n="d_ie_1">Контейнер або Ro-Ro до Дубліна</li><li data-i18n="d_ie_2">Можна почати з одного авто, розрахунок за запитом</li></ul></article>
     </div>
+  </div>
+</section>
+
+<section class="band" id="booking">
+  <div class="wrap">
+    <h2 data-i18n="bk_title">Як забронювати</h2>
+    <ol class="bk">
+      <li data-i18n-html="bk_1"><b>Бронь.</b> Note 2019 — $3 000, Note 2021 — $3 500, Alphard / Vellfire 20-го кузова — $3 000, 30-го кузова — $5 000. Ціна авто фіксується в момент бронювання.</li>
+      <li><span data-i18n-html="bk_2"><b>Залишок — за 10–15 днів до прибуття авто в Поті.</b></span><ul><li data-i18n="bk_2a">Купівля в Грузії: залишок суми за ціною «Грузія», авто передається з правим кермом.</li><li data-i18n="bk_2b">Купівля в Україну: залишок вартості авто без розмитнення. Далі переставляємо кермо й відправляємо авто в Україну. Розмитнення оплачується після прибуття авто в Україну.</li></ul></li>
+      <li data-i18n-html="bk_3"><b>Якщо передумали</b> — бронь повертаємо, утримуємо $500.</li>
+    </ol>
   </div>
 </section>
 

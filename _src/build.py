@@ -185,6 +185,7 @@ def img_src(p, depth):
 
 # ---------- общие куски ----------
 SHIP = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg>'
+IG_ICO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>'
 TG_ICO = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5z"/></svg>'
 SUN = '<svg id="icoSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>'
 MOON = '<svg id="icoMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>'
@@ -253,7 +254,7 @@ def header(lg, path, langs_list=None, cur=None):
 def footer(lg):
     home = url(lg)
     models = " · ".join(f'<a href="{url(lg, FAMILY_SLUG[f]+"/")}">{esc(X["models"][f][lg]["h1"])}</a>' for f in ["minivan", "note"])
-    return f"""<footer><div class="wrap"><span>© 2026 True Rides Japan</span><span class="fmodels">{models}</span><span>trueridesjapan.com</span></div></footer>
+    return f"""<footer><div class="wrap"><span>© 2026 True Rides Japan</span><span class="fmodels">{models}</span><span class="social"><a href="https://www.instagram.com/true_rides/" target="_blank" rel="noopener" aria-label="Instagram">{IG_ICO}</a><a href="https://t.me/truerides_chat" target="_blank" rel="noopener" aria-label="{t(lg,'ct_chat')}">{TG_ICO}</a></span><span>trueridesjapan.com</span></div></footer>
 <div class="bar">
   <a class="btn red" href="https://t.me/+380663666886" target="_blank" rel="noopener">Telegram</a>
   <a class="btn ghost" href="viber://chat?number=%2B380663666886">Viber</a>

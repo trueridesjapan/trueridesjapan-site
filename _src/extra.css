@@ -89,3 +89,9 @@ a.phone{color:var(--fg);text-decoration:none}
 .bk{max-width:760px;margin:0;padding-left:22px;display:grid;gap:14px;line-height:1.55}
 .bk ul{margin:8px 0 0;padding-left:18px;display:grid;gap:6px;color:var(--muted)}
 .book a.bkl{color:var(--fg);white-space:nowrap}
+
+/* Иконки соцсетей в подвале */
+footer .social{display:flex;gap:10px;align-items:center}
+footer .social a{display:grid;place-items:center;width:40px;height:40px;border:1px solid var(--line);border-radius:50%;color:var(--fg)}
+footer .social a:hover{border-color:var(--fg)}
+footer .social svg{width:20px;height:20px}

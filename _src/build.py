@@ -281,12 +281,15 @@ var tb=document.getElementById("themeBtn");if(tb)tb.addEventListener("click",fun
 try{matchMedia("(prefers-color-scheme: light)").addEventListener("change",paint)}catch(e){}
 paint();
 var f=document.getElementById("filters");
-if(f){var fam="all",st="all";f.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;
- if(b.dataset.fam){fam=b.dataset.fam}else if(b.dataset.st){st=st===b.dataset.st?"all":b.dataset.st}
- f.querySelectorAll("[data-fam]").forEach(function(x){x.setAttribute("aria-pressed",x.dataset.fam===fam)});
- f.querySelectorAll("[data-st]").forEach(function(x){x.setAttribute("aria-pressed",x.dataset.st===st)});
- var G={transit:["sail","arrived"],prep:["wait","prep"]};var n=0;document.querySelectorAll("#grid .card").forEach(function(c){var ok=(fam==="all"||c.dataset.fam===fam)&&(st==="all"||G[st].indexOf(c.dataset.st)>=0);c.hidden=!ok;if(ok)n++});
- var em=document.getElementById("emptyMsg");if(em)em.hidden=n>0;});}
+if(f){var st="all";var $=function(i){return document.getElementById(i)};
+ function apply(){var mk=$("fMake").value,md=$("fModel").value,yf=+$("fYf").value||0,yt=+$("fYt").value||9999;
+  f.querySelectorAll("[data-st]").forEach(function(x){x.setAttribute("aria-pressed",x.dataset.st===st)});
+  var G={transit:["sail","arrived"],prep:["wait","prep"]};var n=0;document.querySelectorAll("#grid .card").forEach(function(c){var y=+c.dataset.year;var ok=(!mk||c.dataset.make===mk)&&(!md||c.dataset.model===md)&&y>=yf&&y<=yt&&(st==="all"||G[st].indexOf(c.dataset.st)>=0);c.hidden=!ok;if(ok)n++});
+  var em=document.getElementById("emptyMsg");if(em)em.hidden=n>0;}
+ var allM=[].slice.call($("fModel").querySelectorAll("option[data-make]"));
+ $("fMake").addEventListener("change",function(){var mk=this.value,sel=$("fModel"),cur=sel.value;allM.forEach(function(o){if(o.parentNode)o.parentNode.removeChild(o)});allM.forEach(function(o){if(!mk||o.dataset.make===mk)sel.appendChild(o)});sel.value=(!mk||allM.some(function(o){return o.value===cur&&o.dataset.make===mk}))?cur:"";apply()});
+ ["fModel","fYf","fYt"].forEach(function(i){$(i).addEventListener("change",apply)});
+ f.addEventListener("click",function(e){var b=e.target.closest("button[data-st]");if(!b)return;st=st===b.dataset.st?"all":b.dataset.st;apply()});}
 var today=new Date().toISOString().slice(0,10);function stOf(e,d){if(e&&e<=today)return"arrived";if(d&&d<=today)return"sail";if(d)return"wait";return"prep"}
 document.querySelectorAll(".js-status").forEach(function(el){var s=stOf(el.dataset.eta,el.dataset.etd);var tx=el.getAttribute("data-t-"+s);if(tx){var i=el.querySelector("i");el.textContent=tx;if(i)el.prepend(i)}el.classList.toggle("wait",s==="wait"||s==="prep");var card=el.closest(".card");if(card)card.dataset.st=s});
 var cnt={transit:0,prep:0},sail=0;document.querySelectorAll("#grid .card").forEach(function(c){var s=c.dataset.st;if(s==="sail")sail++;if(s==="sail"||s==="arrived")cnt.transit++;else cnt.prep++});
@@ -338,7 +341,7 @@ def card(c, lg):
     imgs = (f'<img src="{img_src(ph[0],0)}" alt="{esc(model+" "+g)}" loading="lazy" referrerpolicy="no-referrer" data-fallback>' if ph else "")
     awd = '<span class="awd">4WD</span>' if c["drive"] == "4WD" else ""
     st = state(c)
-    return f"""<a class="card" href="{url(lg, car_slug(c))}" data-fam="{c['fam']}" data-st="{st}">
+    return f"""<a class="card" href="{url(lg, car_slug(c))}" data-fam="{c['fam']}" data-make="{esc(c['model'].split(' ',1)[0])}" data-model="{esc(c['model'].split(' ',1)[1])}" data-year="{c['year']}" data-st="{st}">
   <div class="ph{'' if ph else ' noimg'}">{imgs}{placeholder(c, lg)}{badge(c, lg)}</div>
   <div class="body"><h3>{esc(model)}<small>{esc(g)} · {c['year']}</small></h3>
   <div class="specs"><span>{num(c['mileage'])} {t(lg,'km')}</span><span>{esc(engine(c, lg))}</span>{awd}<span>{esc(color(c, lg))}</span></div>
@@ -406,8 +409,18 @@ def page_home(lg):
     cnt = lambda f: sum(1 for c in CARS if f == "all" or c["fam"] == f)
     grp = {"transit": ("sail", "arrived"), "prep": ("wait", "prep")}
     stc = lambda s: sum(1 for c in CARS if state(c) in grp[s])
-    filt = "".join(f'<button class="chip" type="button" data-fam="{f}" aria-pressed="{"true" if f=="all" else "false"}">{t(lg,f)}<span class="n">{cnt(f)}</span></button>' for f in ["all", "minivan", "note"])
-    filt += '<span class="sep"></span>' + "".join(f'<button class="chip" type="button" data-st="{s}" aria-pressed="false">{t(lg,s)}<span class="n" data-cnt="{s}">{stc(s)}</span></button>' for s in ["transit", "prep"])
+    # Фильтры-списки: марка → модель (зависит от марки) → год от/до. Строятся из данных автоматически.
+    makes = sorted({c["model"].split(" ", 1)[0] for c in CARS})
+    mods = sorted({(c["model"].split(" ", 1)[0], c["model"].split(" ", 1)[1]) for c in CARS})
+    years = sorted({c["year"] for c in CARS})
+    opt = lambda v, lab, extra="": f'<option value="{esc(str(v))}"{extra}>{esc(str(lab))}</option>'
+    filt = ('<div class="sels">'
+            f'<select class="sel" id="fMake" aria-label="{t(lg,"f_make")}">{opt("", t(lg,"f_make"))}{"".join(opt(m, m) for m in makes)}</select>'
+            f'<select class="sel" id="fModel" aria-label="{t(lg,"f_model")}">{opt("", t(lg,"f_model"))}{"".join(opt(md, md, f" data-make=\"{esc(mk)}\"") for mk, md in mods)}</select>'
+            f'<select class="sel" id="fYf" aria-label="{t(lg,"f_yfrom")}">{opt("", t(lg,"f_yfrom"))}{"".join(opt(y, y) for y in years)}</select>'
+            f'<select class="sel" id="fYt" aria-label="{t(lg,"f_yto")}">{opt("", t(lg,"f_yto"))}{"".join(opt(y, y) for y in years)}</select>'
+            '</div>')
+    filt += '<div class="chips">' + "".join(f'<button class="chip" type="button" data-st="{s}" aria-pressed="false">{t(lg,s)}<span class="n" data-cnt="{s}">{stc(s)}</span></button>' for s in ["transit", "prep"]) + '</div>'
     m = m.replace('<div class="filters" id="filters"></div>', f'<div class="filters" id="filters">{filt}</div>')
     m = m.replace('<div class="grid" id="grid"></div>',
                   f'<div class="grid" id="grid">{"".join(card(c, lg) for c in cs)}</div><p class="empty" id="emptyMsg" hidden>{t(lg,"empty")}</p>'

@@ -124,7 +124,11 @@ nav.main a:hover{color:var(--fg)}
 .catalog{padding-block:24px 64px}
 .cat-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px}
 .cat-head h2{font-size:clamp(24px,3vw,34px)}
-.filters{display:flex;flex-wrap:wrap;gap:8px}
+.filters{display:flex;flex-direction:column;gap:10px}
+.sels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media(max-width:640px){.sels{grid-template-columns:1fr 1fr}}
+.sel{appearance:none;-webkit-appearance:none;background:var(--panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23888' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 12px center;border:1px solid var(--line);border-radius:12px;padding:10px 32px 10px 12px;font:inherit;font-size:15px;font-weight:600;color:var(--fg);width:100%}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600;color:var(--muted)}
 .chip[aria-pressed="true"]{background:var(--fg);color:var(--ink);border-color:var(--fg)}
 .chip .n{font-family:var(--mono);font-size:12px;opacity:.7;margin-left:4px}
@@ -353,73 +357,73 @@ footer .social svg{width:20px;height:20px}
   <p class="fromprice">from <b>$12 300</b> · incl. Ukrainian customs</p>
 </section>
 <section class="catalog wrap" id="catalog">
-  <div class="grid" id="grid"><a class="card" href="/en/cars/tr-03/" data-fam="minivan" data-st="sail">
+  <div class="grid" id="grid"><a class="card" href="/en/cars/tr-03/" data-fam="minivan" data-make="Toyota" data-model="Vellfire" data-year="2014" data-st="sail">
   <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/16881312/CF027241_6c71d1.JPG" alt="Toyota Vellfire 20 2.4Z Golden Eyes II" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Auction photos coming soon</span></div><span class="status js-status" data-etd="2026-10-30" data-eta="2026-12-03" data-t-prep="Preparing to ship" data-t-wait="Awaiting departure · ~30 Oct 2026 · Poti ~3 Dec 2026" data-t-sail="In transit · Poti ~3 Dec 2026" data-t-arrived="Arrived in Poti"><i></i>In transit · Poti ~3 Dec 2026</span></div>
   <div class="body"><h3>Toyota Vellfire 20<small>2.4Z Golden Eyes II · 2014</small></h3>
   <div class="specs"><span>138 379 km</span><span>2.4 petrol</span><span class="awd">4WD</span><span>black</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Nagoya → Poti</span></div>
   <div class="price"><div><small>Ukraine, incl. customs</small><b>$13 300</b></div><div class="ge">Georgia, in Poti<br><strong>$6 500</strong></div></div>
-  </div></a><a class="card" href="/en/cars/tr-02/" data-fam="minivan" data-st="sail">
+  </div></a><a class="card" href="/en/cars/tr-02/" data-fam="minivan" data-make="Toyota" data-model="Vellfire" data-year="2014" data-st="sail">
   <div class="ph"><img src="/assets/cars/TR-02-1.jpg" alt="Toyota Vellfire 20 2.4Z" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Auction photos coming soon</span></div><span class="status js-status" data-etd="2026-10-15" data-eta="2026-12-08" data-t-prep="Preparing to ship" data-t-wait="Awaiting departure · ~15 Oct 2026 · Poti ~8 Dec 2026" data-t-sail="In transit · Poti ~8 Dec 2026" data-t-arrived="Arrived in Poti"><i></i>In transit · Poti ~8 Dec 2026</span></div>
   <div class="body"><h3>Toyota Vellfire 20<small>2.4Z · 2014</small></h3>
   <div class="specs"><span>109 020 km</span><span>2.4 petrol</span><span>pearl white</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Nagoya → Poti</span></div>
   <div class="price"><div><small>Ukraine, incl. customs</small><b>$13 000</b></div><div class="ge">Georgia, in Poti<br><strong>$6 200</strong></div></div>
-  </div></a><a class="card" href="/en/cars/tr-05/" data-fam="minivan" data-st="sail">
+  </div></a><a class="card" href="/en/cars/tr-05/" data-fam="minivan" data-make="Toyota" data-model="Alphard" data-year="2014" data-st="sail">
   <div class="ph"><img src="/assets/cars/TR-05-1.jpg" alt="Toyota Alphard 20 240S Type Gold II" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>ALPHARD 20</b><span>Auction photos coming soon</span></div><span class="status js-status" data-etd="2026-11-09" data-eta="2026-12-20" data-t-prep="Preparing to ship" data-t-wait="Awaiting departure · ~9 Nov 2026 · Poti ~20 Dec 2026" data-t-sail="In transit · Poti ~20 Dec 2026" data-t-arrived="Arrived in Poti"><i></i>In transit · Poti ~20 Dec 2026</span></div>
   <div class="body"><h3>Toyota Alphard 20<small>240S Type Gold II · 2014</small></h3>
   <div class="specs"><span>112 251 km</span><span>2.4 petrol</span><span>pearl white</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Osaka → Poti</span></div>
   <div class="price"><div><small>Ukraine, incl. customs</small><b>$13 300</b></div><div class="ge">Georgia, in Poti<br><strong>$6 500</strong></div></div>
-  </div></a><a class="card" href="/en/cars/tr-01/" data-fam="minivan" data-st="wait">
+  </div></a><a class="card" href="/en/cars/tr-01/" data-fam="minivan" data-make="Toyota" data-model="Alphard" data-year="2014" data-st="wait">
   <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/16793195/CE893961_e79651.JPG" alt="Toyota Alphard 20 240S Type Gold II" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>ALPHARD 20</b><span>Auction photos coming soon</span></div><span class="status wait js-status" data-etd="2026-11-12" data-eta="2026-12-12" data-t-prep="Preparing to ship" data-t-wait="Awaiting departure · ~12 Nov 2026 · Poti ~12 Dec 2026" data-t-sail="In transit · Poti ~12 Dec 2026" data-t-arrived="Arrived in Poti"><i></i>Awaiting departure · ~12 Nov 2026 · Poti ~12 Dec 2026</span></div>
   <div class="body"><h3>Toyota Alphard 20<small>240S Type Gold II · 2014</small></h3>
   <div class="specs"><span>144 950 km</span><span>2.4 petrol</span><span>pearl white</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Yokohama → Poti</span></div>
   <div class="price"><div><small>Ukraine, incl. customs</small><b>$12 300</b></div><div class="ge">Georgia, in Poti<br><strong>$5 500</strong></div></div>
-  </div></a><a class="card" href="/en/cars/tr-04/" data-fam="minivan" data-st="wait">
+  </div></a><a class="card" href="/en/cars/tr-04/" data-fam="minivan" data-make="Toyota" data-model="Vellfire" data-year="2014" data-st="wait">
   <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/16975744/CF126391_f9e466.JPG" alt="Toyota Vellfire 20 2.4Z G Edition" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Auction photos coming soon</span></div><span class="status wait js-status" data-etd="2026-11-12" data-eta="2026-12-12" data-t-prep="Preparing to ship" data-t-wait="Awaiting departure · ~12 Nov 2026 · Poti ~12 Dec 2026" data-t-sail="In transit · Poti ~12 Dec 2026" data-t-arrived="Arrived in Poti"><i></i>Awaiting departure · ~12 Nov 2026 · Poti ~12 Dec 2026</span></div>
   <div class="body"><h3>Toyota Vellfire 20<small>2.4Z G Edition · 2014</small></h3>
   <div class="specs"><span>140 656 km</span><span>2.4 petrol</span><span>black</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Yokohama → Poti</span></div>
   <div class="price"><div><small>Ukraine, incl. customs</small><b>$12 900</b></div><div class="ge">Georgia, in Poti<br><strong>$6 100</strong></div></div>
-  </div></a><a class="card" href="/en/cars/tr-06/" data-fam="minivan" data-st="wait">
+  </div></a><a class="card" href="/en/cars/tr-06/" data-fam="minivan" data-make="Toyota" data-model="Vellfire" data-year="2014" data-st="wait">
   <div class="ph"><img src="/assets/cars/TR-06-1.jpg" alt="Toyota Vellfire 20 2.4Z Golden Eyes II" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Auction photos coming soon</span></div><span class="status wait js-status" data-etd="2026-11-15" data-eta="2026-12-19" data-t-prep="Preparing to ship" data-t-wait="Awaiting departure · ~15 Nov 2026 · Poti ~19 Dec 2026" data-t-sail="In transit · Poti ~19 Dec 2026" data-t-arrived="Arrived in Poti"><i></i>Awaiting departure · ~15 Nov 2026 · Poti ~19 Dec 2026</span></div>
   <div class="body"><h3>Toyota Vellfire 20<small>2.4Z Golden Eyes II · 2014</small></h3>
   <div class="specs"><span>111 284 km</span><span>2.4 petrol</span><span>maroon</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Nagoya → Poti</span></div>
   <div class="price"><div><small>Ukraine, incl. customs</small><b>$13 500</b></div><div class="ge">Georgia, in Poti<br><strong>$6 700</strong></div></div>
-  </div></a><a class="card" href="/en/cars/tr-07/" data-fam="minivan" data-st="wait">
+  </div></a><a class="card" href="/en/cars/tr-07/" data-fam="minivan" data-make="Toyota" data-model="Vellfire" data-year="2014" data-st="wait">
   <div class="ph"><img src="https://image-cdn.beforward.jp/large/202611/17128146/CF274806_5fa8fb.JPG" alt="Toyota Vellfire 20 2.4Z" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Auction photos coming soon</span></div><span class="status wait js-status" data-etd="2026-11-19" data-eta="2026-12-27" data-t-prep="Preparing to ship" data-t-wait="Awaiting departure · ~19 Nov 2026 · Poti ~27 Dec 2026" data-t-sail="In transit · Poti ~27 Dec 2026" data-t-arrived="Arrived in Poti"><i></i>Awaiting departure · ~19 Nov 2026 · Poti ~27 Dec 2026</span></div>
   <div class="body"><h3>Toyota Vellfire 20<small>2.4Z · 2014</small></h3>
   <div class="specs"><span>167 771 km</span><span>2.4 petrol</span><span class="awd">4WD</span><span>black</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Nagoya → Poti</span></div>
   <div class="price"><div><small>Ukraine, incl. customs</small><b>$12 300</b></div><div class="ge">Georgia, in Poti<br><strong>$5 500</strong></div></div>
-  </div></a><a class="card" href="/en/cars/tr-11/" data-fam="minivan" data-st="wait">
+  </div></a><a class="card" href="/en/cars/tr-11/" data-fam="minivan" data-make="Toyota" data-model="Vellfire" data-year="2016" data-st="wait">
   <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/17127465/CF275400_fb101f.jpg" alt="Toyota Vellfire 30 2.5Z A Edition Golden Eyes" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 30</b><span>Auction photos coming soon</span></div><span class="status wait js-status" data-etd="2026-11-24" data-eta="2027-01-12" data-t-prep="Preparing to ship" data-t-wait="Awaiting departure · ~24 Nov 2026 · Poti ~12 Jan 2027" data-t-sail="In transit · Poti ~12 Jan 2027" data-t-arrived="Arrived in Poti"><i></i>Awaiting departure · ~24 Nov 2026 · Poti ~12 Jan 2027</span></div>
   <div class="body"><h3>Toyota Vellfire 30<small>2.5Z A Edition Golden Eyes · 2016</small></h3>
   <div class="specs"><span>152 786 km</span><span>2.5 petrol</span><span>pearl white</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Yokohama → Poti</span></div>
   <div class="price"><div><small>Ukraine, incl. customs</small><b>$19 200</b></div><div class="ge">Georgia, in Poti<br><strong>$11 000</strong></div></div>
-  </div></a><a class="card" href="/en/cars/tr-10/" data-fam="minivan" data-st="prep">
+  </div></a><a class="card" href="/en/cars/tr-10/" data-fam="minivan" data-make="Toyota" data-model="Alphard" data-year="2014" data-st="prep">
   <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/17192421/CF336943_6b22d6.jpg" alt="Toyota Alphard 20 240S Type Gold II" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>ALPHARD 20</b><span>Auction photos coming soon</span></div><span class="status wait js-status" data-etd="" data-eta="" data-t-prep="Preparing to ship" data-t-wait="Preparing to ship" data-t-sail="In transit" data-t-arrived="Arrived in Poti"><i></i>Preparing to ship</span></div>
   <div class="body"><h3>Toyota Alphard 20<small>240S Type Gold II · 2014</small></h3>
   <div class="specs"><span>156 196 km</span><span>2.4 petrol</span><span>pearl white</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Japan → Poti</span></div>
   <div class="price"><div><small>Ukraine, incl. customs</small><b>$12 800</b></div><div class="ge">Georgia, in Poti<br><strong>$6 000</strong></div></div>
-  </div></a><a class="card" href="/en/cars/tr-08/" data-fam="minivan" data-st="prep">
+  </div></a><a class="card" href="/en/cars/tr-08/" data-fam="minivan" data-make="Toyota" data-model="Vellfire" data-year="2014" data-st="prep">
   <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/17178994/CF330569_d23622.jpg" alt="Toyota Vellfire 20 2.4Z" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Auction photos coming soon</span></div><span class="status wait js-status" data-etd="" data-eta="" data-t-prep="Preparing to ship" data-t-wait="Preparing to ship" data-t-sail="In transit" data-t-arrived="Arrived in Poti"><i></i>Preparing to ship</span></div>
   <div class="body"><h3>Toyota Vellfire 20<small>2.4Z · 2014</small></h3>
   <div class="specs"><span>121 664 km</span><span>2.4 petrol</span><span>black</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Japan → Poti</span></div>
   <div class="price"><div><small>Ukraine, incl. customs</small><b>$13 000</b></div><div class="ge">Georgia, in Poti<br><strong>$6 200</strong></div></div>
-  </div></a><a class="card" href="/en/cars/tr-09/" data-fam="minivan" data-st="prep">
+  </div></a><a class="card" href="/en/cars/tr-09/" data-fam="minivan" data-make="Toyota" data-model="Vellfire" data-year="2014" data-st="prep">
   <div class="ph"><img src="https://image-cdn.beforward.jp/large/202610/17191981/CF336719_59928a.jpg" alt="Toyota Vellfire 20 2.4Z Golden Eyes II" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 20</b><span>Auction photos coming soon</span></div><span class="status wait js-status" data-etd="" data-eta="" data-t-prep="Preparing to ship" data-t-wait="Preparing to ship" data-t-sail="In transit" data-t-arrived="Arrived in Poti"><i></i>Preparing to ship</span></div>
   <div class="body"><h3>Toyota Vellfire 20<small>2.4Z Golden Eyes II · 2014</small></h3>
   <div class="specs"><span>142 814 km</span><span>2.4 petrol</span><span>black</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Japan → Poti</span></div>
   <div class="price"><div><small>Ukraine, incl. customs</small><b>$13 000</b></div><div class="ge">Georgia, in Poti<br><strong>$6 200</strong></div></div>
-  </div></a><a class="card" href="/en/cars/tr-18/" data-fam="minivan" data-st="prep">
+  </div></a><a class="card" href="/en/cars/tr-18/" data-fam="minivan" data-make="Toyota" data-model="Vellfire" data-year="2017" data-st="prep">
   <div class="ph"><img src="/assets/cars/TR-18-1.jpg" alt="Toyota Vellfire 30 2.5Z A Edition Golden Eyes" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>VELLFIRE 30</b><span>Auction photos coming soon</span></div><span class="status wait js-status" data-etd="" data-eta="" data-t-prep="Preparing to ship" data-t-wait="Preparing to ship" data-t-sail="In transit" data-t-arrived="Arrived in Poti"><i></i>Preparing to ship</span></div>
   <div class="body"><h3>Toyota Vellfire 30<small>2.5Z A Edition Golden Eyes · 2017</small></h3>
   <div class="specs"><span>145 751 km</span><span>2.5 petrol</span><span>pearl white</span></div>
@@ -447,12 +451,15 @@ var tb=document.getElementById("themeBtn");if(tb)tb.addEventListener("click",fun
 try{matchMedia("(prefers-color-scheme: light)").addEventListener("change",paint)}catch(e){}
 paint();
 var f=document.getElementById("filters");
-if(f){var fam="all",st="all";f.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;
- if(b.dataset.fam){fam=b.dataset.fam}else if(b.dataset.st){st=st===b.dataset.st?"all":b.dataset.st}
- f.querySelectorAll("[data-fam]").forEach(function(x){x.setAttribute("aria-pressed",x.dataset.fam===fam)});
- f.querySelectorAll("[data-st]").forEach(function(x){x.setAttribute("aria-pressed",x.dataset.st===st)});
- var G={transit:["sail","arrived"],prep:["wait","prep"]};var n=0;document.querySelectorAll("#grid .card").forEach(function(c){var ok=(fam==="all"||c.dataset.fam===fam)&&(st==="all"||G[st].indexOf(c.dataset.st)>=0);c.hidden=!ok;if(ok)n++});
- var em=document.getElementById("emptyMsg");if(em)em.hidden=n>0;});}
+if(f){var st="all";var $=function(i){return document.getElementById(i)};
+ function apply(){var mk=$("fMake").value,md=$("fModel").value,yf=+$("fYf").value||0,yt=+$("fYt").value||9999;
+  f.querySelectorAll("[data-st]").forEach(function(x){x.setAttribute("aria-pressed",x.dataset.st===st)});
+  var G={transit:["sail","arrived"],prep:["wait","prep"]};var n=0;document.querySelectorAll("#grid .card").forEach(function(c){var y=+c.dataset.year;var ok=(!mk||c.dataset.make===mk)&&(!md||c.dataset.model===md)&&y>=yf&&y<=yt&&(st==="all"||G[st].indexOf(c.dataset.st)>=0);c.hidden=!ok;if(ok)n++});
+  var em=document.getElementById("emptyMsg");if(em)em.hidden=n>0;}
+ var allM=[].slice.call($("fModel").querySelectorAll("option[data-make]"));
+ $("fMake").addEventListener("change",function(){var mk=this.value,sel=$("fModel"),cur=sel.value;allM.forEach(function(o){if(o.parentNode)o.parentNode.removeChild(o)});allM.forEach(function(o){if(!mk||o.dataset.make===mk)sel.appendChild(o)});sel.value=(!mk||allM.some(function(o){return o.value===cur&&o.dataset.make===mk}))?cur:"";apply()});
+ ["fModel","fYf","fYt"].forEach(function(i){$(i).addEventListener("change",apply)});
+ f.addEventListener("click",function(e){var b=e.target.closest("button[data-st]");if(!b)return;st=st===b.dataset.st?"all":b.dataset.st;apply()});}
 var today=new Date().toISOString().slice(0,10);function stOf(e,d){if(e&&e<=today)return"arrived";if(d&&d<=today)return"sail";if(d)return"wait";return"prep"}
 document.querySelectorAll(".js-status").forEach(function(el){var s=stOf(el.dataset.eta,el.dataset.etd);var tx=el.getAttribute("data-t-"+s);if(tx){var i=el.querySelector("i");el.textContent=tx;if(i)el.prepend(i)}el.classList.toggle("wait",s==="wait"||s==="prep");var card=el.closest(".card");if(card)card.dataset.st=s});
 var cnt={transit:0,prep:0},sail=0;document.querySelectorAll("#grid .card").forEach(function(c){var s=c.dataset.st;if(s==="sail")sail++;if(s==="sail"||s==="arrived")cnt.transit++;else cnt.prep++});

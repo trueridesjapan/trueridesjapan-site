@@ -1,20 +1,27 @@
-// Посетителей из Украины, впервые открывших главную "/", отправляем на украинскую версию /ua/.
-// Остальные страны (Грузия, Армения и т.д.) видят русскую главную как раньше.
-// Если человек сам выбрал язык переключателем RU/UA/EN, сайт запоминает это (cookie tr_lang) и больше не перекидывает.
+// Язык главной "/" для нового посетителя (решение 10 ноября):
+//  1) человек уже сам выбрал язык переключателем RU/UA/EN (cookie tr_lang) — ничего не трогаем;
+//  2) заходит из Украины — украинская версия /ua/;
+//  3) иначе по языку телефона/браузера: украинский -> /ua/, английский -> /en/, русский и все остальные -> русская главная.
 // Перекидываем только с главной: ссылки на машины и статьи открываются как есть.
-// Проверка без Украины: https://trueridesjapan.com/?geo=UA
+// Проверка: /?geo=UA (как из Украины), /?al=en (как телефон на английском).
 export async function onRequest(context) {
   const { request } = context;
   const url = new URL(request.url);
   if (request.method === "GET" && url.pathname === "/") {
     const cookie = request.headers.get("Cookie") || "";
-    const chosen = /(?:^|;\s*)tr_lang=/.test(cookie);
-    const country = url.searchParams.get("geo") || (request.cf && request.cf.country) || "";
-    if (!chosen && country === "UA") {
-      return new Response(null, {
-        status: 302,
-        headers: { Location: "/ua/" + (url.hash || ""), "Cache-Control": "no-store", "Vary": "Cookie" },
-      });
+    if (!/(?:^|;\s*)tr_lang=/.test(cookie)) {
+      const country = url.searchParams.get("geo") || (request.cf && request.cf.country) || "";
+      const al = (url.searchParams.get("al") || request.headers.get("Accept-Language") || "").toLowerCase();
+      const first = al.split(",")[0].trim().slice(0, 2);
+      let target = null;
+      if (country === "UA" || first === "uk") target = "/ua/";
+      else if (first === "en") target = "/en/";
+      if (target) {
+        return new Response(null, {
+          status: 302,
+          headers: { Location: target, "Cache-Control": "no-store", "Vary": "Cookie, Accept-Language" },
+        });
+      }
     }
   }
   return context.next();

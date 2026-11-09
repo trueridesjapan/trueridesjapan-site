@@ -348,7 +348,9 @@ def card(c, lg):
 
 
 def sort_cars(cs):
-    return sorted(cs, key=lambda c: (0 if c.get("eta") else 1, c.get("eta") or "9", c["priceUA"]))
+    # Сначала прибывшие, потом в пути, потом ждут отправки, потом без расписания; внутри — по дате прибытия, затем по цене.
+    order = {"arrived": 0, "sail": 1, "wait": 2, "prep": 3}
+    return sorted(cs, key=lambda c: (order[state(c)], c.get("eta") or "9", c["priceUA"]))
 
 
 def car_ld(c, lg):

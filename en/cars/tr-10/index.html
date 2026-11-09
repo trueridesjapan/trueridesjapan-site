@@ -414,6 +414,7 @@ function paint(){var k=isDark();var s=document.getElementById("icoSun"),m=docume
 var tb=document.getElementById("themeBtn");if(tb)tb.addEventListener("click",function(){var n=isDark()?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("tr_theme",n)}catch(e){}paint()});
 try{matchMedia("(prefers-color-scheme: light)").addEventListener("change",paint)}catch(e){}
 paint();
+document.querySelectorAll("header a[hreflang]").forEach(function(a){a.addEventListener("click",function(){try{document.cookie="tr_lang="+a.getAttribute("hreflang")+";path=/;max-age=31536000;samesite=lax"}catch(e){}})});
 var f=document.getElementById("filters");
 if(f){var st="all";var $=function(i){return document.getElementById(i)};
  function apply(){var mk=$("fMake").value,md=$("fModel").value,yf=+$("fYf").value||0,yt=+$("fYt").value||9999;

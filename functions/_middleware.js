@@ -9,7 +9,9 @@ export async function onRequest(context) {
   const url = new URL(request.url);
   if (request.method === "GET" && url.pathname === "/") {
     const cookie = request.headers.get("Cookie") || "";
-    if (!/(?:^|;\s*)tr_lang=/.test(cookie)) {
+    const ua = request.headers.get("User-Agent") || "";
+    const isBot = /bot|crawl|spider|slurp|facebookexternalhit|preview/i.test(ua);  // поисковики видят главную как есть
+    if (!isBot && !/(?:^|;\s*)tr_lang=/.test(cookie)) {
       const country = url.searchParams.get("geo") || (request.cf && request.cf.country) || "";
       const al = (url.searchParams.get("al") || request.headers.get("Accept-Language") || "").toLowerCase();
       const first = al.split(",")[0].trim().slice(0, 2);

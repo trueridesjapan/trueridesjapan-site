@@ -464,7 +464,7 @@ def page_model(lg, fam):
 </section>
 <section class="band"><div class="wrap prose">{paras}
   <div class="artlinks">{art_links(lg, fam)}</div>
-  <div class="ctas"><a class="btn red" href="https://t.me/+380663666886" target="_blank" rel="noopener">{TG_ICO}<span>{t(lg,'cta_tg')}</span></a><a class="btn ghost" href="{url(lg)}#catalog">{t(lg,'all_cars')}</a></div>
+  <div class="ctas"><a class="btn red" href="{url(lg)}#catalog">{t(lg,'all_cars')}</a><a class="btn ghost" href="{url(lg)}#booking">{t(lg,'cta_bk')}</a></div>
 </div></section>
 </main>
 """

@@ -170,6 +170,14 @@ def status_attrs(c, lg):
             + "".join(f' data-t-{k}="{esc(v)}"' for k, v in tx.items()))
 
 
+CUSTOMS = {"HE12": 2500, "E13": 2580, "20": 3500, "30": 3530}  # растаможка в Украине по кузову, USD (CLAUDE.md)
+
+
+def customs(c):
+    """Ориентировочная растаможка для клиента — округление до сотни."""
+    return int(round(CUSTOMS[c["gen"]] / 100.0) * 100)
+
+
 def deposit(c):
     """Бронь — 50% от цены «Грузия» (одинаковая для Украины и Грузии), решение 9 ноября."""
     return round(c["priceGE"] * 0.5)
@@ -496,7 +504,7 @@ def page_car(lg, c):
   {gal}
   <div class="info">
     <div><p class="eyebrow">№ {c['ref']} · <span class="js-status"{status_attrs(c, lg)}>{esc(status(c, lg))}</span></p><h1>{esc(model)} {c['year']}</h1><div class="sub">{esc(g)}</div></div>
-    <div class="prices"><div class="ua"><small>{t(lg,'ua')}</small><b>{usd(c['priceUA'])}</b><small>{t(lg,'ua_s')}</small></div><div><small>{t(lg,'ge')}</small><b>{usd(c['priceGE'])}</b>{('<small>'+t(lg,'ge_s')+'</small>') if t(lg,'ge_s') else ''}</div></div>
+    <div class="prices"><div class="ua"><small>{t(lg,'ua')}</small><b>{usd(c['priceUA'])}</b><small>{t(lg,'ua_s')}</small><small class="cust">{t(lg,'cust').format(amt=usd(customs(c)))}</small></div><div><small>{t(lg,'ge')}</small><b>{usd(c['priceGE'])}</b>{('<small>'+t(lg,'ge_s')+'</small>') if t(lg,'ge_s') else ''}</div></div>
     <p class="book">{esc(deposit_text(c, lg))} <a class="bkl" href="{url(lg)}#booking">{t(lg,'bk_link')}</a></p>
     {note}
     <table class="kv"><tr><td>{t(lg,'k_status')}</td><td><span class="js-status"{status_attrs(c, lg)}>{esc(status(c, lg))}</span></td></tr><tr><td>{t(lg,'k_year')}</td><td>{c['year']}</td></tr><tr><td>{t(lg,'k_mileage')}</td><td>{num(c['mileage'])} {t(lg,'km')}</td></tr><tr><td>{t(lg,'k_engine')}</td><td>{esc(engine(c, lg))}</td></tr><tr><td>{t(lg,'k_drive')}</td><td>{esc(drive)}</td></tr><tr><td>{t(lg,'k_color')}</td><td>{esc(color(c, lg))}</td></tr><tr><td>{t(lg,'k_steer')}</td><td>{t(lg,'steer_v')}</td></tr><tr><td>{t(lg,'k_route')}</td><td>{esc(route(c, lg))}</td></tr>{container_row(c, lg)}</table>

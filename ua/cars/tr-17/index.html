@@ -333,6 +333,23 @@ footer .social a:hover{border-color:var(--fg)}
 footer .social svg{width:20px;height:20px}
 section[id]{scroll-margin-top:120px}
 .prices .cust{display:block;margin-top:4px;font-size:12px;opacity:.75}
+
+/* Подробный рассказ о модели (_src/models/<fam>.<lang>.html) */
+.story{padding-top:8px;padding-bottom:28px}
+.story h2{font-size:24px;margin:34px 0 12px}
+.story ul{color:var(--muted);font-size:16px;padding-left:20px;margin:0 0 14px}
+.story li{margin:0 0 8px}
+.story li b,.story p b{color:var(--fg)}
+.mfig{margin:8px 0 18px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--panel2)}
+.mfig img{display:block;width:100%;height:auto}
+.mfig figcaption,.mgrid>figcaption{font-size:13px;color:var(--muted);padding:8px 12px}
+.mgrid>figcaption{grid-column:1/-1;padding:0}
+.story .mfig.wide{margin-top:0}
+.catalog .artlinks+.ctas{margin-top:16px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0 18px;align-items:start}
+.mgrid .mfig{margin:0}
+.mgrid.three{grid-template-columns:repeat(3,1fr)}
+@media (max-width:560px){.mgrid,.mgrid.three{grid-template-columns:1fr 1fr}.mgrid.three .mfig:last-of-type{grid-column:1/-1}}
 </style>
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Car", "name": "Nissan Note e-Power Medalist 2019", "brand": {"@type": "Brand", "name": "Nissan"}, "model": "Note", "vehicleModelDate": "2019", "color": "бордовий", "mileageFromOdometer": {"@type": "QuantitativeValue", "value": 40331, "unitCode": "KMT"}, "driveWheelConfiguration": "https://schema.org/FrontWheelDriveConfiguration", "vehicleEngine": {"@type": "EngineSpecification", "engineDisplacement": {"@type": "QuantitativeValue", "value": 1.2, "unitCode": "LTR"}}, "steeringPosition": "https://schema.org/RightHandDriving", "image": ["https://image-cdn.beforward.jp/large/202610/17190415/CF336585_9affa0.jpg", "https://image-cdn.beforward.jp/large/202610/17190415/CF336585_05e356.jpg", "https://image-cdn.beforward.jp/large/202610/17190415/CF336585_3cb6de.jpg", "https://image-cdn.beforward.jp/large/202610/17190415/CF336585_71aecf.jpg", "https://image-cdn.beforward.jp/large/202610/17190415/CF336585_6a1e66.jpg", "https://image-cdn.beforward.jp/large/202610/17190415/CF336585_fbcdd4.jpg"], "url": "https://trueridesjapan.com/ua/cars/tr-17/", "offers": {"@type": "Offer", "price": 10700, "priceCurrency": "USD", "availability": "https://schema.org/PreOrder", "areaServed": "UA", "seller": {"@type": "AutoDealer", "name": "True Rides Japan", "url": "https://trueridesjapan.com"}}}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Головна", "item": "https://trueridesjapan.com/ua/"}, {"@type": "ListItem", "position": 2, "name": "Nissan Note e-Power", "item": "https://trueridesjapan.com/ua/nissan-note-e-power/"}, {"@type": "ListItem", "position": 3, "name": "TR-17", "item": "https://trueridesjapan.com/ua/cars/tr-17/"}]}]</script>
 </head>
@@ -392,8 +409,8 @@ section[id]{scroll-margin-top:120px}
   <div class="specs"><span>44 333 км</span><span>1.2 гібрид e-Power</span><span>синій</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Осака → Поті</span></div>
   <div class="price"><div><small>Україна, з розмитненням</small><b>$10 500</b></div><div class="ge">Грузія, в Поті<br><strong>$5 800</strong></div></div>
-  </div></a><a class="card" href="/ua/cars/tr-12/" data-fam="note" data-make="Nissan" data-model="Note" data-year="2021" data-st="wait">
-  <div class="ph"><img src="/assets/cars/TR-12-1.jpg" alt="Nissan Note e-Power S FOUR" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>NOTE E13</b><span>Фото з аукціону незабаром</span></div><span class="status wait js-status" data-etd="2026-11-11" data-eta="2026-12-22" data-t-prep="Готується до відправки" data-t-wait="Чекає відправки · ~11 лист 2026 · Поті ~22 груд 2026" data-t-sail="У дорозі · Поті ~22 груд 2026" data-t-arrived="Прибув у Поті"><i></i>Чекає відправки · ~11 лист 2026 · Поті ~22 груд 2026</span></div>
+  </div></a><a class="card" href="/ua/cars/tr-12/" data-fam="note" data-make="Nissan" data-model="Note" data-year="2021" data-st="sail">
+  <div class="ph"><img src="/assets/cars/TR-12-1.jpg" alt="Nissan Note e-Power S FOUR" loading="lazy" referrerpolicy="no-referrer" data-fallback><div class="none"><b>NOTE E13</b><span>Фото з аукціону незабаром</span></div><span class="status js-status" data-etd="2026-11-11" data-eta="2026-12-22" data-t-prep="Готується до відправки" data-t-wait="Чекає відправки · ~11 лист 2026 · Поті ~22 груд 2026" data-t-sail="У дорозі · Поті ~22 груд 2026" data-t-arrived="Прибув у Поті"><i></i>У дорозі · Поті ~22 груд 2026</span></div>
   <div class="body"><h3>Nissan Note<small>e-Power S FOUR · 2021</small></h3>
   <div class="specs"><span>89 688 км</span><span>1.2 гібрид e-Power</span><span class="awd">4WD</span><span>сірий</span></div>
   <div class="ship"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l2 3h14l2-3M5 17V11l7-3 7 3v6M12 4v4"/></svg><span>Осака → Поті</span></div>

@@ -109,7 +109,8 @@
   "epower": "гибрид e-Power",
   "damaged": "Есть кузовные повреждения. Подробные фото и аукционный лист — по запросу.",
   "msg": "Здравствуйте! Интересует",
-  "empty": "Нет машин по этому фильтру."
+  "empty": "Нет машин по этому фильтру.",
+  "see_cars": "Смотреть машины"
  },
  "uk": {
   "nav_catalog": "Авто",
@@ -221,7 +222,8 @@
   "epower": "гібрид e-Power",
   "damaged": "Є кузовні пошкодження. Детальні фото й аукціонний лист — за запитом.",
   "msg": "Добрий день! Цікавить",
-  "empty": "Немає авто за цим фільтром."
+  "empty": "Немає авто за цим фільтром.",
+  "see_cars": "Дивитися авто"
  },
  "en": {
   "nav_catalog": "Cars",
@@ -333,6 +335,7 @@
   "epower": "e-Power hybrid",
   "damaged": "Has body damage. Detailed photos and auction sheet on request.",
   "msg": "Hello! I'm interested in",
-  "empty": "No cars match this filter."
+  "empty": "No cars match this filter.",
+  "see_cars": "See the cars"
  }
 }

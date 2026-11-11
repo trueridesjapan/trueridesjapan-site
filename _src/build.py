@@ -453,6 +453,29 @@ def page_model(lg, fam):
     ld = [DEALER, crumbs_ld(crumbs), {"@context": "https://schema.org", "@type": "ItemList",
           "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": abs_url(lg, car_slug(c))} for i, c in enumerate(cs)]}]
     img = next((photos(c)[0] for c in cs if photos(c)), "assets/og.jpg")
+    # Подробный рассказ о модели (если есть): _src/models/<fam>.<lang>.html
+    story_f = os.path.join(SRC, "models", f"{fam}.{lg}.html")
+    if os.path.exists(story_f):
+        g30 = [c["priceUA"] for c in cs if c.get("gen") == "30"]
+        story = open(story_f, encoding="utf-8").read().replace("{min30}", usd(min(g30)) if g30 else "").replace("{conv_url}", url(lg, "blog/steering-conversion-georgia/"))
+        body = f"""<main>
+<section class="wrap pagehead">
+  <nav class="crumbs"><a href="{url(lg)}">{t(lg,'home')}</a> › <span>{esc(M['h1'])}</span></nav>
+  <h1>{esc(M['h1'])}</h1>
+  <p class="lead">{esc(M['lead'])}</p>
+  <p class="fromprice">{t(lg,'from_price')} <b>{usd(minp)}</b> · {t(lg,'ua_full')} · <a href="#catalog">{t(lg,'see_cars')} ↓</a></p>
+</section>
+<section class="wrap prose story">{story}</section>
+<section class="catalog wrap" id="catalog">
+  <div class="cat-head"><div><p class="eyebrow">{t(lg,'cat_eyebrow')}</p><h2>{esc(M['our'])}</h2></div></div>
+  <div class="grid" id="grid">{"".join(card(c, lg) for c in cs)}</div>
+  <div class="artlinks">{art_links(lg, fam)}</div>
+  <div class="ctas"><a class="btn red" href="{url(lg)}#catalog">{t(lg,'all_cars')}</a><a class="btn ghost" href="{url(lg)}#booking">{t(lg,'cta_bk')}</a></div>
+</section>
+</main>
+"""
+        write(PREFIX[lg] + path + "index.html", head(lg, path, M["title"].replace("{price}", usd(minp)), M["desc"].replace("{price}", usd(minp)), "assets/models/alphard/hero.jpg" if fam == "minivan" else img, ld) + header(lg, path) + body + footer(lg) + SCRIPT)
+        return
     body = f"""<main>
 <section class="wrap pagehead">
   <nav class="crumbs"><a href="{url(lg)}">{t(lg,'home')}</a> › <span>{esc(M['h1'])}</span></nav>

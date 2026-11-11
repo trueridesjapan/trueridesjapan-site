@@ -349,6 +349,8 @@ section[id]{scroll-margin-top:120px}
 .mgrid .mfig{margin:0}
 .mgrid.three{grid-template-columns:repeat(3,1fr)}
 @media (max-width:560px){.mgrid,.mgrid.three{grid-template-columns:1fr 1fr}.mgrid.three .mfig:last-of-type{grid-column:1/-1}}
+.mgrid.pair .mfig img{aspect-ratio:3/2;object-fit:cover}
+@media (max-width:560px){.mgrid.pair{grid-template-columns:1fr}}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "404"}</script>
 </head>

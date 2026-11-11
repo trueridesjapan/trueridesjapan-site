@@ -566,9 +566,9 @@ def page_blog(lg):
           "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": abs_url(lg, art_path(a))} for i, a in enumerate([a for a in ARTICLES if lg in alangs(a)])]}]
     items = ""
     # Рассказ о модели живёт на странице модели — в списке статей показываем карточку со ссылкой туда
-    MODEL_STORY = {"ru": ("Toyota Alphard и Vellfire: премиальный минивэн для семьи и для работы", "Салон на 7–8 мест, кресла-капитаны, уровень Lexus. Чем отличаются 20-й и 30-й кузов, сколько стоит, честно о расходе и переделке руля."),
-                   "uk": ("Toyota Alphard і Vellfire: преміальний мінівен для родини й для роботи", "Салон на 7–8 місць, крісла-капітани, рівень Lexus. Чим відрізняються 20-й і 30-й кузов, скільки коштує, чесно про витрату й переробку керма."),
-                   "en": ("Toyota Alphard and Vellfire: a premium minivan for family and business", "A cabin for 7–8, captain's chairs, Lexus-level comfort. 20 vs 30 series, prices, honest notes on fuel and the steering conversion.")}
+    MODEL_STORY = {"ru": ("Toyota Alphard и Vellfire: премиальный минивэн для семьи и для работы", "Кресла-капитаны, тишина и салон уровня Lexus. Чем отличаются 20-й и 30-й кузов, сколько стоит, честно о расходе и переделке руля."),
+                   "uk": ("Toyota Alphard і Vellfire: преміальний мінівен для родини й для роботи", "Крісла-капітани, тиша й салон рівня Lexus. Чим відрізняються 20-й і 30-й кузов, скільки коштує, чесно про витрату й переробку керма."),
+                   "en": ("Toyota Alphard and Vellfire: a premium minivan for family and business", "Captain's chairs, silence and a Lexus-level cabin. 20 vs 30 series, prices, honest notes on fuel and the steering conversion.")}
     mt, md = MODEL_STORY[lg]
     items += f'''<a class="postcard" href="{url(lg, FAMILY_SLUG["minivan"] + "/")}"><div class="pimg"><img src="/assets/models/alphard/family.jpg" alt="" loading="lazy"></div><div class="pbody"><span class="eyebrow">{esc(X["models"]["minivan"][lg]["h1"])}</span><h2>{esc(mt)}</h2><p>{esc(md)}</p></div></a>'''
     for a in sorted([a for a in ARTICLES if lg in alangs(a)], key=lambda a: a["date"], reverse=True):

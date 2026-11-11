@@ -31,6 +31,25 @@ SEO = json.load(open(os.path.join(SRC, "seo.json"), encoding="utf-8"))
 VERIFY_META = "".join(f'<meta name="{n}" content="{html.escape(v, quote=True)}">\n' for n, v in
                       [("google-site-verification", SEO.get("google")), ("yandex-verification", SEO.get("yandex")), ("msvalidate.01", SEO.get("bing"))] if v)
 
+# Счётчик нажатий на мессенджеры (Google Analytics 4 + конверсия Google Ads). Подключается, только если в seo.json заданы ID.
+def _analytics():
+    ids = [i for i in (SEO.get("ga4"), SEO.get("ads")) if i]
+    if not ids:
+        return ""
+    send_to = f'{SEO["ads"]}/{SEO["ads_label"]}' if SEO.get("ads") and SEO.get("ads_label") else ""
+    cfg = "".join(f'gtag("config","{i}");' for i in ids)
+    return (f'<script async src="https://www.googletagmanager.com/gtag/js?id={ids[0]}"></script>\n'
+            '<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());' + cfg +
+            'document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(!a)return;var h=a.getAttribute("href")||"",m=null;'
+            'if(/t\\.me\\//.test(h))m="telegram";else if(/^viber:/.test(h))m="viber";else if(/wa\\.me\\//.test(h))m="whatsapp";else if(/^tel:/.test(h))m="call";if(!m)return;'
+            'var c=(location.pathname.match(/cars\\/(tr-\\d+)/)||[])[1]||"";'
+            'gtag("event","contact_click",{method:m,car:c,transport_type:"beacon"});' +
+            (f'gtag("event","conversion",{{send_to:"{send_to}",transport_type:"beacon"}});' if send_to else '') +
+            '},true);</script>\n')
+
+
+ANALYTICS = _analytics()
+
 LANGS = ["ru", "uk", "en"]
 PREFIX = {"ru": "", "uk": "ua/", "en": "en/", "hy": "hy/"}
 HREFLANG = {"ru": "ru", "uk": "uk", "en": "en", "hy": "hy"}
@@ -239,7 +258,7 @@ def head(lg, path, title, desc, image, ld, alts=True):
 <style>:root{{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}}body{{margin:0}}img{{max-width:100%}}
 {CSS}</style>
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
-</head>
+{ANALYTICS}</head>
 <body>
 """
 

@@ -3,5 +3,9 @@
  "google": "",
  "yandex": "9dcc27e0b0045c74",
  "bing": "",
- "indexnow": "6f9acf58984646e48cd8e9869bf5ff86"
+ "indexnow": "6f9acf58984646e48cd8e9869bf5ff86",
+ "_note_analytics": "ga4 — ID Google Analytics 4 (G-XXXXXXX); ads — ID Google Ads (AW-XXXXXXXXX); ads_label — метка конверсии «нажатие на мессенджер». Пока пусто — счётчик не подключается.",
+ "ga4": "",
+ "ads": "",
+ "ads_label": ""
 }

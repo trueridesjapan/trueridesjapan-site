@@ -565,6 +565,12 @@ def page_blog(lg):
     ld = [crumbs_ld(crumbs), {"@context": "https://schema.org", "@type": "ItemList",
           "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": abs_url(lg, art_path(a))} for i, a in enumerate([a for a in ARTICLES if lg in alangs(a)])]}]
     items = ""
+    # Рассказ о модели живёт на странице модели — в списке статей показываем карточку со ссылкой туда
+    MODEL_STORY = {"ru": ("Toyota Alphard и Vellfire: что это за машина и почему её стоит купить", "Семь мест, кресла-капитаны, салон уровня Lexus. Чем отличаются 20-й и 30-й кузов, сколько стоит, честно о расходе и переделке руля."),
+                   "uk": ("Toyota Alphard і Vellfire: що це за машина і чому її варто купити", "Сім місць, крісла-капітани, салон рівня Lexus. Чим відрізняються 20-й і 30-й кузов, скільки коштує, чесно про витрату й переробку керма."),
+                   "en": ("Toyota Alphard and Vellfire: what this car is and why it's worth buying", "Seven seats, captain's chairs, a Lexus-level cabin. 20 vs 30 series, prices, honest notes on fuel and the steering conversion.")}
+    mt, md = MODEL_STORY[lg]
+    items += f'''<a class="postcard" href="{url(lg, FAMILY_SLUG["minivan"] + "/")}"><div class="pimg"><img src="/assets/models/alphard/hero.jpg" alt="" loading="lazy"></div><div class="pbody"><span class="eyebrow">{esc(X["models"]["minivan"][lg]["h1"])}</span><h2>{esc(mt)}</h2><p>{esc(md)}</p></div></a>'''
     for a in sorted([a for a in ARTICLES if lg in alangs(a)], key=lambda a: a["date"], reverse=True):
         A = a[lg]
         img = a.get("og", "assets/og.jpg")

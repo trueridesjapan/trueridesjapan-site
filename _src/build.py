@@ -612,6 +612,7 @@ def page_article(lg, a):
   <p class="lead">{esc(A['lead'])}</p>
   {methods}<ol class="steps">{steps}</ol>
   {f'<p class="total">{esc(A["total"])}</p>' if A.get("total") else ""}
+  {(f'<h2>{esc(A["extra_h"])}</h2>' + "".join(f"<p>{esc(x)}</p>" for x in A["extra"])) if A.get("extra") else ""}
   <h2>{esc(A['outro_h'])}</h2>
   <p>{esc(A['outro'])}</p>
   <div class="ctas"><a class="btn red" href="{url(lg, FAMILY_SLUG[a['fam']]+'/')}">{esc(A['cta'])} →</a><a class="btn ghost" href="https://t.me/+380663666886" target="_blank" rel="noopener">{TG_ICO}<span>{t(lg,'cta_tg')}</span></a></div>

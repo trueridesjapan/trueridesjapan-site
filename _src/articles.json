@@ -38,7 +38,13 @@
    "outro_h": "Как сэкономить время и нервы",
    "outro": "У нас есть Alphard и Vellfire, которые уже куплены и плывут. Их можно забронировать до прибытия — это дешевле, чем покупка после, а аукционный лист и все фото мы присылаем заранее.",
    "cta": "Смотреть Alphard и Vellfire в пути",
-   "label": "Статья"
+   "label": "Статья",
+   "extra_h": "А если 30-й кузов?",
+   "extra": [
+    "Свежий Alphard или Vellfire 2016–2017 года на аукционе стоит заметно дороже: в среднем около 1 200 000 иен, это примерно $8 300 с доставкой до порта в Японии. Море до Поти — около $1 900, порт и доставка до Рустави — около $350.",
+    "Переделка руля у 30-го сложнее — около $3 000. Автовоз до Украины — около $950, растаможка — около $3 500.",
+    "Итого: около $18 000 до выдачи в Украине — и те же 4 месяца ожидания."
+   ]
   },
   "uk": {
    "title": "Скільки коштує пригнати Toyota Alphard / Vellfire з Японії в Україну у 2026 році",
@@ -75,7 +81,13 @@
    "outro_h": "Як заощадити час і нерви",
    "outro": "У нас є Alphard і Vellfire, які вже куплені та пливуть. Їх можна забронювати до прибуття — це дешевше, ніж купівля після, а аукціонний лист і всі фото ми надсилаємо заздалегідь.",
    "cta": "Дивитися Alphard і Vellfire у дорозі",
-   "label": "Стаття"
+   "label": "Стаття",
+   "extra_h": "А якщо 30-й кузов?",
+   "extra": [
+    "Свіжий Alphard або Vellfire 2016–2017 року на аукціоні коштує помітно дорожче: у середньому близько 1 200 000 єн, це приблизно $8 300 з доставкою до порту в Японії. Море до Поті — близько $1 900, порт і доставка до Руставі — близько $350.",
+    "Переобладнання керма в 30-го складніше — близько $3 000. Автовоз до України — близько $950, розмитнення — близько $3 500.",
+    "Разом: близько $18 000 до видачі в Україні — і ті самі 4 місяці очікування."
+   ]
   },
   "en": {
    "title": "How much does it cost to import a Toyota Alphard / Vellfire from Japan to Ukraine in 2026",
@@ -112,7 +124,13 @@
    "outro_h": "Save time and hassle",
    "outro": "We have Alphards and Vellfires already bought and at sea. You can book one before it arrives — that costs less than buying after — and we send the auction sheet and all photos up front.",
    "cta": "View Alphard and Vellfire in transit",
-   "label": "Article"
+   "label": "Article",
+   "extra_h": "What about the 30 series?",
+   "extra": [
+    "A newer 2016–2017 Alphard or Vellfire costs noticeably more at auction: on average about 1,200,000 yen, roughly $8,300 including transport to the port in Japan. Sea freight to Poti is about $1,900, port fees and transport to Rustavi about $350.",
+    "The steering conversion on the 30 series is more complex — about $3,000. Car carrier to Ukraine about $950, Ukrainian customs about $3,500.",
+    "Total: about $18,000 to pickup in Ukraine — plus the same 4 months of waiting."
+   ]
   },
   "kit_url": "https://www.jonyautoparts.com/dashboard-kit/dashboard-for-alphard.html",
   "photos": {

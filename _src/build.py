@@ -537,7 +537,9 @@ def page_car(lg, c):
     if c.get("note"):
         note += f'<div class="note">{esc(c["note"][lg])}</div>'
     optsh = (f'<div><p class="eyebrow" style="margin:0 0 8px">{t(lg,"opts")}</p><div class="opts">' + "".join(f"<span>{esc(o)}</span>" for o in opts) + "</div></div>") if opts else ""
-    others = [x for x in sort_cars(CARS) if x["fam"] == fam and x["ref"] != c["ref"]][:4]
+    # Сначала тот же кузов (30-й к 30-му, E13 к E13), потом остальные этой модели.
+    same = [x for x in sort_cars(CARS) if x["fam"] == fam and x["ref"] != c["ref"]]
+    others = ([x for x in same if x["gen"] == c["gen"]] + [x for x in same if x["gen"] != c["gen"]])[:4]
     crumbs = [(t(lg, "home"), abs_url(lg)), (M["h1"], abs_url(lg, FAMILY_SLUG[fam] + "/")), (c["ref"], abs_url(lg, path))]
     body = f"""<main>
 <section class="wrap pagehead">

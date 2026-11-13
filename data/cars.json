@@ -18,7 +18,8 @@
   "priceGE": 5500,
   "damaged": true,
   "etd": "2026-11-12",
-  "sale": "free"
+  "sale": "free",
+  "container": "TIIU4429512"
  },
  {
   "ref": "TR-02",
@@ -84,7 +85,8 @@
   "priceGE": 6100,
   "damaged": false,
   "etd": "2026-11-12",
-  "sale": "free"
+  "sale": "free",
+  "container": "MSMU8988613"
  },
  {
   "ref": "TR-05",
@@ -105,7 +107,8 @@
   "priceGE": 6500,
   "damaged": false,
   "etd": "2026-11-09",
-  "sale": "free"
+  "sale": "free",
+  "container": "MEDU4591666"
  },
  {
   "ref": "TR-06",

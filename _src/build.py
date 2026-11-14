@@ -159,9 +159,12 @@ def container_row(c, lg):
 
 
 def state(c):
-    """prep — судна нет; wait — судно назначено, ещё не отплыло; sail — в пути; arrived — прибыл в Поти."""
-    if c.get("eta") and c["eta"] <= TODAY:
+    """prep — судна нет; wait — ещё не отплыло; sail — в пути; due — дата прибытия прошла, но приход не подтверждён;
+    arrived — прибыл в Поти (только вручную: поле "arrived": true в cars.json, решение 14 ноября)."""
+    if c.get("arrived"):
         return "arrived"
+    if c.get("eta") and c["eta"] <= TODAY:
+        return "due"
     if c.get("etd") and c["etd"] <= TODAY:
         return "sail"
     if c.get("etd"):
@@ -175,6 +178,7 @@ def status_texts(c, lg):
         "wait": (f"{t(lg,'st_wait')} · ~{dshort(c['etd'], lg)}"
                  + (f" · {t(lg,'eta')}{dshort(c['eta'], lg)}" if c.get("eta") else "")) if c.get("etd") else t(lg, "prep"),
         "sail": f"{t(lg,'transit')} · {t(lg,'eta')}{dshort(c['eta'], lg)}" if c.get("eta") else t(lg, "transit"),
+        "due": t(lg, "st_due"),
         "arrived": t(lg, "st_arrived"),
     }
 
@@ -185,7 +189,7 @@ def status(c, lg):
 
 def status_attrs(c, lg):
     tx = status_texts(c, lg)
-    return (f' data-etd="{c.get("etd") or ""}" data-eta="{c.get("eta") or ""}"'
+    return (f' data-etd="{c.get("etd") or ""}" data-eta="{c.get("eta") or ""}" data-arr="{1 if c.get("arrived") else ""}"'
             + "".join(f' data-t-{k}="{esc(v)}"' for k, v in tx.items()))
 
 
@@ -312,15 +316,15 @@ var f=document.getElementById("filters");
 if(f){var st="all";var $=function(i){return document.getElementById(i)};
  function apply(){var mk=$("fMake").value,md=$("fModel").value,yf=+$("fYf").value||0,yt=+$("fYt").value||9999;
   f.querySelectorAll("[data-st]").forEach(function(x){x.setAttribute("aria-pressed",x.dataset.st===st)});
-  var G={transit:["sail","arrived"],prep:["wait","prep"]};var n=0;document.querySelectorAll("#grid .card").forEach(function(c){var y=+c.dataset.year;var ok=(!mk||c.dataset.make===mk)&&(!md||c.dataset.model===md)&&y>=yf&&y<=yt&&(st==="all"||G[st].indexOf(c.dataset.st)>=0);c.hidden=!ok;if(ok)n++});
+  var G={transit:["sail","due","arrived"],prep:["wait","prep"]};var n=0;document.querySelectorAll("#grid .card").forEach(function(c){var y=+c.dataset.year;var ok=(!mk||c.dataset.make===mk)&&(!md||c.dataset.model===md)&&y>=yf&&y<=yt&&(st==="all"||G[st].indexOf(c.dataset.st)>=0);c.hidden=!ok;if(ok)n++});
   var em=document.getElementById("emptyMsg");if(em)em.hidden=n>0;}
  var allM=[].slice.call($("fModel").querySelectorAll("option[data-make]"));
  $("fMake").addEventListener("change",function(){var mk=this.value,sel=$("fModel"),cur=sel.value;allM.forEach(function(o){if(o.parentNode)o.parentNode.removeChild(o)});allM.forEach(function(o){if(!mk||o.dataset.make===mk)sel.appendChild(o)});sel.value=(!mk||allM.some(function(o){return o.value===cur&&o.dataset.make===mk}))?cur:"";apply()});
  ["fModel","fYf","fYt"].forEach(function(i){$(i).addEventListener("change",apply)});
  f.addEventListener("click",function(e){var b=e.target.closest("button[data-st]");if(!b)return;st=st===b.dataset.st?"all":b.dataset.st;apply()});}
-var today=new Date().toISOString().slice(0,10);function stOf(e,d){if(e&&e<=today)return"arrived";if(d&&d<=today)return"sail";if(d)return"wait";return"prep"}
-document.querySelectorAll(".js-status").forEach(function(el){var s=stOf(el.dataset.eta,el.dataset.etd);var tx=el.getAttribute("data-t-"+s);if(tx){var i=el.querySelector("i");el.textContent=tx;if(i)el.prepend(i)}el.classList.toggle("wait",s==="wait"||s==="prep");var card=el.closest(".card");if(card)card.dataset.st=s});
-var cnt={transit:0,prep:0},sail=0;document.querySelectorAll("#grid .card").forEach(function(c){var s=c.dataset.st;if(s==="sail")sail++;if(s==="sail"||s==="arrived")cnt.transit++;else cnt.prep++});
+var today=new Date().toISOString().slice(0,10);function stOf(e,d,a){if(a)return"arrived";if(e&&e<=today)return"due";if(d&&d<=today)return"sail";if(d)return"wait";return"prep"}
+document.querySelectorAll(".js-status").forEach(function(el){var s=stOf(el.dataset.eta,el.dataset.etd,el.dataset.arr);var tx=el.getAttribute("data-t-"+s);if(tx){var i=el.querySelector("i");el.textContent=tx;if(i)el.prepend(i)}el.classList.toggle("wait",s==="wait"||s==="prep");var card=el.closest(".card");if(card)card.dataset.st=s});
+var cnt={transit:0,prep:0},sail=0;document.querySelectorAll("#grid .card").forEach(function(c){var s=c.dataset.st;if(s==="sail"||s==="due")sail++;if(s==="sail"||s==="due"||s==="arrived")cnt.transit++;else cnt.prep++});
 var ns=document.getElementById("nSail");if(ns)ns.textContent=sail;document.querySelectorAll("[data-cnt]").forEach(function(x){x.textContent=cnt[x.dataset.cnt]});
 var g=document.querySelector(".gal");
 if(g){g.addEventListener("click",function(e){var b=e.target.closest(".thumbs button");if(!b)return;var big=document.getElementById("big");big.src=b.dataset.src;
@@ -380,7 +384,7 @@ def card(c, lg):
 
 def sort_cars(cs):
     # Сначала прибывшие, потом в пути, потом ждут отправки, потом без расписания; внутри — по дате прибытия, затем по цене.
-    order = {"arrived": 0, "sail": 1, "wait": 2, "prep": 3}
+    order = {"arrived": 0, "due": 1, "sail": 1, "wait": 2, "prep": 3}
     return sorted(cs, key=lambda c: (order[state(c)], c.get("eta") or "9", c["priceUA"]))
 
 
@@ -428,14 +432,14 @@ def fill_i18n(markup, lg):
 
 def page_home(lg):
     cs = sort_cars(CARS)
-    transit = sum(1 for c in CARS if state(c) == "sail")
+    transit = sum(1 for c in CARS if state(c) in ("sail", "due"))
     m = fill_i18n(MAIN, lg)
     m = m.replace('<img class="emblem em-light" src="assets/logo.png"', '<img class="emblem em-light" src="/assets/logo.png"')
     m = m.replace('src="assets/logo-dark.png"', 'src="/assets/logo-dark.png"')
     m = m.replace('<div class="facts" id="facts"></div>',
                   f'<div class="facts" id="facts"><div><b>{len(CARS)}</b><span>{t(lg,"f1")}</span></div><div><b id="nSail">{transit}</b><span>{t(lg,"f2")}</span></div><div><b>~4</b><span>{t(lg,"f3")}</span></div></div>')
     cnt = lambda f: sum(1 for c in CARS if f == "all" or c["fam"] == f)
-    grp = {"transit": ("sail", "arrived"), "prep": ("wait", "prep")}
+    grp = {"transit": ("sail", "due", "arrived"), "prep": ("wait", "prep")}
     stc = lambda s: sum(1 for c in CARS if state(c) in grp[s])
     # Фильтры-списки: марка → модель (зависит от марки) → год от/до. Строятся из данных автоматически.
     makes = sorted({c["model"].split(" ", 1)[0] for c in CARS})

@@ -435,6 +435,7 @@ section[id]{scroll-margin-top:120px}
     <li><b>При получении машины</b> — наша услуга: $550 минус залог.</li>
     <li><b>Переделка руля оплачивается отдельно</b>, когда машина уже в Грузии.</li>
   </ol>
+  <p>Это подбор машины под заказ на аукционе. Машины, которые уже едут в Грузию, бронируются на других условиях: 50% от цены, подробнее — на <a href="/#booking">главной странице</a>.</p>
   <p><b>Важно:</b> деньги за машину и доставку вы переводите сами, на своё имя из армянского банка. Так растаможка в Армении может считаться по цене покупки — уточните у своего брокера. Для получения машины в порту Поти понадобится доверенность на нас.</p>
   <p>На примере Note: на старте вы вносите около $2,500–3,000, а остальное — только когда машина подходит к Грузии. Такой низкий залог мы можем себе позволить, потому что покупаем только заведомо выгодные машины.</p>
 
@@ -482,15 +483,15 @@ var f=document.getElementById("filters");
 if(f){var st="all";var $=function(i){return document.getElementById(i)};
  function apply(){var mk=$("fMake").value,md=$("fModel").value,yf=+$("fYf").value||0,yt=+$("fYt").value||9999;
   f.querySelectorAll("[data-st]").forEach(function(x){x.setAttribute("aria-pressed",x.dataset.st===st)});
-  var G={transit:["sail","arrived"],prep:["wait","prep"]};var n=0;document.querySelectorAll("#grid .card").forEach(function(c){var y=+c.dataset.year;var ok=(!mk||c.dataset.make===mk)&&(!md||c.dataset.model===md)&&y>=yf&&y<=yt&&(st==="all"||G[st].indexOf(c.dataset.st)>=0);c.hidden=!ok;if(ok)n++});
+  var G={transit:["sail","due","arrived"],prep:["wait","prep"]};var n=0;document.querySelectorAll("#grid .card").forEach(function(c){var y=+c.dataset.year;var ok=(!mk||c.dataset.make===mk)&&(!md||c.dataset.model===md)&&y>=yf&&y<=yt&&(st==="all"||G[st].indexOf(c.dataset.st)>=0);c.hidden=!ok;if(ok)n++});
   var em=document.getElementById("emptyMsg");if(em)em.hidden=n>0;}
  var allM=[].slice.call($("fModel").querySelectorAll("option[data-make]"));
  $("fMake").addEventListener("change",function(){var mk=this.value,sel=$("fModel"),cur=sel.value;allM.forEach(function(o){if(o.parentNode)o.parentNode.removeChild(o)});allM.forEach(function(o){if(!mk||o.dataset.make===mk)sel.appendChild(o)});sel.value=(!mk||allM.some(function(o){return o.value===cur&&o.dataset.make===mk}))?cur:"";apply()});
  ["fModel","fYf","fYt"].forEach(function(i){$(i).addEventListener("change",apply)});
  f.addEventListener("click",function(e){var b=e.target.closest("button[data-st]");if(!b)return;st=st===b.dataset.st?"all":b.dataset.st;apply()});}
-var today=new Date().toISOString().slice(0,10);function stOf(e,d){if(e&&e<=today)return"arrived";if(d&&d<=today)return"sail";if(d)return"wait";return"prep"}
-document.querySelectorAll(".js-status").forEach(function(el){var s=stOf(el.dataset.eta,el.dataset.etd);var tx=el.getAttribute("data-t-"+s);if(tx){var i=el.querySelector("i");el.textContent=tx;if(i)el.prepend(i)}el.classList.toggle("wait",s==="wait"||s==="prep");var card=el.closest(".card");if(card)card.dataset.st=s});
-var cnt={transit:0,prep:0},sail=0;document.querySelectorAll("#grid .card").forEach(function(c){var s=c.dataset.st;if(s==="sail")sail++;if(s==="sail"||s==="arrived")cnt.transit++;else cnt.prep++});
+var today=new Date().toISOString().slice(0,10);function stOf(e,d,a){if(a)return"arrived";if(e&&e<=today)return"due";if(d&&d<=today)return"sail";if(d)return"wait";return"prep"}
+document.querySelectorAll(".js-status").forEach(function(el){var s=stOf(el.dataset.eta,el.dataset.etd,el.dataset.arr);var tx=el.getAttribute("data-t-"+s);if(tx){var i=el.querySelector("i");el.textContent=tx;if(i)el.prepend(i)}el.classList.toggle("wait",s==="wait"||s==="prep");var card=el.closest(".card");if(card)card.dataset.st=s});
+var cnt={transit:0,prep:0},sail=0;document.querySelectorAll("#grid .card").forEach(function(c){var s=c.dataset.st;if(s==="sail"||s==="due")sail++;if(s==="sail"||s==="due"||s==="arrived")cnt.transit++;else cnt.prep++});
 var ns=document.getElementById("nSail");if(ns)ns.textContent=sail;document.querySelectorAll("[data-cnt]").forEach(function(x){x.textContent=cnt[x.dataset.cnt]});
 var g=document.querySelector(".gal");
 if(g){g.addEventListener("click",function(e){var b=e.target.closest(".thumbs button");if(!b)return;var big=document.getElementById("big");big.src=b.dataset.src;
